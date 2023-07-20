@@ -1,0 +1,34 @@
+*{
+  padding: 0;
+  margin: 0;
+  font-family: 'Noto Sans JP', sans-serif;
+  /* outline: 1px red solid; */
+}
+
+.costume-btn{
+  color: rgb(211, 211, 211);
+}
+
+.costume-label{
+  font-size: large;
+}
+
+.costume-p-button{
+  border-bottom: white 1px solid;
+}
+
+.costume-container-list{
+  height: 71vh;
+  overflow: auto;
+  border-radius: 7px;
+}
+
+.costume-list-data-div{
+  outline: solid 1px black;
+  border-radius: 5px;
+}
+
+
+#form-post{
+  margin-left: 43vw;
+}
