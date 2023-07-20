@@ -19,6 +19,8 @@ BAHAN BAHANYANG DI PERLUKAN:
 3. TESSERACT.JS           => mengekstrak teks dari gambar
 
 
+
+
 (yang di pikirkan tinggal bagaimana car untuk mengambil paragraf atau teks yang sesuai dengan subjudul jika user tidak menginputkan foto teks yang akan di masukan)
 
 KELANJUTAN PEMBUATAN DOC-X:
