@@ -17,3 +17,6 @@ BAHAN BAHANYANG DI PERLUKAN:
 1. NPM OPENAI API(GPT-4)  => merubah kalimat sumber awal menjadi kalimat baru
 2. PDF.JS                 => mengekstrak teks yang ada pada pdf
 3. TESSERACT.JS           => mengekstrak teks dari gambar
+
+
+(yang di pikirkan tinggal bagaimana car untuk mengambil paragraf atau teks yang sesuai dengan subjudul jika user tidak menginputkan foto teks yang akan di masukan)
