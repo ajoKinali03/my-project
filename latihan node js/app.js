@@ -1,7 +1,7 @@
 const http = require("http");
 const asisst = require("./openAi-test");
 
-const port = 3000;
+const port = 26;
 const hostName = "127.0.0.1";
 
 
