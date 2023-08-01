@@ -2,7 +2,19 @@
 const inpt = document.getElementById("form-input");
 document.addEventListener("keypress", (event) => {
   if(event.code == "Enter"){
-    console.table([...inpt.value]);
+    // const textInpt = inpt.value;
+    const arrWord = [...inpt.value];
+    const arrKos = [];
+    let dummyArr = [];
+    arrWord.forEach((e, i) => {
+      dummyArr.push(e);
+      if(e == "\n"){
+        arrKos.push(dummyArr.join(""));
+        dummyArr = [];
+      };
+    });
+    console.log(arrKos);
+    console.log([arrKos.join("").replaceAll(" \n", " ")]);
   }
 });
 
