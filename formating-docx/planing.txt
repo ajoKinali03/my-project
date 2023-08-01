@@ -40,3 +40,23 @@ __________________________________
 |   |   -----------    |          |
 |   --------------------          |
 ___________________________________
+
+
+
+//sample data
+{
+  "id": "jb1",
+  "ktgr": {
+    "jumlah_kata": 0,
+    "bahasa": null,
+    "tanda_enter": false,
+    "tanda_spasi": false,
+    "jumlah_spasi": 0,
+    "tanda_tab": false,
+    "jumlah_tab": 0,
+    "jumlah_titik": 0,
+    "cek_penomoran": false,
+    "jenis_penomoran": ["A.", "1.", "a.", "(1)", "(a)"],
+    "sentence-case": null
+  }
+}
