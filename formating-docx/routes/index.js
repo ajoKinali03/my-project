@@ -15,13 +15,12 @@ router.get("/home", function (req, res, next) {
   res.render("home", { title: "shortcut-docx", hello: "hello world" });
 });
 
-router.post("/home", async function(req, res){
-  console.log(req.body.postInput);
-  uploadDataToObjData(req.body.postInput);
-  runDocx();
+// router.post("/home", async function(req, res){
+//   // uploadDataToObjData(req.body.postInput);
+//   // runDocx();
 
-  // console.log(req.body.postInput)
-  await res.redirect("/home");
-});
+//   // console.log(req.body.postInput)
+//   await res.redirect("/home");
+// });
 
 module.exports = router;

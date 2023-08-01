@@ -1,3 +1,15 @@
+
+const inpt = document.getElementById("form-input");
+document.addEventListener("keypress", (event) => {
+  if(event.code == "Enter"){
+    console.table([...inpt.value]);
+  }
+});
+
+
+
+
+/*
 const bts = " -bts-\n-bts-";
 const arrObjInput = [];
 const dummyObj = {tag: undefined, txt: undefined}
@@ -120,3 +132,4 @@ window.onunload = () => {
   const btnPost = document.getElementById("btn-post");
   btnPost.disabled = true;
 };
+*/
