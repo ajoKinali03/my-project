@@ -4,8 +4,10 @@ const inpt = document.getElementById("form-input");
 document.addEventListener("keypress", (event) => {
   if (event.code == "Enter") {
     const lineTeks = filterEnter(inpt.value);
-    console.log(lineTeks);
-    lineTeks.forEach((e, i) => console.log(`${i}, ${e.length}`));
+    const arrLineTeks = filterSpasi(lineTeks);
+    // identifikasiKategori(arrLineTeks);
+    // console.log(arrLineTeks);
+    // lineTeks.forEach((e, i) => console.log(`${i}, ${e.length}`));
   }
 });
 
@@ -24,28 +26,67 @@ function filterEnter(teks) {
   return arrKos;
 }
 
+// fungsi memisahkan kalimat berdasrkan spasi
+function filterSpasi(arrKal) {
+  let arr = [];
+  arrKal.forEach((e, i) => {
+    let kal = [...e];
+    let arrKos = [];
+    let dummyArr = [];
+    kal.forEach((a, idx) => {
+      if (
+        a == " " ||
+        a == "." ||
+        a == "," ||
+        a == "\n" ||
+        idx == kal.length - 1
+      ) {
+        arrKos.push(dummyArr.join(""));
+        arrKos.push(a);
+        dummyArr = [];
+      } else {
+        dummyArr.push(a);
+      }
+    });
+    arr.push(arrKos);
+  });
+  return arr;
+}
+
 // fungsi akhir, yiatu memberi identifikasi dan menjadikan ke objek sesuai kategori
 function identifikasiKategori(arrTksLn) {
-  /*
-    SAMPEL
-    {
-      "id": "teks1/teks2/.../teks-n",
-      "ktgr": {
-        "jumlah_kata": 0,
-        "bahasa": null,
-        "tanda_enter": false,
-        "tanda_spasi": false,
-        "jumlah_spasi": 0,
-        "tanda_tab": false,
-        "jumlah_tab": 0,
-        "jumlah_titik": 0,
-        "cek_penomoran": false,
-        "jenis_penomoran": null,
-        "sentence-case": null
-      },
-      "teks": null
-    }
-  */
+  const objKtgr = {
+    id: null,
+    teks: null,
+    ktgr: {
+      jumlah_huruf: 0,
+      bahasa: null,
+      tanda_enter: false,
+      tanda_spasi: false,
+      jumlah_spasi: 0,
+      tanda_tab: false,
+      jumlah_tab: 0,
+      jumlah_titik: 0,
+      jumlah_koma: 0,
+      cek_penomoran: false,
+      jenis_penomoran: null,
+      sentence_case: null,
+    },
+  };
+
+  let arrOfObj = [];
+  arrTksLn.forEach((e, i) => {
+    const teks = e.join("");
+    objKtgr.id = "teks" + i;
+    objKtgr.teks = e;
+    objKtgr.ktgr.jumlah_huruf = teks.length;
+    objKtgr.ktgr.bahasa = null;
+    objKtgr.ktgr.tanda_enter = teks.includes("\n");
+    objKtgr.ktgr.tanda_spasi = teks.includes(" ");
+    objKtgr.ktgr.jumlah_spasi = teks.matchAll(" ");
+    objKtgr.ktgr.tanda_tab = teks.includes("\t");
+    objKtgr.ktgr.jumlah_tab = teks.matchAll("\t");
+  });
 }
 
 /*
