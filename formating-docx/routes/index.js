@@ -1,6 +1,6 @@
 var express = require("express");
-const { uploadDataToObjData } = require("../utils/file-manage");
-const { runDocx } = require("../utils/run");
+// const { uploadDataToObjData } = require("../utils/file-manage");
+// const { runDocx } = require("../utils/run");
 var router = express.Router();
 let app = express();
 
