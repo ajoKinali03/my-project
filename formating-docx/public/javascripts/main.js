@@ -2,19 +2,18 @@
 const inpt = document.getElementById("form-input");
 document.addEventListener("keypress", (event) => {
   if(event.code == "Enter"){
-    // const textInpt = inpt.value;
     const arrWord = [...inpt.value];
     const arrKos = [];
     let dummyArr = [];
     arrWord.forEach((e, i) => {
       dummyArr.push(e);
-      if(e == "\n"){
+      if(e == "\n" || i == arrWord.length-1){
         arrKos.push(dummyArr.join(""));
         dummyArr = [];
       };
     });
     console.log(arrKos);
-    console.log([arrKos.join("").replaceAll(" \n", " ")]);
+    // console.log([arrKos.join("").replaceAll(" \n", " ")]);
   }
 });
 
