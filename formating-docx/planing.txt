@@ -21,7 +21,8 @@ ALGORITMA SEMENTARA DARI PROSES PEMBUATAN MAKALAH OTOMATIS:
 BAHAN BAHANYANG DI PERLUKAN:
 1. NPM OPENAI API(GPT-4)  => merubah kalimat sumber awal menjadi kalimat baru
 2. API AL-QUR'AN KEMENAG
-3. ?=?
+3. Node Language Detect module
+4. ?=?
 
 
 SKETSA KASAR TAMPILAN WEB:

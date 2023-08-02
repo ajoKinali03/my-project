@@ -1,24 +1,52 @@
-
 const inpt = document.getElementById("form-input");
+
+// code runner
 document.addEventListener("keypress", (event) => {
-  if(event.code == "Enter"){
-    const arrWord = [...inpt.value];
-    const arrKos = [];
-    let dummyArr = [];
-    arrWord.forEach((e, i) => {
-      dummyArr.push(e);
-      if(e == "\n" || i == arrWord.length-1){
-        arrKos.push(dummyArr.join(""));
-        dummyArr = [];
-      };
-    });
-    console.log(arrKos);
-    // console.log([arrKos.join("").replaceAll(" \n", " ")]);
+  if (event.code == "Enter") {
+    const lineTeks = filterEnter(inpt.value);
+    console.log(lineTeks);
+    lineTeks.forEach((e, i) => console.log(`${i}, ${e.length}`));
   }
 });
 
+// fungsi memisahkan kalimat berdasrkan enter
+function filterEnter(teks) {
+  const arrWord = [...teks];
+  const arrKos = [];
+  let dummyArr = [];
+  arrWord.forEach((e, i) => {
+    dummyArr.push(e);
+    if (e == "\n" || i == arrWord.length - 1) {
+      arrKos.push(dummyArr.join("").replaceAll("\u0002", "-"));
+      dummyArr = [];
+    }
+  });
+  return arrKos;
+}
 
-
+// fungsi akhir, yiatu memberi identifikasi dan menjadikan ke objek sesuai kategori
+function identifikasiKategori(arrTksLn) {
+  /*
+    SAMPEL
+    {
+      "id": "teks1/teks2/.../teks-n",
+      "ktgr": {
+        "jumlah_kata": 0,
+        "bahasa": null,
+        "tanda_enter": false,
+        "tanda_spasi": false,
+        "jumlah_spasi": 0,
+        "tanda_tab": false,
+        "jumlah_tab": 0,
+        "jumlah_titik": 0,
+        "cek_penomoran": false,
+        "jenis_penomoran": null,
+        "sentence-case": null
+      },
+      "teks": null
+    }
+  */
+}
 
 /*
 const bts = " -bts-\n-bts-";
