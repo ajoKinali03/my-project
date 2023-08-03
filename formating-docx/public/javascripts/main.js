@@ -80,6 +80,7 @@ function identifikasiKategori(arrTksLn) {
     const teks = e.join("");
     objKtgr.id = "teks" + i;
     objKtgr.teks = e;
+    // perbedaan jumlah teks tidak terlalu jauh
     objKtgr.ktgr.jumlah_huruf = teks.length;
     objKtgr.ktgr.bahasa = null;
     objKtgr.ktgr.tanda_enter = teks.includes("\n");
