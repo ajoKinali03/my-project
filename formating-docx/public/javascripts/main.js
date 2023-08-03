@@ -86,6 +86,11 @@ function identifikasiKategori(arrTksLn) {
     objKtgr.ktgr.jumlah_spasi = teks.matchAll(" ");
     objKtgr.ktgr.tanda_tab = teks.includes("\t");
     objKtgr.ktgr.jumlah_tab = teks.matchAll("\t");
+objKtgr.ktgr.jumlah_titik = teks.matchAll(".");
+objKtgr.ktgr.jumlah_koma = teks.matchAll(",");
+objKtgr.ktgr.cek_penomoran = false;
+objKtgr.ktgr.jenis_penomoran = null;
+objKtgr.ktgr.sentence.case = null;
   });
 }
 
