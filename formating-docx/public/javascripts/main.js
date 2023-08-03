@@ -6,7 +6,7 @@ document.addEventListener("keypress", (event) => {
     const lineTeks = filterEnter(inpt.value);
     const arrLineTeks = filterSpasi(lineTeks);
     // identifikasiKategori(arrLineTeks);
-    // console.log(arrLineTeks);
+    console.log(arrLineTeks);
     // lineTeks.forEach((e, i) => console.log(`${i}, ${e.length}`));
   }
 });
@@ -37,6 +37,7 @@ function filterSpasi(arrKal) {
       if (
         a == " " ||
         a == "." ||
+        a == ")" ||
         a == "," ||
         a == "\n" ||
         idx == kal.length - 1
@@ -74,7 +75,7 @@ function identifikasiKategori(arrTksLn) {
     },
   };
 
-  let arrOfObj = [];
+  let arrOfObjKtgr = [];
   arrTksLn.forEach((e, i) => {
     const teks = e.join("");
     objKtgr.id = "teks" + i;
@@ -86,13 +87,103 @@ function identifikasiKategori(arrTksLn) {
     objKtgr.ktgr.jumlah_spasi = teks.matchAll(" ");
     objKtgr.ktgr.tanda_tab = teks.includes("\t");
     objKtgr.ktgr.jumlah_tab = teks.matchAll("\t");
-objKtgr.ktgr.jumlah_titik = teks.matchAll(".");
-objKtgr.ktgr.jumlah_koma = teks.matchAll(",");
-objKtgr.ktgr.cek_penomoran = false;
-objKtgr.ktgr.jenis_penomoran = null;
-objKtgr.ktgr.sentence.case = null;
+    objKtgr.ktgr.jumlah_titik = teks.matchAll(".");
+    objKtgr.ktgr.jumlah_koma = teks.matchAll(",");
+    objKtgr.ktgr.cek_penomoran = cekNmr(e).cekNmr;
+    objKtgr.ktgr.jenis_penomoran = cekNmr(e).tipe;
+    objKtgr.ktgr.sentence.case = null;
+    arrOfObjKtgr.push(objKtgr);
   });
+  return arrOfObjKtgr;
 }
+
+// fungsi memeriksa sentece case
+function cekCase(arrKal) {
+
+};
+
+// fungsi cek penomoran
+function cekNmr(arrTks) {
+  const ktgrNmr = arrObjNmr();
+  let result = false;
+  let tipe = null;
+  arrTks.forEach((e, i) => {
+    ktgrNmr.forEach((cek, idx) => {
+      if (cek.cekTipe(e) && arrTks[i + 1] == cek.dot) {
+        result = true;
+        tipe = cek.dot;
+      }
+    });
+  });
+  return { cekNmr: result, tipe: tipe };
+}
+
+// fungsi menampung arr objek cek penomoran
+function arrObjNmr() {
+  return [
+    {
+      cekTipe: (e) => {
+        return /[A-Z]/.test(e);
+      },
+      dot: ".",
+      tipe: (e, dot) => {
+        return e + dot;
+      },
+    },
+    {
+      cekTipe: function (e) {
+        return /\d/.test(e);
+      },
+      dot: ".",
+      tipe: function (e) {
+        return e + this.dot;
+      },
+    },
+    {
+      cekTipe: function (e) {
+        return /[a-z]/.test(e);
+      },
+      dot: ".",
+      tipe: function (e) {
+        return e + this.dot;
+      },
+    },
+    {
+      cekTipe: function (e) {
+        return /\d/.test(e);
+      },
+      dot: ")",
+      tipe: function (e) {
+        return e + this.dot;
+      },
+    },
+    {
+      cekTipe: function (e) {
+        return /[a-z]/.test(e);
+      },
+      dot: ")",
+      tipe: function (e) {
+        return e + this.dot;
+      },
+    },
+  ];
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /*
 const bts = " -bts-\n-bts-";
