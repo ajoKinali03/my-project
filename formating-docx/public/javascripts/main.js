@@ -99,8 +99,60 @@ function identifikasiKategori(arrTksLn) {
 
 // fungsi memeriksa sentece case
 function cekCase(arrKal) {
+  let result = null;
+  let kdsi = kondisi();
+  arrKal.forEach((e, i) => {
+    if (e.length > 1) {
+      let word = [...e];
+      word.forEach((a, idx) => {
+        kdsi.forEach((b, idxb) => {
+          if (b.kdsi(a, idx, i, e)) {
+            result = b.case;
+          }
+        });
+      });
+    }
+  });
+  return result;
+}
 
-};
+// fungsi untuk kondisi cekCase [MASIH ADA BUG]
+function kondisi() {
+  return [
+    {
+      kdsi: function (a, idx, i) {
+        if (a == a.toUpperCase() && idx == 0) {
+          return true;
+        }
+      },
+      case: "capitalize each word",
+    },
+    {
+      kdsi: function (a, idx, i) {
+        if (a == a.toUpperCase() && idx == 0 && i == 0) {
+          return true;
+        }
+      },
+      case: "sentence case",
+    },
+    {
+      kdsi: function (a, idx, i, e) {
+        if (a == a.toUpperCase() && idx == e.length) {
+          return true;
+        }
+      },
+      case: "upppercase",
+    },
+    {
+      kdsi: function (a, idx, i) {
+        if (a == a.toLowerCase() && idx == 0) {
+          return true;
+        }
+      },
+      case: "lowercase",
+    },
+  ];
+}
 
 // fungsi cek penomoran
 function cekNmr(arrTks) {
@@ -126,8 +178,8 @@ function arrObjNmr() {
         return /[A-Z]/.test(e);
       },
       dot: ".",
-      tipe: (e, dot) => {
-        return e + dot;
+      tipe: (e) => {
+        return e + this.dot;
       },
     },
     {
@@ -168,22 +220,6 @@ function arrObjNmr() {
     },
   ];
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /*
 const bts = " -bts-\n-bts-";
