@@ -1,12 +1,14 @@
 const inpt = document.getElementById("form-input");
+const spclChar = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
 
 // code runner
 document.addEventListener("keypress", (event) => {
   if (event.code == "Enter") {
     const lineTeks = filterEnter(inpt.value);
     const arrLineTeks = filterSpasi(lineTeks);
-    // identifikasiKategori(arrLineTeks);
-    console.log(arrLineTeks);
+    const idntKtgr = identifikasiKategori(arrLineTeks);
+    // console.log(arrLineTeks);
+    console.log(idntKtgr);
     // lineTeks.forEach((e, i) => console.log(`${i}, ${e.length}`));
   }
 });
@@ -34,14 +36,7 @@ function filterSpasi(arrKal) {
     let arrKos = [];
     let dummyArr = [];
     kal.forEach((a, idx) => {
-      if (
-        a == " " ||
-        a == "." ||
-        a == ")" ||
-        a == "," ||
-        a == "\n" ||
-        idx == kal.length - 1
-      ) {
+      if (spclChar.test(a) || idx == kal.length - 1) {
         arrKos.push(dummyArr.join(""));
         arrKos.push(a);
         dummyArr = [];
@@ -56,7 +51,7 @@ function filterSpasi(arrKal) {
 
 // fungsi akhir, yiatu memberi identifikasi dan menjadikan ke objek sesuai kategori
 function identifikasiKategori(arrTksLn) {
-  const objKtgr = {
+  let objKtgr = {
     id: null,
     teks: null,
     ktgr: {
@@ -78,21 +73,28 @@ function identifikasiKategori(arrTksLn) {
   let arrOfObjKtgr = [];
   arrTksLn.forEach((e, i) => {
     const teks = e.join("");
-    objKtgr.id = "teks" + i;
-    objKtgr.teks = e;
-    // perbedaan jumlah teks tidak terlalu jauh
-    objKtgr.ktgr.jumlah_huruf = teks.length;
-    objKtgr.ktgr.bahasa = null;
-    objKtgr.ktgr.tanda_enter = teks.includes("\n");
-    objKtgr.ktgr.tanda_spasi = teks.includes(" ");
-    objKtgr.ktgr.jumlah_spasi = teks.matchAll(" ");
-    objKtgr.ktgr.tanda_tab = teks.includes("\t");
-    objKtgr.ktgr.jumlah_tab = teks.matchAll("\t");
-    objKtgr.ktgr.jumlah_titik = teks.matchAll(".");
-    objKtgr.ktgr.jumlah_koma = teks.matchAll(",");
-    objKtgr.ktgr.cek_penomoran = cekNmr(e).cekNmr;
-    objKtgr.ktgr.jenis_penomoran = cekNmr(e).tipe;
-    objKtgr.ktgr.sentence.case = null;
+    let jumSpasi = Array.from(teks.matchAll(" ")).length,
+      jumTab = Array.from(teks.matchAll("\t")).length,
+      jumTitik = [...teks].filter( e => e == ".").length,
+      jumKoma = Array.from(teks.matchAll(",")).length,
+      objKtgr = {
+        id: "teks" + i,
+        teks: e,
+        ktgr: {
+          jumlah_huruf: teks.length,
+          bahasa: null,
+          tanda_enter: teks.includes("\n"),
+          tanda_spasi: teks.includes(" "),
+          jumlah_spasi: jumSpasi,
+          tanda_tab: teks.includes("\t"),
+          jumlah_tab: jumTab,
+          jumlah_titik: jumTitik,
+          jumlah_koma: jumKoma,
+          cek_penomoran: cekNmr(e).cekNmr,
+          jenis_penomoran: cekNmr(e).tipe,
+          sentence_case: null,
+        },
+      };
     arrOfObjKtgr.push(objKtgr);
   });
   return arrOfObjKtgr;
@@ -164,7 +166,7 @@ function cekNmr(arrTks) {
     ktgrNmr.forEach((cek, idx) => {
       if (cek.cekTipe(e) && arrTks[i + 1] == cek.dot) {
         result = true;
-        tipe = cek.dot;
+        tipe = cek.tipe(e);
       }
     });
   });
@@ -176,16 +178,9 @@ function arrObjNmr() {
   return [
     {
       cekTipe: (e) => {
-        return /[A-Z]/.test(e);
-      },
-      dot: ".",
-      tipe: (e) => {
-        return e + this.dot;
-      },
-    },
-    {
-      cekTipe: function (e) {
-        return /\d/.test(e);
+        if (e.length == 1) {
+          return /[A-Z]/.test(e);
+        }
       },
       dot: ".",
       tipe: function (e) {
@@ -194,7 +189,9 @@ function arrObjNmr() {
     },
     {
       cekTipe: function (e) {
-        return /[a-z]/.test(e);
+        if (e.length == 1) {
+          return /\d/.test(e);
+        }
       },
       dot: ".",
       tipe: function (e) {
@@ -203,7 +200,20 @@ function arrObjNmr() {
     },
     {
       cekTipe: function (e) {
-        return /\d/.test(e);
+        if (e.length == 1) {
+          return /[a-z]/.test(e);
+        }
+      },
+      dot: ".",
+      tipe: function (e) {
+        return e + this.dot;
+      },
+    },
+    {
+      cekTipe: function (e) {
+        if (e.length == 1) {
+          return /\d/.test(e);
+        }
       },
       dot: ")",
       tipe: function (e) {
@@ -212,7 +222,9 @@ function arrObjNmr() {
     },
     {
       cekTipe: function (e) {
-        return /[a-z]/.test(e);
+        if (e.length == 1) {
+          return /[a-z]/.test(e);
+        }
       },
       dot: ")",
       tipe: function (e) {
