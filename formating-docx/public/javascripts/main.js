@@ -8,7 +8,7 @@ document.addEventListener("keypress", (event) => {
     const arrLineTeks = filterSpasi(lineTeks);
     const idntKtgr = identifikasiKategori(arrLineTeks);
     // console.log(arrLineTeks);
-    console.log(idntKtgr);
+    console.table(idntKtgr);
     // lineTeks.forEach((e, i) => console.log(`${i}, ${e.length}`));
   }
 });
@@ -51,51 +51,34 @@ function filterSpasi(arrKal) {
 
 // fungsi akhir, yiatu memberi identifikasi dan menjadikan ke objek sesuai kategori
 function identifikasiKategori(arrTksLn) {
-  let objKtgr = {
-    id: null,
-    teks: null,
-    ktgr: {
-      jumlah_huruf: 0,
-      bahasa: null,
-      tanda_enter: false,
-      tanda_spasi: false,
-      jumlah_spasi: 0,
-      tanda_tab: false,
-      jumlah_tab: 0,
-      jumlah_titik: 0,
-      jumlah_koma: 0,
-      cek_penomoran: false,
-      jenis_penomoran: null,
-      sentence_case: null,
-    },
-  };
-
   let arrOfObjKtgr = [];
+
   arrTksLn.forEach((e, i) => {
     const teks = e.join("");
+
     let jumSpasi = Array.from(teks.matchAll(" ")).length,
       jumTab = Array.from(teks.matchAll("\t")).length,
-      jumTitik = [...teks].filter( e => e == ".").length,
-      jumKoma = Array.from(teks.matchAll(",")).length,
-      objKtgr = {
-        id: "teks" + i,
-        teks: e,
-        ktgr: {
-          jumlah_huruf: teks.length,
-          bahasa: null,
-          tanda_enter: teks.includes("\n"),
-          tanda_spasi: teks.includes(" "),
-          jumlah_spasi: jumSpasi,
-          tanda_tab: teks.includes("\t"),
-          jumlah_tab: jumTab,
-          jumlah_titik: jumTitik,
-          jumlah_koma: jumKoma,
-          cek_penomoran: cekNmr(e).cekNmr,
-          jenis_penomoran: cekNmr(e).tipe,
-          sentence_case: null,
-        },
-      };
-    arrOfObjKtgr.push(objKtgr);
+      jumTitik = [...teks].filter((e) => e == ".").length,
+      jumKoma = Array.from(teks.matchAll(",")).length;
+
+    arrOfObjKtgr.push({
+      id: "teks" + i,
+      teks: e,
+      ktgr: {
+        jumlah_huruf: teks.length,
+        bahasa: null,
+        tanda_enter: teks.includes("\n"),
+        tanda_spasi: teks.includes(" "),
+        jumlah_spasi: jumSpasi,
+        tanda_tab: teks.includes("\t"),
+        jumlah_tab: jumTab,
+        jumlah_titik: jumTitik,
+        jumlah_koma: jumKoma,
+        cek_penomoran: cekNmr(e).cekNmr,
+        jenis_penomoran: cekNmr(e).tipe,
+        sentence_case: null,
+      },
+    });
   });
   return arrOfObjKtgr;
 }
