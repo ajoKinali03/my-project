@@ -1,5 +1,6 @@
 const inpt = document.getElementById("form-input");
 const spclChar = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
+const inputPost = document.getElementById("input-post");
 
 // code runner
 document.addEventListener("keypress", (event) => {
@@ -7,9 +8,7 @@ document.addEventListener("keypress", (event) => {
     const lineTeks = filterEnter(inpt.value);
     const arrLineTeks = filterSpasi(lineTeks);
     const idntKtgr = identifikasiKategori(arrLineTeks);
-    // console.log(arrLineTeks);
-    console.table(idntKtgr);
-    // lineTeks.forEach((e, i) => console.log(`${i}, ${e.length}`));
+    inputPost.value = JSON.stringify(idntKtgr);
   }
 });
 

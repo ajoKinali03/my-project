@@ -3,7 +3,10 @@ extends layout
 block content
   .container-content(style="padding: 15px; display: flex;")
     textarea(name="text-input", cols="80", rows="23", placeholder="ketik disini", style="padding: 20px; text-align: justify;", onkeydown="if(event.keyCode===9){var v=this.value,s=this.selectionStart,e=this.selectionEnd;this.value=v.substring(0, s)+'\t'+v.substring(e);this.selectionStart=this.selectionEnd=s+1;return false;}")#form-input
-    button(type="submit", style="width: 100px; height: 30px;")#btn-save
-      |Save
-    button(type="button", style="width: 100px; height: 30px;")#btn-download
-      |Download
+    form#form-post(action="/home", method="post")
+      input#input-post(type="hidden", name="postInput")
+      //- input#input-post(name="postInput")
+      button#btn-post(type="submit", style="width: 100px; height: 30px;")
+        |Save
+      button(type="button", style="width: 100px; height: 30px;")#btn-download
+        |Download

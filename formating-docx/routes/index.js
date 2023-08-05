@@ -1,6 +1,5 @@
 var express = require("express");
-// const { uploadDataToObjData } = require("../utils/file-manage");
-// const { runDocx } = require("../utils/run");
+const { manageText } = require("./../utils/pusat_pengolah_data");
 var router = express.Router();
 let app = express();
 
@@ -15,12 +14,11 @@ router.get("/home", function (req, res, next) {
   res.render("home", { title: "shortcut-docx", hello: "hello world" });
 });
 
-// router.post("/home", async function(req, res){
-//   // uploadDataToObjData(req.body.postInput);
-//   // runDocx();
+router.post("/home", function(req, res){
+  let data = req.body.postInput;
+  manageText(data)
 
-//   // console.log(req.body.postInput)
-//   await res.redirect("/home");
-// });
+  res.redirect("/home");
+});
 
 module.exports = router;
