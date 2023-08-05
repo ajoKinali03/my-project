@@ -1,6 +1,6 @@
 const manageText = (data) => {
-  const dataArrObj = JSON.parse(data);
-
+  // mengambil data dari database melalui module db_manage.js
+  
   // menjalankan cek sentance case kalimat
 
   // menjalankan cek bahasa

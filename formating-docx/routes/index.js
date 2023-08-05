@@ -1,5 +1,4 @@
 var express = require("express");
-const { manageText } = require("./../utils/pusat_pengolah_data");
 var router = express.Router();
 let app = express();
 
@@ -16,7 +15,7 @@ router.get("/home", function (req, res, next) {
 
 router.post("/home", function(req, res){
   let data = req.body.postInput;
-  manageText(data)
+  // mengirim data ke database melalui module db_manage.js
 
   res.redirect("/home");
 });
