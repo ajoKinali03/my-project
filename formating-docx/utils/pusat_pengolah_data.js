@@ -1,5 +1,5 @@
 const manageText = (data) => {
-  console.log(JSON.parse(data));
+  const dataArrObj = JSON.parse(data);
 
   // menjalankan cek sentance case kalimat
 
