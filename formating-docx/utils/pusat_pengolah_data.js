@@ -1,7 +1,5 @@
 const manageText = (data) => {
   // mengambil data dari database melalui module db_manage.js
-  
-  // menjalankan cek sentance case kalimat
 
   // menjalankan cek bahasa
 
@@ -9,5 +7,4 @@ const manageText = (data) => {
 
   // melakakuan perbandngan dengan data asli untuk mendapatkan kode text
 };
-
 module.exports = {manageText};

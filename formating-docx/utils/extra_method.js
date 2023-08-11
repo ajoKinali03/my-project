@@ -1,3 +1,4 @@
-const caseSentance = (arrTeks) => {
-  
-};
+
+// const caseSentance = (arrTeks) => {
+
+// };

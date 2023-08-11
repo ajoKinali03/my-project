@@ -9,6 +9,7 @@ document.addEventListener("keypress", (event) => {
     const arrLineTeks = filterSpasi(lineTeks);
     const idntKtgr = identifikasiKategori(arrLineTeks);
     inputPost.value = JSON.stringify(idntKtgr);
+    console.log(idntKtgr);
   }
 });
 
@@ -75,11 +76,40 @@ function identifikasiKategori(arrTksLn) {
         jumlah_koma: jumKoma,
         cek_penomoran: cekNmr(e).cekNmr,
         jenis_penomoran: cekNmr(e).tipe,
-        sentence_case: null,
+        sentence_case: sentanceCase(e),
       },
     });
   });
   return arrOfObjKtgr;
+}
+
+function sentanceCase(e) {
+  let up = 0;
+  let down = 0;
+  let uppercase = null;
+  e.forEach((a) => {
+    if (/^[A-Z]/.test(a) && /[a-z]$/.test(a)) {
+      up++;
+    };
+    if (/^[a-z]/.test(a)) {
+      down++;
+    };
+    if(/[A-Z]/gi.test(a)){
+      uppercase = "uppercase";
+    };
+  });
+  if(up > down){
+    return "capitalize each word";
+  };
+  if(/^[A-Z]/.test(e[0]) && down > up){
+    return "capitalize first word";
+  };
+  if(down > up){
+    return "lower case";
+  };
+  if(uppercase != null){
+    return uppercase;
+  };  
 }
 
 // fungsi cek penomoran

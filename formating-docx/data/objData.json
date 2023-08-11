@@ -1,1 +1,242 @@
-[{"tag":"jb","txt":"alksjdh aksda"},{"tag":"num1","txt":"asdalkshdasd"},{"tag":"text","txt":"a sdjkfh skdfjh skdjfh sdkjdf hsdjkf ksdhfkjsd fhsdjf skjd fshd fhskldjf sldkf ssdfsdfh sdhf"}]
+[
+  {
+    "fakultas": "FUAD",
+    "jurusan": "Ilmu Al-Qura'an dan Tafsir",
+    "kelas": "IAT A",
+    "nama": "Hetri Saputra",
+    "nim": "4122001",
+    "ip": 3.0
+  },
+  {
+    "fakultas": "FUAD",
+    "jurusan": "Ilmu Al-Qura'an dan Tafsir",
+    "kelas": "IAT A",
+    "nama": "Fahmil Nizar Zulmi Tanjung",
+    "nim": "4122002",
+    "ip": 3.1
+  },
+  {
+    "fakultas": "FUAD",
+    "jurusan": "Ilmu Al-Qura'an dan Tafsir",
+    "kelas": "IAT A",
+    "nama": "Hidayatul Ilma",
+    "nim": "4122003",
+    "ip": 3.2
+  },
+  {
+    "fakultas": "FUAD",
+    "jurusan": "Ilmu Al-Qura'an dan Tafsir",
+    "kelas": "IAT A",
+    "nama": "Silfia Nuraziah",
+    "nim": "4122004",
+    "ip": 3.3
+  },
+  {
+    "fakultas": "FUAD",
+    "jurusan": "Ilmu Al-Qura'an dan Tafsir",
+    "kelas": "IAT A",
+    "nama": "Ratna Ningsih",
+    "nim": "4122005",
+    "ip": 3.4
+  },
+  {
+    "fakultas": "FUAD",
+    "jurusan": "Ilmu Al-Qura'an dan Tafsir",
+    "kelas": "IAT A",
+    "nama": "Nurfauqanur Afri",
+    "nim": "4122006",
+    "ip": 3.5
+  },
+  {
+    "fakultas": "FUAD",
+    "jurusan": "Ilmu Al-Qura'an dan Tafsir",
+    "kelas": "IAT A",
+    "nama": "unknownChar",
+    "nim": "4122007",
+    "ip": 3.6
+  },
+  {
+    "fakultas": "FUAD",
+    "jurusan": "Ilmu Al-Qura'an dan Tafsir",
+    "kelas": "IAT A",
+    "nama": "unknownChar",
+    "nim": "4122008",
+    "ip": 3.7
+  },
+  {
+    "fakultas": "FUAD",
+    "jurusan": "Ilmu Al-Qura'an dan Tafsir",
+    "kelas": "IAT A",
+    "nama": "Lili Puspa",
+    "nim": "4122009",
+    "ip": 3.8
+  },
+  {
+    "fakultas": "FUAD",
+    "jurusan": "Ilmu Al-Qura'an dan Tafsir",
+    "kelas": "IAT A",
+    "nama": "Difki Maidika",
+    "nim": "41220010",
+    "ip": 3.9
+  },
+  {
+    "fakultas": "FUAD",
+    "jurusan": "Ilmu Al-Qura'an dan Tafsir",
+    "kelas": "IAT A",
+    "nama": "Rifaldi Chandra",
+    "nim": "4122011",
+    "ip": 3.10
+  },
+  {
+    "fakultas": "FUAD",
+    "jurusan": "Ilmu Al-Qura'an dan Tafsir",
+    "kelas": "IAT A",
+    "nama": "Fatimah Azzahra",
+    "nim": "4122012",
+    "ip": 3.11
+  },
+  {
+    "fakultas": "FUAD",
+    "jurusan": "Ilmu Al-Qura'an dan Tafsir",
+    "kelas": "IAT A",
+    "nama": "Arum Handayani",
+    "nim": "4122013",
+    "ip": 3.12
+  },
+  {
+    "fakultas": "FUAD",
+    "jurusan": "Ilmu Al-Qura'an dan Tafsir",
+    "kelas": "IAT A",
+    "nama": "Nur Sakinah",
+    "nim": "4122014",
+    "ip": 3.13
+  },
+  {
+    "fakultas": "FUAD",
+    "jurusan": "Ilmu Al-Qura'an dan Tafsir",
+    "kelas": "IAT A",
+    "nama": "Tia Putriana",
+    "nim": "4122015",
+    "ip": 3.14
+  },
+  {
+    "fakultas": "FUAD",
+    "jurusan": "Ilmu Al-Qura'an dan Tafsir",
+    "kelas": "IAT A",
+    "nama": "Alfian Chandra",
+    "nim": "4122016",
+    "ip": 3.15
+  },
+  {
+    "fakultas": "FUAD",
+    "jurusan": "Ilmu Al-Qura'an dan Tafsir",
+    "kelas": "IAT A",
+    "nama": "Jumiran Sahbani",
+    "nim": "4122017",
+    "ip": 3.16
+  },
+  {
+    "fakultas": "FUAD",
+    "jurusan": "Ilmu Al-Qura'an dan Tafsir",
+    "kelas": "IAT A",
+    "nama": "Mila Anggraini",
+    "nim": "4122018",
+    "ip": 3.17
+  },
+  {
+    "fakultas": "FUAD",
+    "jurusan": "Ilmu Al-Qura'an dan Tafsir",
+    "kelas": "IAT A",
+    "nama": "Azwar Hamid",
+    "nim": "4122019",
+    "ip": 3.18
+  },
+  {
+    "fakultas": "FUAD",
+    "jurusan": "Ilmu Al-Qura'an dan Tafsir",
+    "kelas": "IAT A",
+    "nama": "Rahma Yani",
+    "nim": "4122020",
+    "ip": 3.19
+  },
+  {
+    "fakultas": "FUAD",
+    "jurusan": "Ilmu Al-Qura'an dan Tafsir",
+    "kelas": "IAT A",
+    "nama": "HIdayatul Fadilla",
+    "nim": "4122021",
+    "ip": 3.20
+  },
+  {
+    "fakultas": "FUAD",
+    "jurusan": "Ilmu Al-Qura'an dan Tafsir",
+    "kelas": "IAT A",
+    "nama": "Qoriatun Nabila",
+    "nim": "4122022",
+    "ip": 3.21
+  },
+  {
+    "fakultas": "FUAD",
+    "jurusan": "Ilmu Al-Qura'an dan Tafsir",
+    "kelas": "IAT A",
+    "nama": "Muhammad Farhan",
+    "nim": "4122023",
+    "ip": 3.22
+  },
+  {
+    "fakultas": "FUAD",
+    "jurusan": "Ilmu Al-Qura'an dan Tafsir",
+    "kelas": "IAT A",
+    "nama": "Delvi Wulandari",
+    "nim": "4122024",
+    "ip": 3.23
+  },
+  {
+    "fakultas": "FUAD",
+    "jurusan": "Ilmu Al-Qura'an dan Tafsir",
+    "kelas": "IAT A",
+    "nama": "Lia Estianti",
+    "nim": "4122025",
+    "ip": 3.24
+  },
+  {
+    "fakultas": "FUAD",
+    "jurusan": "Ilmu Al-Qura'an dan Tafsir",
+    "kelas": "IAT A",
+    "nama": "Aulia Rahmanah Putri",
+    "nim": "4122026",
+    "ip": 3.25
+  },
+  {
+    "fakultas": "FUAD",
+    "jurusan": "Ilmu Al-Qura'an dan Tafsir",
+    "kelas": "IAT A",
+    "nama": "Rizki Ananda Harahap",
+    "nim": "4122027",
+    "ip": 3.26
+  },
+  {
+    "fakultas": "FUAD",
+    "jurusan": "Ilmu Al-Qura'an dan Tafsir",
+    "kelas": "IAT A",
+    "nama": "unknownChar",
+    "nim": "4122028",
+    "ip": 3.27
+  },
+  {
+    "fakultas": "FUAD",
+    "jurusan": "Ilmu Al-Qura'an dan Tafsir",
+    "kelas": "IAT A",
+    "nama": "Aprillia Wulandari",
+    "nim": "4122029",
+    "ip": 3.28
+  },
+  {
+    "fakultas": "FUAD",
+    "jurusan": "Ilmu Al-Qura'an dan Tafsir",
+    "kelas": "IAT A",
+    "nama": "Muhammad Randi",
+    "nim": "4122030",
+    "ip": 3.29
+  }
+]
