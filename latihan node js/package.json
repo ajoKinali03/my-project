@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "mongoose": "^7.4.3",
     "openai": "^3.3.0"
   }
 }
