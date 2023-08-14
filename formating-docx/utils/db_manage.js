@@ -1,50 +1,11 @@
-const { MongoClient } = require("mongodb");
+const mongoose = require("mongoose");
 
-const uri = "mongodb://127.0.0.1:27017";
-// const dbName = "data_bencana";
-const dbName = "absenIAT_A";
-const collName = "datas";
+main().catch((e) => console.error(e));
 
-const client = new MongoClient(uri, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+async function main() {
+  await mongoose.connect("mongodb://127.0.0.1:27017/format-doc", {autoIndex: true});
+  console.log("berhasil tehubung degngan mongoDb!");
 
-/*  
-  lokasiPosko: 'Banguntapan',
-  penanggungJawab: 'Imam Nawawi',
-  jumlahPengungsi: 97,
-  kategoriPengungsi: 'Dewasa',
-  jenisBantuan: 'Pakaian',
-  bantuanPerorang: 115,
-  bantuanTenda: 960000,
-  jumlahBantuan: 12.115,
-  jumlahRelawan: 9
-
-*/
-
-async function run() {
-  await client.connect();
-
-  try {
-    await client.connect();
-    await client.db(dbName).command({ ping: 1 });
-    console.log("Berhasil Terhubung Dengan MongoDb!\n");
-
-    const coll = client.db(dbName).collection(collName);
-
-    const data = await coll
-      .find()
-      // .project( {_id: 0, nama: 1, ip: 1} )
-      .toArray();
-
-    // const data = await coll.updateMany({fakultas: "FUAD"}, {$currentDate: {"lastModified": true}})
-
-    console.log(data);
-  } finally {
-    await client.close();
-    console.log("\nMongoDb Telah Berhenti Terhubung.");
-  }
+  // mongoose.disconnect();
+  // console.log("koneksi terputus ke mongoDb!");
 }
-
-run().catch(console.error);
