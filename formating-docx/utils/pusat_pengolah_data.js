@@ -1,15 +1,19 @@
 const mentahanDataDb = require("../model/mentahan");
 const spclChar = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
+// const mergeParagraf  = require("./merge_paragraf");
 
 // code runner
-const mentahanData = async(teks) => {
-  teks = JSON.parse(teks)
+const mentahanData = async (teks) => {
+  teks = JSON.parse(teks);
   teks = teks.teks;
   const lineTeks = filterEnter(teks);
   const arrLineTeks = filterSpasi(lineTeks);
   const idntKtgr = identifikasiKategori(arrLineTeks);
-  await mentahanDataDb.insertMany(idntKtgr).then( e => console.log(e));
+
+  // console.log(mergeParagraf(idntKtgr));
   
+  await mentahanDataDb.insertMany(idntKtgr);
+
   return;
 };
 
@@ -66,7 +70,6 @@ function identifikasiKategori(arrTksLn) {
       teks: e,
       ktgr: {
         jumlah_huruf: teks.length,
-        bahasa: null,
         tanda_enter: teks.includes("\n"),
         tanda_spasi: teks.includes(" "),
         jumlah_spasi: jumSpasi,
@@ -188,6 +191,5 @@ function arrObjNmr() {
     },
   ];
 }
-
 
 module.exports = mentahanData;
