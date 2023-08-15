@@ -117,57 +117,47 @@ function sentanceCase(e) {
 
 // fungsi cek penomoran
 function cekNmr(arrTks) {
-  const ktgrNmr = arrObjNmr();
-  const teks = arrTks.join("");
+  // const teks = arrTks.join("");
+  // console.log(/^[A-Z]\./g.test(teks) ? true : false, teks);
   let result = false;
   let tipe = null;
-  ktgrNmr.forEach((e) => {
-    console.log(e.cekTipe(e).result)
-    // if(e.cekTipe(e).result){
-    //   result = true;
-    //   tipe = e.cekTipe(e).tipe;
-    // };
+  arrTks.forEach((a, i) => {
+    if (a.length < 1 && i < 2) {
+      const ktgrNmr = arrObjNmr(a);
+      ktgrNmr.forEach((e) => {
+        if (e.cekTipe) {
+          result = true;
+          tipe = e.tipe.join("");
+        }
+      });
+    }
   });
+  console.log(result, tipe)
   return { cekNmr: result, tipe: tipe };
 }
 
 // fungsi menampung arr objek cek penomoran
-function arrObjNmr() {
+function arrObjNmr(e) {
   return [
     {
-      cekTipe: (e) => {
-        if (/^[A-Z]./g.test(e)) {
-          return { result: true, tipe: e.match(/^[A-Z]./g) };
-        }
-      },
+      cekTipe: /^[A-Z]./g.test(e) ? true : false,
+      tipe: e.match(/^[A-Z]./g),
     },
     {
-      cekTipe: (e) => {
-        if (/^\d./g.test(e)) {
-          return { result: true, tipe: e.match(/^\d./g) };
-        }
-      },
+      cekTipe: /^\d./g.test(e) ? true : false,
+      tipe: e.match(/^\d./g),
     },
     {
-      cekTipe: (e) => {
-        if (/^[a-z]./g.test(e)) {
-          return { result: true, tipe: e.match(/^[a-z]./g) };
-        }
-      },
+      cekTipe: /^[a-z]./g.test(e) ? true : false,
+      tipe: e.match(/^[a-z]./g),
     },
     {
-      cekTipe: (e) => {
-        if (/^\d\)/g.test(e)) {
-          return { result: true, tipe: e.match(/^\d\)/g) };
-        }
-      },
+      cekTipe: /^\d\)/g.test(e) ? true : false,
+      tipe: e.match(/^\d\)/g),
     },
     {
-      cekTipe: (e) => {
-        if (/^[a-z]\)/g.test(e)) {
-          return { result: true, tipe: e.match(/^[a-z]\)/g) };
-        }
-      },
+      cekTipe: /^[a-z]\)/g.test(e) ? true : false,
+      tipe: e.match(/^[a-z]\)/g),
     },
   ];
 }

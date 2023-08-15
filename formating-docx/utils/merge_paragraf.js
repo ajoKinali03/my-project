@@ -3,6 +3,7 @@ const mentahanDataDb = require("../model/mentahan");
 
 const mergeParagraf = async () => {
   const data = await mentahanDataDb.find();
+  console.log(data)
   data.forEach((e, i) => {
     let enter = !cekEnter(e) == false;
     let paragraf = pemisahParagraf(enter, data, e, i);
