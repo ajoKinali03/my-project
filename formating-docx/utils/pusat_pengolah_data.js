@@ -11,7 +11,7 @@ const mentahanData = async (teks) => {
   const idntKtgr = identifikasiKategori(arrLineTeks);
 
   // console.log(mergeParagraf(idntKtgr));
-  
+
   await mentahanDataDb.insertMany(idntKtgr);
 
   return;
@@ -118,15 +118,15 @@ function sentanceCase(e) {
 // fungsi cek penomoran
 function cekNmr(arrTks) {
   const ktgrNmr = arrObjNmr();
+  const teks = arrTks.join("");
   let result = false;
   let tipe = null;
-  arrTks.forEach((e, i) => {
-    ktgrNmr.forEach((cek, idx) => {
-      if (cek.cekTipe(e) && arrTks[i + 1] == cek.dot) {
-        result = true;
-        tipe = cek.tipe(e);
-      }
-    });
+  ktgrNmr.forEach((e) => {
+    console.log(e.cekTipe(e).result)
+    // if(e.cekTipe(e).result){
+    //   result = true;
+    //   tipe = e.cekTipe(e).tipe;
+    // };
   });
   return { cekNmr: result, tipe: tipe };
 }
@@ -136,57 +136,37 @@ function arrObjNmr() {
   return [
     {
       cekTipe: (e) => {
-        if (e.length == 1) {
-          return /[A-Z]/.test(e);
+        if (/^[A-Z]./g.test(e)) {
+          return { result: true, tipe: e.match(/^[A-Z]./g) };
         }
-      },
-      dot: ".",
-      tipe: function (e) {
-        return e + this.dot;
       },
     },
     {
-      cekTipe: function (e) {
-        if (e.length == 1) {
-          return /\d/.test(e);
+      cekTipe: (e) => {
+        if (/^\d./g.test(e)) {
+          return { result: true, tipe: e.match(/^\d./g) };
         }
-      },
-      dot: ".",
-      tipe: function (e) {
-        return e + this.dot;
       },
     },
     {
-      cekTipe: function (e) {
-        if (e.length == 1) {
-          return /[a-z]/.test(e);
+      cekTipe: (e) => {
+        if (/^[a-z]./g.test(e)) {
+          return { result: true, tipe: e.match(/^[a-z]./g) };
         }
-      },
-      dot: ".",
-      tipe: function (e) {
-        return e + this.dot;
       },
     },
     {
-      cekTipe: function (e) {
-        if (e.length == 1) {
-          return /\d/.test(e);
+      cekTipe: (e) => {
+        if (/^\d\)/g.test(e)) {
+          return { result: true, tipe: e.match(/^\d\)/g) };
         }
-      },
-      dot: ")",
-      tipe: function (e) {
-        return e + this.dot;
       },
     },
     {
-      cekTipe: function (e) {
-        if (e.length == 1) {
-          return /[a-z]/.test(e);
+      cekTipe: (e) => {
+        if (/^[a-z]\)/g.test(e)) {
+          return { result: true, tipe: e.match(/^[a-z]\)/g) };
         }
-      },
-      dot: ")",
-      tipe: function (e) {
-        return e + this.dot;
       },
     },
   ];

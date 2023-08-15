@@ -4,13 +4,13 @@ const mentahanDataDb = require("../model/mentahan");
 const mergeParagraf = async () => {
   const data = await mentahanDataDb.find();
   data.forEach((e, i) => {
-    let enter = !cekEnter(data, e, i) == false;
-    console.log(enter);
+    let enter = !cekEnter(e) == false;
+    let paragraf = pemisahParagraf(enter, data, e, i);
   });
 };
 mergeParagraf();
 
-function cekEnter(data, e, i) {
+function cekEnter(e) {
   let teks = e.teks.join("");
   if (
     teks.includes("\n") &&
@@ -19,5 +19,9 @@ function cekEnter(data, e, i) {
   ) {
     return true;
   };
-}
+};
+
+function pemisahParagraf(enter, data, e, i) {
+  console.log(data)
+};
 // module.exports = mergeParagraf;
