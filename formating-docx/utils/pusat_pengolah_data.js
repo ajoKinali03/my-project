@@ -1,5 +1,5 @@
 const mentahanDataDb = require("../model/mentahan");
-const spclChar = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
+const spclChar = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~\n\t]/;
 // const mergeParagraf  = require("./merge_paragraf");
 
 // code runner
@@ -117,47 +117,83 @@ function sentanceCase(e) {
 
 // fungsi cek penomoran
 function cekNmr(arrTks) {
-  // const teks = arrTks.join("");
-  // console.log(/^[A-Z]\./g.test(teks) ? true : false, teks);
+  const ktgrNmr = arrObjNmr();
   let result = false;
   let tipe = null;
-  arrTks.forEach((a, i) => {
-    if (a.length < 1 && i < 2) {
-      const ktgrNmr = arrObjNmr(a);
-      ktgrNmr.forEach((e) => {
-        if (e.cekTipe) {
-          result = true;
-          tipe = e.tipe.join("");
-        }
-      });
+  let count = 0;
+  arrTks.forEach((e, i) => {
+    if (e != "\t" && e != "") {
+      count++;
+      console.log(count, "ok", [e]);
     }
+    ktgrNmr.forEach((cek, idx) => {
+      if (cek.cekTipe(e) && arrTks[i + 1] == cek.dot && count == 1) {
+        count == 0;
+        result = true;
+        tipe = cek.tipe(e);
+      }
+    });
   });
-  console.log(result, tipe)
   return { cekNmr: result, tipe: tipe };
 }
 
 // fungsi menampung arr objek cek penomoran
-function arrObjNmr(e) {
+function arrObjNmr() {
   return [
     {
-      cekTipe: /^[A-Z]./g.test(e) ? true : false,
-      tipe: e.match(/^[A-Z]./g),
+      cekTipe: (e) => {
+        if (e.length == 1) {
+          return /[A-Z]/.test(e);
+        }
+      },
+      dot: ".",
+      tipe: function (e) {
+        return e + this.dot;
+      },
     },
     {
-      cekTipe: /^\d./g.test(e) ? true : false,
-      tipe: e.match(/^\d./g),
+      cekTipe: function (e) {
+        if (e.length == 1) {
+          return /\d/.test(e);
+        }
+      },
+      dot: ".",
+      tipe: function (e) {
+        return e + this.dot;
+      },
     },
     {
-      cekTipe: /^[a-z]./g.test(e) ? true : false,
-      tipe: e.match(/^[a-z]./g),
+      cekTipe: function (e) {
+        if (e.length == 1) {
+          return /[a-z]/.test(e);
+        }
+      },
+      dot: ".",
+      tipe: function (e) {
+        return e + this.dot;
+      },
     },
     {
-      cekTipe: /^\d\)/g.test(e) ? true : false,
-      tipe: e.match(/^\d\)/g),
+      cekTipe: function (e) {
+        if (e.length == 1) {
+          return /\d/.test(e);
+        }
+      },
+      dot: ")",
+      tipe: function (e) {
+        return e + this.dot;
+      },
     },
     {
-      cekTipe: /^[a-z]\)/g.test(e) ? true : false,
-      tipe: e.match(/^[a-z]\)/g),
+      cekTipe: function (e) {
+        if (e.length == 1) {
+          return /[a-z]/.test(e);
+        }
+      },
+      dot: ")",
+      tipe: function (e) {
+        return e + this.dot;
+      },
     },
   ];
 }
