@@ -29,6 +29,9 @@
   border-radius: 5px;
 }
 
+/* style untuk halam home */
+
+
 /* style untuk halam setting */
 
 .container-setting{
@@ -70,6 +73,7 @@
   width: 100%;
   outline: none;
   border: none;
+  resize: none;
 }
 .textarea-setting:focus{
   background-color: rgb(236, 236, 236);

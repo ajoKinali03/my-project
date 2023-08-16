@@ -1,17 +1,16 @@
 const mentahanDataDb = require("../model/mentahan");
 const spclChar = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~\n\t]/;
-// const mergeParagraf  = require("./merge_paragraf");
+const mergeParagraf = require("./merge_paragraf");
 
 // code runner
 const mentahanData = async (teks) => {
   teks = JSON.parse(teks);
   teks = teks.teks;
   const lineTeks = filterEnter(teks);
-  const arrLineTeks = filterSpasi(lineTeks);
+  const paragrah = mergeParagraf(lineTeks);
+  const arrLineTeks = filterSpasi(paragrah);
   const idntKtgr = identifikasiKategori(arrLineTeks);
-
-  // console.log(mergeParagraf(idntKtgr));
-
+  console.log(idntKtgr);
   await mentahanDataDb.insertMany(idntKtgr);
 
   return;
@@ -68,6 +67,7 @@ function identifikasiKategori(arrTksLn) {
     arrOfObjKtgr.push({
       id: "teks" + i,
       teks: e,
+      gruop_id: null,
       ktgr: {
         jumlah_huruf: teks.length,
         tanda_enter: teks.includes("\n"),
@@ -124,7 +124,6 @@ function cekNmr(arrTks) {
   arrTks.forEach((e, i) => {
     if (e != "\t" && e != "") {
       count++;
-      console.log(count, "ok", [e]);
     }
     ktgrNmr.forEach((cek, idx) => {
       if (cek.cekTipe(e) && arrTks[i + 1] == cek.dot && count == 1) {

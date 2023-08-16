@@ -1,18 +1,26 @@
-require("./db_manage");
-const mentahanDataDb = require("../model/mentahan");
-
-const mergeParagraf = async () => {
-  const data = await mentahanDataDb.find();
-  console.log(data)
+const mergeParagraf = (data) => {
+  let rsltArr = [];
+  let arrKos = [];
   data.forEach((e, i) => {
-    let enter = !cekEnter(e) == false;
-    let paragraf = pemisahParagraf(enter, data, e, i);
+    let teks = e;
+    let enter = cekEnter(e);
+    if(enter){
+      rsltArr.push(arrKos);
+      rsltArr.push(teks)
+      arrKos = []; 
+    }if(!enter){
+      arrKos.push(teks)
+    }if(i == data.length-1){
+      rsltArr.push(arrKos);
+      arrKos = [];
+    };
   });
+  const arrParagraf = arrParagrafParse(rsltArr);
+  return arrParagraf;
 };
-mergeParagraf();
 
 function cekEnter(e) {
-  let teks = e.teks.join("");
+  let teks = e;
   if (
     teks.includes("\n") &&
     !/[a-z]/gi.test(teks.toLowerCase()) &&
@@ -22,7 +30,12 @@ function cekEnter(e) {
   };
 };
 
-function pemisahParagraf(enter, data, e, i) {
-  console.log(data)
+function arrParagrafParse(arrTeks) {
+  return arrTeks.map((e, i) => {
+    if(typeof e == "object"){
+      return e.join().replaceAll("\n",  "") + "\n"
+    }else{return e};
+  });
 };
-// module.exports = mergeParagraf;
+
+module.exports = mergeParagraf;

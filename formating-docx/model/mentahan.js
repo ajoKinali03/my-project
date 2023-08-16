@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const myScehma = new mongoose.Schema({
   id: String,
   teks: Array,
+  gruop_id: String,
   ktgr: {
     jumlah_huruf: Number,
     bahasa: Object,
