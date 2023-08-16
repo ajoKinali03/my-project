@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-
+//untuk data dgn key jumlah akan digunakan ketika memformat panjang paragraf
 const myScehma = new mongoose.Schema({
   id: String,
   teks: Array,
