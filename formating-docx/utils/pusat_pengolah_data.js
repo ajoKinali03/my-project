@@ -67,7 +67,7 @@ function identifikasiKategori(arrTksLn) {
     arrOfObjKtgr.push({
       id: "teks" + i,
       teks: e,
-      gruop_id: null,
+      grup_id: "grupId",
       ktgr: {
         jumlah_huruf: teks.length,
         tanda_enter: teks.includes("\n"),

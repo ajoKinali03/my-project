@@ -33,7 +33,7 @@ function cekEnter(e) {
 function arrParagrafParse(arrTeks) {
   return arrTeks.map((e, i) => {
     if(typeof e == "object"){
-      return e.join().replaceAll("\n",  "") + "\n"
+      return e.join("").replaceAll("\n",  ""  ) + "\n"
     }else{return e};
   });
 };
