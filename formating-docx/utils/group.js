@@ -8,7 +8,7 @@ const crtGrupId = async () => {
   let cekId = false,
     getId = null;
   data.forEach((e, i) => {
-    console.log(e.ktgr, e.id);
+    // console.log(e.ktgr, e.id);
     let arrBanding = Object.values(e.ktgr);
     if (!arrGrupId.join().includes(e.id)) {
       arrKos.push(e.id);
@@ -27,19 +27,34 @@ const crtGrupId = async () => {
       });
     }
   });
+  console.log(arrGrupId);
   return arrGrupId;
 };
 crtGrupId();
 
 function cekBanding(banding, pembanding, a, e) {
+  let point = 0;
+  let pointTarget = 0;
+  let strPembanding = pembanding.join().replace(/\d/g, "");
   for (let i = 0; i < banding.length; i++) {
-    //kondisi ini kurang tepat, yang tepat adalah point data yang hampir mendekati
-    if (banding[i] == pembanding[i]) {
-      if (i == banding.length - 1) { 
+    // algoritma gagal
+    if(banding[i] == pembanding[i]){
+      if(i == banding.length-1){
         return true;
-      }
-    } else {
-      return false;
-    }
+      };
+    };
+    if(typeof banding[i] != "number"){
+      if(strPembanding.includes(`${banding[i]}`)){
+        point++;
+      };
+      pointTarget++;
+    };
+    if(i == banding.length-1){
+      if(pointTarget - point == 2){
+        return true
+      };
+      point = 0;
+      pointTarget = 0;
+    };
   }
 }
