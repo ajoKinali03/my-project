@@ -1,44 +1,4 @@
 extends layout
 
 block content  
-  div.costume-container.mt-3.mx-2(style="color: white;")
-    div.cover-label-btn.mb-2(style="display: flex; flex-direction: row; width: 48vw; justify-content: space-between;")
-      label.costume-label.form-label(for='exampleFormControlTextarea1') Masukan Text Anda Disini 
-      button#btn-ok.btn.btn-primary.px-5(style="display: inline-block;")
-          |OK
-    .row.m-0.p-0
-      .col.p-0
-        textarea#textInput.form-control(rows='14', style="color: black; font-family: 'Times New Roman', monospace; font-size: 24px;", spellcheck="false")
-      .col
-        div.costume-container-list
-          p.mb-0.costume-p-button
-            button.btn.costume-btn(type='button', data-bs-toggle='collapse', data-bs-target='#collapseA', aria-expanded='false', aria-controls='collapseA')
-              | Save dan Edit
-
-          #collapseA.collapse.mt-1
-            .card.card-body(style="color: black; height: 50vh;")
-              ol#costume-list
-        
-          p.mb-0.costume-p-button
-            button.btn.costume-btn(type='button', data-bs-toggle='collapse', data-bs-target='#collapseB', aria-expanded='false', aria-controls='collapseB')
-              | Cara Penggunaan Tag
-
-          #collapseB.collapse.mt-1
-            .card.card-body(style="color: black;")
-              | jb = judul bab 
-              br
-              | num0 = point A 
-              br
-              | num1 = point 1 
-              br
-              | num2 = point a 
-              br
-              | num3 = point 1, 
-              br
-              | num4 = point a, 
-
-        div.costume-container-render-download.mt-1
-          form#form-post(action="/home", method="post") 
-            input#input-post(type="hidden", name="postInput")
-            button#btn-post.btn.btn-primary(type="submit", style="display: inline-block")
-              |Render
+  
