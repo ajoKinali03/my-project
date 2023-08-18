@@ -1,9 +1,9 @@
 // fungsi cek penomoran
 const cekNmr = (arrTks) => {
+  // console.log(arrTks)
   const ktgrNmr = arrObjNmr();
   let result = false;
   let tipe = null;
-  console.log(arrTks, result, tipe)
   let count = 0;
   arrTks.forEach((e, i) => {
     if (e != "\t" && e != "") {

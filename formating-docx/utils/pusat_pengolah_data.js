@@ -1,18 +1,17 @@
 const mentahanDataDb = require("../model/mentahan");
 const cekNmr = require("./cek_nmr");
-const spclChar = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~\n\t]/;
-// const mergeParagraf = require("./merge_paragraf");
+const filterSpasi = require("./filter_spasi");
+const mergeParagraf = require("./merge_paragraf");
 
 // code runner
 const mentahanData = async (teks) => {
   teks = JSON.parse(teks);
   teks = teks.teks;
   const lineTeks = filterEnter(teks);
-  // const paragrah = mergeParagraf(lineTeks);
-  // const arrLineTeks = filterSpasi(paragrah);
-  const arrLineTeks = filterSpasi(lineTeks);
+  const paragrah = mergeParagraf(lineTeks);
+  const arrLineTeks = filterSpasi(paragrah);
   const idntKtgr = identifikasiKategori(arrLineTeks);
-  
+  console.log(idntKtgr)
   await mentahanDataDb.insertMany(idntKtgr);
 
   return;
@@ -33,26 +32,26 @@ function filterEnter(teks) {
   return arrKos;
 }
 
-// fungsi memisahkan kalimat berdasrkan spasi
-function filterSpasi(arrKal) {
-  let arr = [];
-  arrKal.forEach((e, i) => {
-    let kal = [...e];
-    let arrKos = [];
-    let dummyArr = [];
-    kal.forEach((a, idx) => {
-      if (spclChar.test(a) || idx == kal.length - 1) {
-        arrKos.push(dummyArr.join(""));
-        arrKos.push(a);
-        dummyArr = [];
-      } else {
-        dummyArr.push(a);
-      }
-    });
-    arr.push(arrKos);
-  });
-  return arr;
-}
+// // fungsi memisahkan kalimat berdasrkan spasi
+// function filterSpasi(arrKal) {
+//   let arr = [];
+//   arrKal.forEach((e, i) => {
+//     let kal = [...e];
+//     let arrKos = [];
+//     let dummyArr = [];
+//     kal.forEach((a, idx) => {
+//       if (spclChar.test(a) || idx == kal.length - 1) {
+//         arrKos.push(dummyArr.join(""));
+//         arrKos.push(a);
+//         dummyArr = [];
+//       } else {
+//         dummyArr.push(a);
+//       }
+//     });
+//     arr.push(arrKos);
+//   });
+//   return arr;
+// }
 
 // fungsi akhir, yiatu memberi identifikasi dan menjadikan ke objek sesuai kategori
 function identifikasiKategori(arrTksLn) {
