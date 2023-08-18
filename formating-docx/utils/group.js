@@ -37,24 +37,11 @@ function cekBanding(banding, pembanding, a, e) {
   let pointTarget = 0;
   let strPembanding = pembanding.join().replace(/\d/g, "");
   for (let i = 0; i < banding.length; i++) {
-    // algoritma gagal
-    if(banding[i] == pembanding[i]){
-      if(i == banding.length-1){
-        return true;
-      };
-    };
-    if(typeof banding[i] != "number"){
-      if(strPembanding.includes(`${banding[i]}`)){
-        point++;
-      };
-      pointTarget++;
-    };
-    if(i == banding.length-1){
-      if(pointTarget - point == 2){
-        return true
-      };
-      point = 0;
-      pointTarget = 0;
-    };
-  }
-}
+    
+  };
+};
+
+
+function cekDataStatis(){
+  
+};

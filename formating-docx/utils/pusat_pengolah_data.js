@@ -1,16 +1,18 @@
 const mentahanDataDb = require("../model/mentahan");
+const cekNmr = require("./cek_nmr");
 const spclChar = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~\n\t]/;
-const mergeParagraf = require("./merge_paragraf");
+// const mergeParagraf = require("./merge_paragraf");
 
 // code runner
 const mentahanData = async (teks) => {
   teks = JSON.parse(teks);
   teks = teks.teks;
   const lineTeks = filterEnter(teks);
-  const paragrah = mergeParagraf(lineTeks);
-  const arrLineTeks = filterSpasi(paragrah);
+  // const paragrah = mergeParagraf(lineTeks);
+  // const arrLineTeks = filterSpasi(paragrah);
+  const arrLineTeks = filterSpasi(lineTeks);
   const idntKtgr = identifikasiKategori(arrLineTeks);
-  console.log(idntKtgr);
+  
   await mentahanDataDb.insertMany(idntKtgr);
 
   return;
@@ -84,7 +86,7 @@ function identifikasiKategori(arrTksLn) {
     });
   });
   return arrOfObjKtgr;
-}
+};
 
 function sentanceCase(e) {
   let up = 0;
@@ -113,88 +115,6 @@ function sentanceCase(e) {
   if (uppercase != null) {
     return uppercase;
   }
-}
-
-// fungsi cek penomoran
-function cekNmr(arrTks) {
-  const ktgrNmr = arrObjNmr();
-  let result = false;
-  let tipe = null;
-  let count = 0;
-  arrTks.forEach((e, i) => {
-    if (e != "\t" && e != "") {
-      count++;
-    }
-    ktgrNmr.forEach((cek, idx) => {
-      if (cek.cekTipe(e) && arrTks[i + 1] == cek.dot && count == 1) {
-        count == 0;
-        result = true;
-        tipe = cek.tipe(e);
-      }
-    });
-  });
-  return { cekNmr: result, tipe: tipe };
-}
-
-// fungsi menampung arr objek cek penomoran
-function arrObjNmr() {
-  return [
-    {
-      cekTipe: (e) => {
-        if (e.length == 1) {
-          return /[A-Z]/.test(e);
-        }
-      },
-      dot: ".",
-      tipe: function (e) {
-        return e + this.dot;
-      },
-    },
-    {
-      cekTipe: function (e) {
-        if (e.length == 1) {
-          return /\d/.test(e);
-        }
-      },
-      dot: ".",
-      tipe: function (e) {
-        return e + this.dot;
-      },
-    },
-    {
-      cekTipe: function (e) {
-        if (e.length == 1) {
-          return /[a-z]/.test(e);
-        }
-      },
-      dot: ".",
-      tipe: function (e) {
-        return e + this.dot;
-      },
-    },
-    {
-      cekTipe: function (e) {
-        if (e.length == 1) {
-          return /\d/.test(e);
-        }
-      },
-      dot: ")",
-      tipe: function (e) {
-        return e + this.dot;
-      },
-    },
-    {
-      cekTipe: function (e) {
-        if (e.length == 1) {
-          return /[a-z]/.test(e);
-        }
-      },
-      dot: ")",
-      tipe: function (e) {
-        return e + this.dot;
-      },
-    },
-  ];
 }
 
 module.exports = mentahanData;
