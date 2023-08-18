@@ -44,7 +44,7 @@ function cekBanding(banding, pembanding, a, e) {
   let pointTarget = 0;
   let strPembanding = pembanding.join().replace(/\d/g, "");
   for (let i = 0; i < banding.length; i++) {
-    return cekDataStatis( a, e);
+    return cekDataStatis(a, e);
   }
 }
 
@@ -62,6 +62,25 @@ function cekDataStatis(a, e) {
       return false;
     }
   } else {
-    return false;
+    if (cekTab()) {
+    } else {
+      createTab();
+      if (cekPanjangTeks()) {
+        if (cekTitik() || cekKoma()) {
+        } else {
+          return false;
+        }
+      } else {
+        return false;
+      }
+    }
   }
 }
+
+function cekTab() {}
+function createTab() {}
+function cekPanjangTeks() {}
+function cekTitik() {}
+function cekKoma() {}
+
+function cekDataDinamis() {}
