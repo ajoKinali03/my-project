@@ -32,27 +32,6 @@ function filterEnter(teks) {
   return arrKos;
 }
 
-// // fungsi memisahkan kalimat berdasrkan spasi
-// function filterSpasi(arrKal) {
-//   let arr = [];
-//   arrKal.forEach((e, i) => {
-//     let kal = [...e];
-//     let arrKos = [];
-//     let dummyArr = [];
-//     kal.forEach((a, idx) => {
-//       if (spclChar.test(a) || idx == kal.length - 1) {
-//         arrKos.push(dummyArr.join(""));
-//         arrKos.push(a);
-//         dummyArr = [];
-//       } else {
-//         dummyArr.push(a);
-//       }
-//     });
-//     arr.push(arrKos);
-//   });
-//   return arr;
-// }
-
 // fungsi akhir, yiatu memberi identifikasi dan menjadikan ke objek sesuai kategori
 function identifikasiKategori(arrTksLn) {
   let arrOfObjKtgr = [];
@@ -79,6 +58,7 @@ function identifikasiKategori(arrTksLn) {
         jumlah_titik: jumTitik,
         jumlah_koma: jumKoma,
         cek_penomoran: cekNmr(e).cekNmr,
+        tingkat_penomoran: cekNmr(e).tingkat,
         jenis_penomoran: cekNmr(e).tipe,
         sentence_case: sentanceCase(e),
       },

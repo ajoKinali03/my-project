@@ -15,6 +15,7 @@ const myScehma = new mongoose.Schema({
     jumlah_titik: Number,
     jumlah_koma: Number,
     cek_penomoran: Boolean,
+    tingkat_penomoran: Number,
     jenis_penomoran: String,
     sentence_case: String,
   },

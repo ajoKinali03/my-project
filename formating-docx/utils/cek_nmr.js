@@ -4,6 +4,7 @@ const cekNmr = (arrTks) => {
   const ktgrNmr = arrObjNmr();
   let result = false;
   let tipe = null;
+  let tingkatPenomoran = null;
   let count = 0;
   arrTks.forEach((e, i) => {
     if (e != "\t" && e != "") {
@@ -14,11 +15,12 @@ const cekNmr = (arrTks) => {
         count == 0;
         result = true;
         tipe = cek.tipe(e);
+        tingkatPenomoran = cek.tingkat;
       }
     });
   });
-  return { cekNmr: result, tipe: tipe };
-}
+  return { cekNmr: result, tipe: tipe, tingkat: tingkatPenomoran };
+};
 
 // fungsi menampung arr objek cek penomoran
 function arrObjNmr() {
@@ -33,6 +35,7 @@ function arrObjNmr() {
       tipe: function (e) {
         return e + this.dot;
       },
+      tingkat: 1,
     },
     {
       cekTipe: function (e) {
@@ -44,6 +47,7 @@ function arrObjNmr() {
       tipe: function (e) {
         return e + this.dot;
       },
+      tingkat: 2,
     },
     {
       cekTipe: function (e) {
@@ -55,6 +59,7 @@ function arrObjNmr() {
       tipe: function (e) {
         return e + this.dot;
       },
+      tingkat: 3,
     },
     {
       cekTipe: function (e) {
@@ -66,6 +71,7 @@ function arrObjNmr() {
       tipe: function (e) {
         return e + this.dot;
       },
+      tingkat: 4,
     },
     {
       cekTipe: function (e) {
@@ -77,6 +83,7 @@ function arrObjNmr() {
       tipe: function (e) {
         return e + this.dot;
       },
+      tingkat: 5,
     },
   ];
 }
