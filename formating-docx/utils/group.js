@@ -9,22 +9,14 @@ const crtGrupId = async () => {
   let cekId = false,
     getId = null;
   data.forEach((e, i) => {
-    // console.log(e.ktgr, e.id);
-    let arrBanding = Object.values(e.ktgr);
     if (!arrGrupId.join().includes(e.id)) {
       arrKos.push(e.id);
-      // const bndngNmr = cekNmr(e.teks);
       data.forEach((a, idx) => {
         if (!arrGrupId.join().includes(a.id) && a.id != e.id) {
-          // const pmbndngNmr = cekNmr(a.teks);
-          let arrPembanding = Object.values(a.ktgr);
-          let hslBanding = cekBanding(arrBanding, arrPembanding, a, e);
+          let hslBanding = cekBanding(a, e);
           if (hslBanding) {
             arrKos.push(a.id);
           }
-          // if (bndngNmr.cekNmr == pmbndngNmr.cekNmr) {
-          //   arrKos.push(a.id);
-          // }
         }
         if (idx == data.length - 1) {
           arrGrupId.push(arrKos);
@@ -38,16 +30,11 @@ const crtGrupId = async () => {
 };
 crtGrupId();
 
-function cekBanding(banding, pembanding, a, e) {
-  let point = 0;
-  let pointTarget = 0;
-  let strPembanding = pembanding.join().replace(/\d/g, "");
-  for (let i = 0; i < banding.length; i++) {
-    return cekDataStatis(a, e);
-  }
+function cekBanding(e, a) {
+  return cekDataStatis(e, a);
 }
 
-function cekDataStatis(a, e) {
+function cekDataStatis(e, a) {
   const bndngNmr = e.ktgr;
   const pmbndngNmr = a.ktgr;
   if (
@@ -60,29 +47,43 @@ function cekDataStatis(a, e) {
     } else {
       return false;
     }
-  } else {
+  } else if (
+    bndngNmr.cek_penomoran == false &&
+    pmbndngNmr.cek_penomoran == false
+  ) {
     if (cekTab(e).exist && cekTab(a).exist) {
       if (cekTab(e).jum == cekTab(a).jum) {
-        return true;
-      } else {
-        return false;
-      }
-    } else {
-      // createTab(e, a);
-      if (cekPanjangTeks()) {
-        if (cekTitik() || cekKoma()) {
-        } else {
-          return false;
+        if (cekPanjangTeks(e) && cekPanjangTeks(a)) {
+          return true;
         }
       } else {
         return false;
       }
-    }``
+    } else if (!cekTab(e).exist && !cekTab(a).exist) {
+      if (cekPanjangTeks(e) && cekPanjangTeks(a)) {
+      }
+    }
   }
 }
 
-function cekPanjangTeks() {}
-function cekTitik() {}
-function cekKoma() {}
+function cekPanjangTeks(value) {
+  let digit = value.ktgr.jumlah_huruf;
+  if (digit >= 100) {
+    if (value.ktgr.jumlah_titik > 1) {
+      if (value.ktgr.jumlah_koma != 0) {
+        return true;
+      }else{return true}
+    }
+    if (value.ktgr.jumlah_titik == 1) {
+      return true;
+    }
+  } else if (digit < 100) {
+    jumlahKata();
+    kemiripanKata();
+    return;
+  }
+}
+function kemiripanKata() {}
+function jumlahKata() {}
 
 function cekDataDinamis() {}

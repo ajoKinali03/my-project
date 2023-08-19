@@ -17,17 +17,21 @@ const createTab = (data) => {
     if (!e.ktgr.tanda_tab) {
       if (e.ktgr.cek_penomoran) {
         tingkatan = e.ktgr.tingkat_penomoran - 1;
-        if (e.ktgr.tingkat_penomoran != 0) {
-          if (tingkatan != e.ktgr.tingkat_penomoran) {
-            tab = "";
-          }
-          for (let i = 0; i < tingkatan; i++) {
-            tab += "\t-";
-            e.teks.unshift("\t");
-          }
+        if (tingkatan != e.ktgr.tingkat_penomoran) {
+          tab = "";
         }
-      } else {
-        if (tingkatan > 0 && tab != null) {
+        e.ktgr.tanda_tab = true;
+        e.ktgr.jumlah_tab = tingkatan;
+        for (let i = 0; i < tingkatan; i++) {
+          tab += "\t-";
+          e.teks.unshift("\t");
+        }
+      }
+      if (!e.ktgr.cek_penomoran) {
+        if (tab != null) {
+          tab += "\t";
+          e.ktgr.tanda_tab = true;
+          e.ktgr.jumlah_tab = tingkatan;
           e.teks.unshift(...tab.split("-"));
         }
       }

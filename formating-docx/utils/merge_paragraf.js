@@ -27,6 +27,7 @@ const mergeParagraf = (data) => {
     }
   });
   const arrParagraf = arrParagrafParse(rsltArr);
+  console.log(arrParagraf);
   return arrParagraf;
 };
 
