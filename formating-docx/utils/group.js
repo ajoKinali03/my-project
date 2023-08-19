@@ -1,7 +1,6 @@
 require("./db_manage");
 const mentahanDataDb = require("../model/mentahan");
-const cekNmr = require("./cek_nmr");
-// const filterSpasi = require("./filter_spasi");
+const { cekTab } = require("./cekTab");
 
 const crtGrupId = async () => {
   let data = await mentahanDataDb.find();
@@ -49,22 +48,27 @@ function cekBanding(banding, pembanding, a, e) {
 }
 
 function cekDataStatis(a, e) {
-  const bndngNmr = cekNmr(e.teks);
-  const pmbndngNmr = cekNmr(a.teks);
+  const bndngNmr = e.ktgr;
+  const pmbndngNmr = a.ktgr;
   if (
-    bndngNmr.cekNmr == pmbndngNmr.cekNmr &&
-    bndngNmr.cekNmr == true &&
-    pmbndngNmr.cekNmr == true
+    bndngNmr.cek_penomoran == pmbndngNmr.cek_penomoran &&
+    bndngNmr.cek_penomoran == true &&
+    pmbndngNmr.cek_penomoran == true
   ) {
-    if (bndngNmr.tingkat == pmbndngNmr.tingkat) {
+    if (bndngNmr.tingkat_penomoran == pmbndngNmr.tingkat_penomoran) {
       return true;
     } else {
       return false;
     }
   } else {
-    if (cekTab()) {
+    if (cekTab(e).exist && cekTab(a).exist) {
+      if (cekTab(e).jum == cekTab(a).jum) {
+        return true;
+      } else {
+        return false;
+      }
     } else {
-      createTab();
+      // createTab(e, a);
       if (cekPanjangTeks()) {
         if (cekTitik() || cekKoma()) {
         } else {
@@ -73,12 +77,10 @@ function cekDataStatis(a, e) {
       } else {
         return false;
       }
-    }
+    }``
   }
 }
 
-function cekTab() {}
-function createTab() {}
 function cekPanjangTeks() {}
 function cekTitik() {}
 function cekKoma() {}

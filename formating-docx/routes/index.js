@@ -13,7 +13,9 @@ router.get("/", function (req, res, next) {
 });
 
 router.get("/home", async (req, res) => {
-  res.render("home", { title: "shortcut-docx" });
+  let data = await mentahanDataDb.find();
+
+  res.render("home", { title: "shortcut-docx", teks: data.map( e => e.teks.join("")).join("") });
 });
 
 router.post("/deleteDb", async function (req, res) {

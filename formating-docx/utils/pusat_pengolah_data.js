@@ -1,4 +1,5 @@
 const mentahanDataDb = require("../model/mentahan");
+const { createTab } = require("./cekTab");
 const cekNmr = require("./cek_nmr");
 const filterSpasi = require("./filter_spasi");
 const mergeParagraf = require("./merge_paragraf");
@@ -11,7 +12,8 @@ const mentahanData = async (teks) => {
   const paragrah = mergeParagraf(lineTeks);
   const arrLineTeks = filterSpasi(paragrah);
   const idntKtgr = identifikasiKategori(arrLineTeks);
-  console.log(idntKtgr)
+  const addTab = createTab(idntKtgr)
+  console.log(addTab);
   await mentahanDataDb.insertMany(idntKtgr);
 
   return;
