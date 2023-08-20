@@ -27,7 +27,7 @@ const mergeParagraf = (data) => {
     }
   });
   const arrParagraf = arrParagrafParse(rsltArr);
-  console.log(arrParagraf);
+  // console.log(arrParagraf);
   return arrParagraf;
 };
 
@@ -45,8 +45,11 @@ function cekEnter(e) {
 function arrParagrafParse(arrTeks) {
   return arrTeks.map((e, i) => {
     if (typeof e == "object") {
-      // masih ada bug: yaitu pada teks seperti bab seharusya teks tersebut tidak di hilangkan "\n"-nya
-      return e.join("").replaceAll("\n", "") + "\n";
+      if (e.length >= 100) {
+        return e.join("").replaceAll("\n", "") + "\n";
+      } else {
+        return;
+      }
     } else {
       return e;
     }

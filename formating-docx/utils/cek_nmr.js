@@ -18,7 +18,7 @@ const cekNmr = (arrTks) => {
         tingkatPenomoran = cek.tingkat;
       }
     });
-  });
+  });console
   return { cekNmr: result, tipe: tipe, tingkat: tingkatPenomoran };
 };
 

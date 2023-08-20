@@ -79,11 +79,13 @@ function cekPanjangTeks(value) {
     }
   } else if (digit < 100) {
     jumlahKata();
-    kemiripanKata();
+    kemiripanKata(value);
     return;
   }
 }
-function kemiripanKata() {}
+function kemiripanKata(value) {
+  console.log(value.teks, value.id)
+}
 function jumlahKata() {}
 
 function cekDataDinamis() {}

@@ -5,6 +5,7 @@ const spclChar = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~\n\t]/;
 const filterSpasi = (arrKal) => {
   let arr = [];
   arrKal.forEach((e, i) => {
+    console.log(e);
     let kal = [...e];
     let arrKos = [];
     let dummyArr = [];

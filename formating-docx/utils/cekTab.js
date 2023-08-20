@@ -14,7 +14,7 @@ const createTab = (data) => {
   let tingkatan = 0;
   let tab = "";
   data = data.map((e, i) => {
-    if (!e.ktgr.tanda_tab) {
+    if (!e.ktgr.tanda_tab && !e.ktgr.jumlah_huruf < 1) {
       if (e.ktgr.cek_penomoran) {
         tingkatan = e.ktgr.tingkat_penomoran - 1;
         if (tingkatan != e.ktgr.tingkat_penomoran) {
