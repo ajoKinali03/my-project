@@ -25,7 +25,7 @@ const crtGrupId = async () => {
       });
     }
   });
-  console.log(arrGrupId);
+  // console.log(arrGrupId);
   return arrGrupId;
 };
 crtGrupId();
@@ -53,39 +53,65 @@ function cekDataStatis(e, a) {
   ) {
     if (cekTab(e).exist && cekTab(a).exist) {
       if (cekTab(e).jum == cekTab(a).jum) {
-        if (cekPanjangTeks(e) && cekPanjangTeks(a)) {
+        if (cekPanjangTeks(e).lebih && cekPanjangTeks(a).lebih) {
           return true;
+        }
+        if (cekPanjangTeks(e).kurang && cekPanjangTeks(a).kurang) {
+          if (jumlahKata(e, a)) {
+            // apakah jumlah kata nya sama
+            if (kemiripanKata(e, a)) {
+              // apakah ada kata yang mirip walaupun satu kata
+            } else {
+              return false;
+            }
+            return true;
+          } else if (kemiripanKata(e, a)) {
+            // apakah ada kata yang mirip walaupun satu kata
+          } else {
+            return true;
+          }
         }
       } else {
         return false;
       }
     } else if (!cekTab(e).exist && !cekTab(a).exist) {
-      if (cekPanjangTeks(e) && cekPanjangTeks(a)) {
+      if (cekPanjangTeks(e).lebih && cekPanjangTeks(a).lebih) {
+        return true;
+      }
+      if (cekPanjangTeks(e).kurang && cekPanjangTeks(a).kurang) {
+        // kemiripanKata(e, a)
+        return true;
       }
     }
   }
 }
 
 function cekPanjangTeks(value) {
+  let lebih = false;
+  let kurang = false;
   let digit = value.ktgr.jumlah_huruf;
   if (digit >= 100) {
     if (value.ktgr.jumlah_titik > 1) {
       if (value.ktgr.jumlah_koma != 0) {
-        return true;
-      }else{return true}
+        lebih = true;
+      } else {
+        lebih = true;
+      }
     }
     if (value.ktgr.jumlah_titik == 1) {
-      return true;
+      lebih = true;
     }
-  } else if (digit < 100) {
-    jumlahKata();
-    kemiripanKata(value);
-    return;
   }
+  if (digit < 100) {
+    kurang = true;
+  }
+  // console.log(kurang ? [value.teks, value.id] : false)
+  return { lebih: lebih, kurang: kurang };
 }
-function kemiripanKata(value) {
-  console.log(value.teks, value.id)
+function kemiripanKata(e, a) {
+  value.teks;
 }
+
 function jumlahKata() {}
 
 function cekDataDinamis() {}
