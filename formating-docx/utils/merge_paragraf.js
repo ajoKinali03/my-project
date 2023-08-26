@@ -27,7 +27,8 @@ const mergeParagraf = (data) => {
     }
   });
   const arrParagraf = arrParagrafParse(rsltArr);
-   return arrParagraf;
+  // console.log(arrParagraf);
+  return arrParagraf;
 };
 
 function cekEnter(e) {
@@ -43,8 +44,11 @@ function cekEnter(e) {
 function arrParagrafParse(arrTeks) {
   return arrTeks.map((e, i) => {
     if (typeof e == "object") {
-      // return e.join("");
-      return e.join("").replaceAll("\n", "") + "\n";
+      if (e.join("").length < 100) {
+        return e.join("");
+      } else {
+        return e.join("").replaceAll("\n") + "\n";
+      }
     } else {
       return e;
     }

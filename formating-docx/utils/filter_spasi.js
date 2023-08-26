@@ -1,6 +1,5 @@
 const spclChar = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~\n\t]/;
 
-
 // fungsi memisahkan kalimat berdasrkan spasi
 const filterSpasi = (arrKal) => {
   let arr = [];
@@ -17,10 +16,12 @@ const filterSpasi = (arrKal) => {
         dummyArr.push(a);
       }
     });
-    arr.push(arrKos);
+    if (!arrKos.length == 0 && !arrKos == false) {
+      arr.push(arrKos);
+    }
   });
+  // console.log(arr)
   return arr;
 };
-
 
 module.exports = filterSpasi;

@@ -10,6 +10,7 @@ const cekTab = (value) => {
   return { exist: bool, jum: jum };
 };
 
+// disini ada BUG: tab tidak bisa mendeteksi mana yang harus di beritab atau tidak
 const createTab = (data) => {
   let tingkatan = 0;
   let tab = "";
@@ -29,7 +30,11 @@ const createTab = (data) => {
           }
         }
         if (!e.ktgr.cek_penomoran) {
-          if (tab != null) {
+          if (
+            tab != null &&
+            e.ktgr.sentence_case != "uppercase" &&
+            e.teks.join("").length >= 100
+          ) {
             tab += "\t";
             e.ktgr.tanda_tab = true;
             e.ktgr.jumlah_tab = tingkatan;

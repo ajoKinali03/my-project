@@ -1,19 +1,18 @@
 require("./db_manage");
 const mentahanDataDb = require("../model/mentahan");
 const { cekTab } = require("./cekTab");
+const spclChar = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~\n\t]/gi;
 
 const crtGrupId = async () => {
   let data = await mentahanDataDb.find();
   let arrGrupId = [],
     arrKos = [];
-  let cekId = false,
-    getId = null;
-  data.forEach((e, i) => {
-    if (!arrGrupId.join().includes(e.id)) {
-      arrKos.push(e.id);
-      data.forEach((a, idx) => {
-        if (!arrGrupId.join().includes(a.id) && a.id != e.id) {
-          let hslBanding = cekBanding(a, e);
+    data.forEach((e, i) => {
+      if (!arrGrupId.join().includes(e.id)) {
+        arrKos.push(e.id);
+        data.forEach((a, idx) => {
+          if (!arrGrupId.join().includes(a.id) && a.id != e.id) {
+          let hslBanding = cekDataStatis(e, a);
           if (hslBanding) {
             arrKos.push(a.id);
           }
@@ -25,13 +24,22 @@ const crtGrupId = async () => {
       });
     }
   });
-  // console.log(arrGrupId);
-  return arrGrupId;
+  return inptGrupId(arrGrupId, data);
 };
 crtGrupId();
 
-function cekBanding(e, a) {
-  return cekDataStatis(e, a);
+function inptGrupId(arrId, data) {
+  return data.map((e, i) => {
+    arrId.forEach((a, idx) => {
+      a.forEach((b, idxb) => {
+        if (b == e.id) {
+          e.grup_id = "grupId";
+          e.grup_id = e.grup_id + idx;
+        }
+      });
+    });
+    return e;
+  });
 }
 
 function cekDataStatis(e, a) {
@@ -52,19 +60,20 @@ function cekDataStatis(e, a) {
     pmbndngNmr.cek_penomoran == false
   ) {
     if (cekTab(e).exist && cekTab(a).exist) {
+      jumlahKata(e, a);
       if (cekTab(e).jum == cekTab(a).jum) {
         if (cekPanjangTeks(e).lebih && cekPanjangTeks(a).lebih) {
           return true;
         }
         if (cekPanjangTeks(e).kurang && cekPanjangTeks(a).kurang) {
           if (jumlahKata(e, a)) {
+            // console.log("ini masuk fungsi jumlahkata");
             // apakah jumlah kata nya sama
             if (kemiripanKata(e, a)) {
-              // apakah ada kata yang mirip walaupun satu kata
+              return true;
             } else {
-              return false;
+              return true;
             }
-            return true;
           } else if (kemiripanKata(e, a)) {
             // apakah ada kata yang mirip walaupun satu kata
           } else {
@@ -79,8 +88,7 @@ function cekDataStatis(e, a) {
         return true;
       }
       if (cekPanjangTeks(e).kurang && cekPanjangTeks(a).kurang) {
-        // kemiripanKata(e, a)
-        return true;
+        return kemiripanKata(e, a);
       }
     }
   }
@@ -105,13 +113,32 @@ function cekPanjangTeks(value) {
   if (digit < 100) {
     kurang = true;
   }
-  // console.log(kurang ? [value.teks, value.id] : false)
   return { lebih: lebih, kurang: kurang };
 }
+
 function kemiripanKata(e, a) {
-  value.teks;
+  let rslt = false;
+  let jumMirip = 0;
+  let aTeks = a.teks.join("");
+  e.teks.forEach((el, idx) => {
+    if (aTeks.includes(el) && el != " " && !spclChar.test(el)) {
+      jumMirip++;
+    }
+  });
+  if (jumMirip > 1) {
+    rslt = true;
+  }
+  return rslt;
 }
 
-function jumlahKata() {}
+function jumlahKata(e, a) {
+  let eKat = e.teks.join("").replace(spclChar, "-");
+  let aKat = a.teks.join("").replace(spclChar, "-");
+  if (eKat.split("-").join("").length == aKat.split("-").join("").length) {
+    return true;
+  } else {
+    return false;
+  }
+}
 
-function cekDataDinamis() {}
+// function cekDataDinamis() {}
