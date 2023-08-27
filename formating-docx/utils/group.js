@@ -1,10 +1,7 @@
-require("./db_manage");
-const mentahanDataDb = require("../model/mentahan");
 const { cekTab } = require("./cekTab");
 const spclChar = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~\n\t]/gi;
 
-const crtGrupId = async () => {
-  let data = await mentahanDataDb.find();
+const crtGrupId = async (data) => {
   let arrGrupId = [],
     arrKos = [];
     data.forEach((e, i) => {
@@ -26,7 +23,6 @@ const crtGrupId = async () => {
   });
   return inptGrupId(arrGrupId, data);
 };
-crtGrupId();
 
 function inptGrupId(arrId, data) {
   return data.map((e, i) => {
@@ -62,6 +58,7 @@ function cekDataStatis(e, a) {
     if (cekTab(e).exist && cekTab(a).exist) {
       jumlahKata(e, a);
       if (cekTab(e).jum == cekTab(a).jum) {
+        // cek data dinamis
         if (cekPanjangTeks(e).lebih && cekPanjangTeks(a).lebih) {
           return true;
         }
@@ -142,3 +139,4 @@ function jumlahKata(e, a) {
 }
 
 // function cekDataDinamis() {}
+module.exports = crtGrupId;

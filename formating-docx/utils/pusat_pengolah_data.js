@@ -2,6 +2,7 @@ const mentahanDataDb = require("../model/mentahan");
 const { createTab } = require("./cekTab");
 const cekNmr = require("./cek_nmr");
 const filterSpasi = require("./filter_spasi");
+const crtGrupId = require("./group");
 const mergeParagraf = require("./merge_paragraf");
 
 // code runner
@@ -13,8 +14,8 @@ const mentahanData = async (teks) => {
   const arrLineTeks = filterSpasi(paragrah);
   const idntKtgr = identifikasiKategori(arrLineTeks);
   const addTab = createTab(idntKtgr)
-  await mentahanDataDb.insertMany(addTab);
-
+  const createGrupId = await crtGrupId(addTab)
+  await mentahanDataDb.insertMany(createGrupId);
   return;
 };
 
