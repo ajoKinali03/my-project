@@ -4,7 +4,7 @@ fetch("http://localhost:3000/home/api").then((res) =>
      .json()
      .then((data) => {
        data.forEach((e, i) => {
-         console.log(e.teks)
+        //  console.log(e.teks)
          inpt.value += e.teks.join("");
        });
      })

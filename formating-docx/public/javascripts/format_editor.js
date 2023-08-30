@@ -10,6 +10,7 @@ function addAutoResize() {
     element.removeAttribute("data-autoresize");
   });
 }
+addAutoResize()
 // untuk menjalankan panggil fungsi addAutoResize() setalah pemanggilan DOM textarea tsb
 // masukan attr data-autoresize di dalam kurang untuk mengetik atribut di jade
 // masukan style box-sizing: border-box; dan resize: none; pada te araea dituju
