@@ -329,8 +329,28 @@ let arrObjAbsn = [
   },
 ];
 
-console.log(
-  arrObjAbsn.map((e, i) => {
-    e.gender == "P" ? e.nama : false;
-  })
-);
+let arrIndex = [];
+    for (let i = 0; i < 500; i++) {
+      const nRandom = Math.floor(Math.random() * 9 + 0);
+      arrIndex.push(nRandom);
+    }
+    arrIndex = [...new Set(arrIndex)];
+    
+ let kelOk = arrObjAbsn.map((e, i) => {
+     let ok = null;
+   if(e.gender == "L"){
+     ok = e.nama + "\n"
+   }
+   return ok;
+   }).join("-").replaceAll("null", "").replaceAll("-", "").split("\n");
+   
+   let hslOk = arrIndex.map((e, i) => {
+     let hsl = null;
+     kelOk.forEach((a, idx) => {
+       if (e == idx) {
+         hsl = a;
+       }
+     })
+     return hsl
+   })
+   console.log(hslOk)
