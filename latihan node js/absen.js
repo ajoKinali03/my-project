@@ -197,7 +197,7 @@ let arrObjAbsn = [
     jurusan: "Ilmu Al-Qura'an dan Tafsir",
     kelas: "IAT A",
     nama: "Alfian Chandra",
-    gender: "P",
+    gender: "L",
     nim: 4122016,
     ip: 18,
   },
@@ -323,34 +323,8 @@ let arrObjAbsn = [
     jurusan: "Ilmu Al-Qura'an dan Tafsir",
     kelas: "IAT A",
     nama: "Muhammad Randi",
-    gender: "P",
+    gender: "L",
     nim: 4122030,
     ip: 32,
   },
 ];
-
-let arrIndex = [];
-    for (let i = 0; i < 500; i++) {
-      const nRandom = Math.floor(Math.random() * 9 + 0);
-      arrIndex.push(nRandom);
-    }
-    arrIndex = [...new Set(arrIndex)];
-    
- let kelOk = arrObjAbsn.map((e, i) => {
-     let ok = null;
-   if(e.gender == "L"){
-     ok = e.nama + "\n"
-   }
-   return ok;
-   }).join("-").replaceAll("null", "").replaceAll("-", "").split("\n");
-   
-   let hslOk = arrIndex.map((e, i) => {
-     let hsl = null;
-     kelOk.forEach((a, idx) => {
-       if (e == idx) {
-         hsl = a;
-       }
-     })
-     return hsl
-   })
-   console.log(hslOk)
