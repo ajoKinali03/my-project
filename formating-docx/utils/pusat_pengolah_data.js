@@ -13,8 +13,8 @@ const mentahanData = async (teks) => {
   const paragrah = mergeParagraf(lineTeks);
   const arrLineTeks = filterSpasi(paragrah);
   const idntKtgr = identifikasiKategori(arrLineTeks);
-  const addTab = createTab(idntKtgr)
-  const createGrupId = await crtGrupId(addTab)
+  const addTab = createTab(idntKtgr);
+  const createGrupId = await crtGrupId(addTab);
   await mentahanDataDb.insertMany(createGrupId);
   return;
 };

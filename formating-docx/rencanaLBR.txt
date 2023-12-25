@@ -23,7 +23,7 @@ C. Design UI
   3. memberikan style khusus sperti warna merah kepada kata-kata yang typo termasuk bahasa asing.
 
 D. API yang akan digunakan
-  1. Chat-GPT
-  2. Mandeley API
-  3. Al-Qur'an kemenag API
-  4. KBBI API
+  1. Chat-GPT link: https://rapidapi.com/neuralwriter-neuralwriter-default/api/paraphrasing-and-rewriter-api/pricing
+  2. Mandeley API link: https://github.com/Mendeley/mendeley-api-javascript-readership-map
+  3. Al-Qur'an kemenag API link: https://equran.id/apidev
+  4. KBBI API link: https://rapidapi.com/gizipp/api/indonesian-kata-baku-kbbi/pricing
