@@ -1,0 +1,29 @@
+RENCANA UJI COBA PEMBUATAN WEBSITE MAKALAH OTOMATIS.
+
+A. Target User
+  1. pengguna android
+  2. membuat makalah karena terdesak
+  3. membuat makalah dengan cepat
+
+B. Design Sistem
+  1. Hanya berfokus pada isi makalah(bab pembahasan)
+  2. patokan style tergantung pada point isi(A. 1. a. dst) => design sistem awal
+  3. sistem tidak terlalu rumit
+    ^ maksudnya, dalam mendeteksi bahasa asing akan di beri tanda khusus. Untuk data data ditail akan di abaikan termasuk style font kusus terhadap kondisi tertentu seperti bahasa arab yang terselip diparagraf.
+  4. untuk mendeteksi ayat atau hadist akan diberi tanda (-ayat- -hadis- -terjmahan-)
+  5. ketika user memasukan teks copas, maka user bisa menghidupkan fitur chat-GPT untuk mengolah paragraf.
+  6. dan chat-GPT akan di atur untuk menghiraukan kutipan langsung
+  7. untuk menyusun style font untuk footnote dan daftar pustaka, mungkin akan di buat sistem terpisan atau khusus.
+  9. apa bila di temukan kata-kata yang diluar bahasa indonesia akan tetap diberikan style seperti untuk kasus typo
+  8. data dapat di simpan dan di edit
+
+C. Design UI
+  1. tampilan sederhana.
+  2. hanya menyediakan dua tombol yaitu: tombol mematikan Chat-GPT dan mengatur ayat
+  3. memberikan style khusus sperti warna merah kepada kata-kata yang typo termasuk bahasa asing.
+
+D. API yang akan digunakan
+  1. Chat-GPT
+  2. Mandeley API
+  3. Al-Qur'an kemenag API
+  4. KBBI API
