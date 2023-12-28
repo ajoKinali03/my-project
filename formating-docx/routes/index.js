@@ -20,10 +20,17 @@ router.get("/home/api", async function (req, res, next) {
 router.get("/home", async (req, res) => {
   let data = await mentahanDataDb.find();
 
-  res.render("home", {
-    title: "shortcut-docx",
-    teks: data.map((e) => e.teks.join("")).join(""),
-  });
+  if(data[0] != undefined){
+    res.render("home", {
+      title: "shortcut-docx",
+      // teks: data.map((e) => e.teks.join("")).join(""),
+      teks: data[0].teks.join(""),
+    });
+  }else{
+    res.render("home", {
+      title: "shortcut-docx",
+    });
+  };
 });
 
 router.post("/deleteDb", async function (req, res) {
