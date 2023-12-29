@@ -9,7 +9,7 @@ B. Design Sistem
   1. Hanya berfokus pada isi makalah(bab pembahasan)
   2. patokan style tergantung pada point isi(A. 1. a. dst) => design sistem awal
   3. sistem tidak terlalu rumit
-    ^ maksudnya, dalam mendeteksi bahasa asing akan di beri tanda khusus. Untuk data data ditail akan di abaikan termasuk style font kusus terhadap kondisi tertentu seperti bahasa arab yang terselip diparagraf.
+    ^ maksudnya, dalam mendeteksi bahasa asing akan di beri tanda khusus. Untuk data data ditail akan di abaikan termasuk style f ont kusus terhadap kondisi tertentu seperti bahasa arab yang terselip diparagraf.
   4. untuk mendeteksi ayat atau hadist akan diberi tanda (-ayat- -hadis- -terjmahan-)
   5. ketika user memasukan teks copas, maka user bisa menghidupkan fitur chat-GPT untuk mengolah paragraf.
   6. dan chat-GPT akan di atur untuk menghiraukan kutipan langsung
@@ -27,3 +27,6 @@ D. API yang akan digunakan
   2. Mandeley API link: https://github.com/Mendeley/mendeley-api-javascript-readership-map
   3. Al-Qur'an kemenag API link: https://equran.id/apidev
   4. KBBI API link: https://rapidapi.com/gizipp/api/indonesian-kata-baku-kbbi/pricing
+
+E. Algoritma
+  1. teks => pisahkan teks berdasarkan enter => kelompokkan bagian teks berdasarkan double enter => array tersebut dijadikan kedalam objek && diberi ID sesuai jenis data => deberi style sesuai dengan jenis data && dijadikan ke word => tahap satu selesai

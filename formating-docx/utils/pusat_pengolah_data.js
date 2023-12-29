@@ -6,11 +6,9 @@ const mentahanData = async (teks) => {
   teks = teks.teks;
   const lineTeks = filterEnter(teks);
   const arrInArr = bagianTeks(lineTeks);
-  console.log(arrInArr);
-  // await mentahanDataDb.insertMany(lineTeks);
+  await mentahanDataDb.insertMany(arrInArr);
   return;
 };
-
 // fungsi memisahkan kalimat berdasrkan enter
 function filterEnter(teks) {
   const arrWord = [...teks];
@@ -27,22 +25,22 @@ function filterEnter(teks) {
 }
 
 // memishkan bagian teks berdasarkan element "\n"
-
 function bagianTeks(arrInpt){
   let dummyArr = [];
   let arrKos = [];
   arrInpt.forEach( (e, i) => {
-    if(e == "\n"){
+    if(e == "\n" || i == arrInpt.length -1){
       arrKos.push(dummyArr);
       dummyArr = [];
     }else{
+      dummyArr.push(e);
     };
-    dummyArr.push(e);
   });
   return arrKos;
 };
 
 
+// membuat dan pemberian tag
 
 
 module.exports = mentahanData;
