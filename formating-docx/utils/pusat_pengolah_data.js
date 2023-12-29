@@ -5,8 +5,8 @@ const mentahanData = async (teks) => {
   teks = JSON.parse(teks);
   teks = teks.teks;
   const lineTeks = filterEnter(teks);
-  console.log(lineTeks);
-  
+  const arrInArr = bagianTeks(lineTeks);
+  console.log(arrInArr);
   // await mentahanDataDb.insertMany(lineTeks);
   return;
 };
@@ -23,13 +23,23 @@ function filterEnter(teks) {
       dummyArr = [];
     }
   });
-  return {teks: arrKos};
+  return arrKos;
 }
 
 // memishkan bagian teks berdasarkan element "\n"
 
-function bagianTeks(){
-
+function bagianTeks(arrInpt){
+  let dummyArr = [];
+  let arrKos = [];
+  arrInpt.forEach( (e, i) => {
+    if(e == "\n"){
+      arrKos.push(dummyArr);
+      dummyArr = [];
+    }else{
+    };
+    dummyArr.push(e);
+  });
+  return arrKos;
 };
 
 
