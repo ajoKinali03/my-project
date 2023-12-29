@@ -6,7 +6,8 @@ const mentahanData = async (teks) => {
   teks = teks.teks;
   const lineTeks = filterEnter(teks);
   const arrInArr = bagianTeks(lineTeks);
-  await mentahanDataDb.insertMany(arrInArr);
+  const objTeks = tagging(arrInArr);
+  await mentahanDataDb.insertMany(objTeks);
   return;
 };
 // fungsi memisahkan kalimat berdasrkan enter
@@ -41,6 +42,8 @@ function bagianTeks(arrInpt){
 
 
 // membuat dan pemberian tag
-
+function tagging(arrInpt){
+  
+};
 
 module.exports = mentahanData;
