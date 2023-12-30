@@ -1,4 +1,5 @@
 const mentahanDataDb = require("../model/mentahan");
+const cekNmr = require("./data_tipe_teks");
 
 // code runner
 const mentahanData = async (teks) => {
@@ -43,7 +44,10 @@ function bagianTeks(arrInpt){
 
 // membuat dan pemberian tag
 function tagging(arrInpt){
-  
+  let test = cekNmr(arrInpt);
+  if(test){
+    console.log("point terdeteksi", test);
+  };
 };
 
 module.exports = mentahanData;
