@@ -73,7 +73,14 @@ const filterSpasi = (arrKal) => {
 };
 
 function tagging(arrInpt){
-  return cekNmr(arrInpt);
+  let arrKos = [];
+  arrInpt.forEach((e, i) => {
+    let hsl = cekNmr(e);
+    if(hsl.cekNmr){
+      arrKos.push(hsl);
+    };
+  });
+  return arrKos;
 };
 
 module.exports = mentahanData;
