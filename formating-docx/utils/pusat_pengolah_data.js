@@ -7,8 +7,11 @@ const mentahanData = async (teks) => {
   teks = teks.teks;
   const lineTeks = filterEnter(teks);
   const arrInArr = bagianTeks(lineTeks);
-  const objTeks = tagging(arrInArr);
-  await mentahanDataDb.insertMany(objTeks);
+  const arrHuruf = filterSpasi(arrInArr);
+  // console.log(arrHuruf);
+  const objTeks = tagging(arrHuruf);
+  console.log(objTeks);
+  // await mentahanDataDb.insertMany(objTeks);
   return;
 };
 // fungsi memisahkan kalimat berdasrkan enter
@@ -43,8 +46,34 @@ function bagianTeks(arrInpt){
 
 
 // membuat dan pemberian tag
+const spclChar = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~\n\t]/;
+
+// fungsi memisahkan kalimat berdasrkan spasi
+const filterSpasi = (arrKal) => {
+  let arr = [];
+  arrKal.forEach((e, i) => {
+    e = e.join("");
+    let kal = [...e];
+    let arrKos = [];
+    let dummyArr = [];
+    kal.forEach((a, idx) => {
+      if (spclChar.test(a) || idx == kal.length - 1) {
+        arrKos.push(dummyArr.join(""));
+        arrKos.push(a);
+        dummyArr = [];
+      } else {
+        dummyArr.push(a);
+      }
+    });
+    if (!arrKos.length == 0 && !arrKos == false) {
+      arr.push(arrKos);
+    }
+  });
+  return arr;
+};
+
 function tagging(arrInpt){
-  console.log(cekNmr(arrInpt).cekNmr);
+  return cekNmr(arrInpt);
 };
 
 module.exports = mentahanData;
