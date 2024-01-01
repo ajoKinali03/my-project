@@ -8,9 +8,9 @@ const mentahanData = async (teks) => {
   const lineTeks = filterEnter(teks);
   const arrInArr = bagianTeks(lineTeks);
   const arrHuruf = filterSpasi(arrInArr);
-  // console.log(arrHuruf);
-  const objTeks = tagging(arrHuruf);
-  console.log(objTeks);
+  const objCkNmr = cekNomor(arrHuruf);
+  const grPnt = groupPoint(arrInArr, objCkNmr);
+  console.log(grPnt);
   // await mentahanDataDb.insertMany(objTeks);
   return;
 };
@@ -72,15 +72,28 @@ const filterSpasi = (arrKal) => {
   return arr;
 };
 
-function tagging(arrInpt){
+// memeriksa penomoran untuk batas teks
+function cekNomor(arrInpt){
   let arrKos = [];
   arrInpt.forEach((e, i) => {
     let hsl = cekNmr(e);
     if(hsl.cekNmr){
+      hsl.index = i;
       arrKos.push(hsl);
     };
   });
   return arrKos;
+};
+
+// memisahkan batas teks berdasarkan nomor dan dijadikan ke dalam array
+function groupPoint(arrTeks, batasPoint){
+  let arrKos = [];
+  let dummyArr = [];
+  arrTeks.forEach((e, i) => {
+    batasPoint.forEach((a, idx) => {
+      // if(){};
+    });
+  });
 };
 
 module.exports = mentahanData;

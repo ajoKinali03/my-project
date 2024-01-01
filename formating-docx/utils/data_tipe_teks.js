@@ -16,11 +16,11 @@ const cekNmr = (arrTks) => {
         count == 0;
         result = true;
         tipe = cek.tipe(e);
-        tingkatPenomoran = cek.tingkat;
+        tingkatPenomoran = cek.tingkat
       }
     });
   });
-  return { cekNmr: result, tipe: tipe, tingkat: tingkatPenomoran };
+  return { cekNmr: result, tipe: tipe, tingkat: tingkatPenomoran};
 };
 
 // fungsi menampung arr objek cek penomoran
