@@ -11,8 +11,6 @@ const cekNmr = (arrTks) => {
   let count = 0;
   let arrKos = [];
   arrTks.forEach((e, i) => {
-    e = e.join(",").split(",");
-    console.log(e);
     if (e != "\t" && e != "") {
       count++;
     }
