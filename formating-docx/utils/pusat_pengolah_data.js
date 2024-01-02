@@ -21,10 +21,14 @@ function filterEnter(teks) {
   let dummyArr = [];
   arrWord.forEach((e, i) => {
     dummyArr.push(e);
-    if (e == "\n" || i == arrWord.length - 1) {
+    if (e == "\n") {
       arrKos.push(dummyArr.join("").replaceAll("\u0002", "-"));
       dummyArr = [];
-    }
+    };
+    if (i == arrWord.length -1) {
+      arrKos.push(dummyArr.join("").replaceAll("\u0002", "-"));
+      dummyArr = [];
+    };
   });
   return arrKos;
 }
@@ -77,23 +81,45 @@ function cekNomor(arrInpt){
   let arrKos = [];
   arrInpt.forEach((e, i) => {
     let hsl = cekNmr(e);
-    if(hsl.cekNmr){
-      hsl.index = i;
-      arrKos.push(hsl);
-    };
+    hsl.index = i;
+    arrKos.push(hsl);
+    // if(hsl.cekNmr){
+    // };
   });
+  console.log(arrKos)
   return arrKos;
 };
 
 // memisahkan batas teks berdasarkan nomor dan dijadikan ke dalam array
 function groupPoint(arrTeks, batasPoint){
   let arrKos = [];
-  let dummyArr = [];
+  let dummyObj = null;
+  let netralObj = {};
+  let indexOn = -1;
   arrTeks.forEach((e, i) => {
     batasPoint.forEach((a, idx) => {
-      // if(){};
+      if(a.index == i && a.cekNmr){ // BUG: point terakhir tidak terdeteksi
+        if(a.index != indexOn && indexOn != -1){
+          arrKos.push(dummyObj)
+        };
+        if(Object.keys(netralObj).length != 0){
+          arrKos.push(netralObj);
+        };
+        indexOn = a.index;
+        dummyObj = {};
+        dummyObj.id = a.tingkat;
+        dummyObj.point = e;
+      };
+      if(a.index == i && !a.cekNmr && a.index > indexOn){ // BUG: teks hanya terdeteksi satu kali
+        dummyObj.teks = e;
+      };
+      if(indexOn == -1){ // BUG: teks tidak dapat terdeteksi dan server terjadi crash
+        netralObj.id = indexOn;
+        netralObj.point = e;
+      };
     });
   });
+  console.log(arrKos);
 };
 
 module.exports = mentahanData;
