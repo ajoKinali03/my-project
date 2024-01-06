@@ -108,18 +108,20 @@ function groupPoint(arrTeks, btsPnt) {
     let tskDt = btsPnt[i];
     let obj = {};
     if (tskDt.cekNmr) {
-      obj.id = tskDt.tingkat;
+      obj.id_tingkat = tskDt.tingkat;
       pointCek = true;
     } else if (!tskDt.cekNmr && tskDt.index == 0) {
       obj.id = 0;
     }
     obj.teks = [];
     arrTeks.forEach((e, idx) => {
-      if(btsPnt[idx].arrMark == i){
-        obj.teks.push(e.join(""));
+      if(btsPnt[idx].arrMark == i){//tinggal membuat kondisi apabila teks di index 0 dan memisahkan value point dan teks
+        obj.teks.push(e.join("").replaceAll("\n") + "\n");
       };
     });
-    arrObj.push(obj);
+    if(obj.teks.length != 0){
+      arrObj.push(obj);
+    };
   }
   console.log(arrObj);
 }
