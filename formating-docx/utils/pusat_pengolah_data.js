@@ -25,10 +25,16 @@ function filterEnter(teks) {
       dummyArr = [];
     };
     if (i == arrWord.length -1) {
-      arrKos.push(dummyArr.join("").replaceAll("\u0002", "-"));
+      if(e != "\n"){
+        arrKos.push(dummyArr.join("").replaceAll("\u0002", "-") + "\n");
+        arrKos.push("\n");
+      }else{arrKos.push(dummyArr.join("").replaceAll("\u0002", "-"))};
+      
       dummyArr = [];
     };
   });
+
+  console.log(arrKos);
   return arrKos;
 }
 
@@ -44,6 +50,7 @@ function bagianTeks(arrInpt){
       dummyArr.push(e);
     };
   });
+  console.log(arrKos);
   return arrKos;
 };
 
@@ -72,27 +79,27 @@ const filterSpasi = (arrKal) => {
       arr.push(arrKos);
     }
   });
+  console.log(arr);
   return arr;
 };
 
 // memeriksa penomoran untuk batas teks
 function cekNomor(arrInpt){
   let arrKos = [];
+  let cekPoint = 0;
   arrInpt.forEach((e, i) => {
     let hsl = cekNmr(e);
-    let cekPoint = 0;
     hsl.index = i;
     if(hsl.cekNmr){
       cekPoint = i;
-      console.log(cekPoint);
       hsl.arrMark = cekPoint;
     };
     if(!hsl.cekNmr){
-      console.log(cekPoint);
       hsl.arrMark = cekPoint;
     };
     arrKos.push(hsl);
   });
+  console.log(arrKos);
   return arrKos;
 };
 
