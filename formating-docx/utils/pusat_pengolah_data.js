@@ -23,37 +23,35 @@ function filterEnter(teks) {
     if (e == "\n") {
       arrKos.push(dummyArr.join("").replaceAll("\u0002", "-"));
       dummyArr = [];
-    };
-    if (i == arrWord.length -1) {
-      if(e != "\n"){
+    }
+    if (i == arrWord.length - 1) {
+      if (e != "\n") {
         arrKos.push(dummyArr.join("").replaceAll("\u0002", "-") + "\n");
         arrKos.push("\n");
-      }else{arrKos.push(dummyArr.join("").replaceAll("\u0002", "-"))};
-      
-      dummyArr = [];
-    };
-  });
+      } else {
+        arrKos.push(dummyArr.join("").replaceAll("\u0002", "-"));
+      }
 
-  console.log(arrKos);
+      dummyArr = [];
+    }
+  });
   return arrKos;
 }
 
 // memishkan bagian teks berdasarkan element "\n"
-function bagianTeks(arrInpt){
+function bagianTeks(arrInpt) {
   let dummyArr = [];
   let arrKos = [];
-  arrInpt.forEach( (e, i) => {
-    if(e == "\n" || i == arrInpt.length -1){
+  arrInpt.forEach((e, i) => {
+    if (e == "\n" || i == arrInpt.length - 1) {
       arrKos.push(dummyArr);
       dummyArr = [];
-    }else{
+    } else {
       dummyArr.push(e);
-    };
+    }
   });
-  console.log(arrKos);
   return arrKos;
-};
-
+}
 
 // membuat dan pemberian tag
 const spclChar = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~\n\t]/;
@@ -79,35 +77,52 @@ const filterSpasi = (arrKal) => {
       arr.push(arrKos);
     }
   });
-  console.log(arr);
   return arr;
 };
 
 // memeriksa penomoran untuk batas teks
-function cekNomor(arrInpt){
+function cekNomor(arrInpt) {
   let arrKos = [];
   let cekPoint = 0;
   arrInpt.forEach((e, i) => {
     let hsl = cekNmr(e);
     hsl.index = i;
-    if(hsl.cekNmr){
+    if (hsl.cekNmr) {
       cekPoint = i;
       hsl.arrMark = cekPoint;
-    };
-    if(!hsl.cekNmr){
+    }
+    if (!hsl.cekNmr) {
       hsl.arrMark = cekPoint;
-    };
+    }
     arrKos.push(hsl);
   });
-  console.log(arrKos);
   return arrKos;
-};
+}
 
 // memisahkan batas teks berdasarkan nomor dan dijadikan ke dalam array
-
- function groupPoint(arrTeks, batasPoint){
-  console.log(batasPoint);
- };
+function groupPoint(arrTeks, btsPnt) {
+  let nilaiLoop = btsPnt[btsPnt.length - 1].arrMark;
+  let arrObj = [];
+  let pointCek = false;
+  for (let i = 0; i <= nilaiLoop; i++) {
+    let tskDt = btsPnt[i];
+    let obj = {};
+    if (tskDt.cekNmr) {
+      obj.id = tskDt.tingkat;
+      pointCek = true;
+    } else if (!tskDt.cekNmr && tskDt.index == 0) {
+      obj.id = 0;
+    }
+    obj.teks = [];
+    arrTeks.forEach((e, idx) => {
+      if(btsPnt[idx].arrMark == i){
+        obj.teks.push(e.join(""));
+      };
+    });
+    arrObj.push(obj);
+  }
+  console.log(arrObj);
+}
 
 // function groupPoint(arrTeks, batasPoint){
 //   // console.log(arrTeks, batasPoint);
@@ -122,7 +137,7 @@ function cekNomor(arrInpt){
 //         if(a.index != indexOn && indexOn != -1){ // BUG!!, data tidak bisa input kearray karena point setelahnya tidak ada
 //           arrKos.push(dummyObj)
 //         };
-        
+
 //         if(Object.keys(netralObj).length != 0){
 //           arrKos.push(netralObj);
 //         };
