@@ -10,7 +10,6 @@ const mentahanData = async (teks) => {
   const arrHuruf = filterSpasi(arrInArr);
   const objCkNmr = cekNomor(arrHuruf);
   const grPnt = groupPoint(arrInArr, objCkNmr);
-  console.log(grPnt);
   // await mentahanDataDb.insertMany(objTeks);
   return;
 };
@@ -81,45 +80,61 @@ function cekNomor(arrInpt){
   let arrKos = [];
   arrInpt.forEach((e, i) => {
     let hsl = cekNmr(e);
+    let cekPoint = 0;
     hsl.index = i;
+    if(hsl.cekNmr){
+      cekPoint = i;
+      console.log(cekPoint);
+      hsl.arrMark = cekPoint;
+    };
+    if(!hsl.cekNmr){
+      console.log(cekPoint);
+      hsl.arrMark = cekPoint;
+    };
     arrKos.push(hsl);
-    // if(hsl.cekNmr){
-    // };
   });
-  console.log(arrKos)
   return arrKos;
 };
 
 // memisahkan batas teks berdasarkan nomor dan dijadikan ke dalam array
-function groupPoint(arrTeks, batasPoint){
-  let arrKos = [];
-  let dummyObj = null;
-  let netralObj = {};
-  let indexOn = -1;
-  arrTeks.forEach((e, i) => {
-    batasPoint.forEach((a, idx) => {
-      if(a.index == i && a.cekNmr){ // BUG: point terakhir tidak terdeteksi
-        if(a.index != indexOn && indexOn != -1){
-          arrKos.push(dummyObj)
-        };
-        if(Object.keys(netralObj).length != 0){
-          arrKos.push(netralObj);
-        };
-        indexOn = a.index;
-        dummyObj = {};
-        dummyObj.id = a.tingkat;
-        dummyObj.point = e;
-      };
-      if(a.index == i && !a.cekNmr && a.index > indexOn){ // BUG: teks hanya terdeteksi satu kali
-        dummyObj.teks = e;
-      };
-      if(indexOn == -1){ // BUG: teks tidak dapat terdeteksi dan server terjadi crash
-        netralObj.id = indexOn;
-        netralObj.point = e;
-      };
-    });
-  });
-  console.log(arrKos);
-};
+
+ function groupPoint(arrTeks, batasPoint){
+  console.log(batasPoint);
+ };
+
+// function groupPoint(arrTeks, batasPoint){
+//   // console.log(arrTeks, batasPoint);
+//   let arrKos = [];
+//   let dummyObj = null;
+//   let netralObj = {};
+//   let indexOn = -1;
+//   arrTeks.forEach((e, i) => {
+//     batasPoint.forEach((a, idx) => {
+//       if(a.index == i && a.cekNmr){
+//         console.log(e);
+//         if(a.index != indexOn && indexOn != -1){ // BUG!!, data tidak bisa input kearray karena point setelahnya tidak ada
+//           arrKos.push(dummyObj)
+//         };
+        
+//         if(Object.keys(netralObj).length != 0){
+//           arrKos.push(netralObj);
+//         };
+//         indexOn = a.index;
+//         dummyObj = {};
+//         dummyObj.id = a.tingkat;
+//         dummyObj.point = e;
+//       };
+//       // if(a.index == i && !a.cekNmr && a.index > indexOn){ // BUG: teks hanya terdeteksi satu kali
+//       if(a.index == i && !a.cekNmr && indexOn != -1){ // BUG: teks hanya terdeteksi satu kali
+//         dummyObj.teks = e;
+//       };
+//       if(indexOn == -1){ // BUG: teks tidak dapat terdeteksi dan server terjadi crash
+//         netralObj.id = indexOn;
+//         netralObj.point = e;
+//       };
+//     });
+//   });
+//   console.log(arrKos);
+// };
 
 module.exports = mentahanData;
