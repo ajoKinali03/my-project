@@ -96,6 +96,7 @@ function cekNomor(arrInpt) {
     }
     arrKos.push(hsl);
   });
+  console.log(arrKos);//BUG: apabila ditemukan nomor dengan tingkatan yan gsama secara berurutan maka akan terjadi eror
   return arrKos;
 }
 
@@ -103,25 +104,28 @@ function cekNomor(arrInpt) {
 function groupPoint(arrTeks, btsPnt) {
   let nilaiLoop = btsPnt[btsPnt.length - 1].arrMark;
   let arrObj = [];
-  let pointCek = false;
   for (let i = 0; i <= nilaiLoop; i++) {
     let tskDt = btsPnt[i];
     let obj = {};
+    obj.id_tingkat = null;
+    obj.point = [];
+    obj.teks = [];
+
     if (tskDt.cekNmr) {
       obj.id_tingkat = tskDt.tingkat;
-      pointCek = true;
     } else if (!tskDt.cekNmr && tskDt.index == 0) {
-      obj.id = 0;
+      obj.id_tingkat = 0;
     }
-    obj.teks = [];
     arrTeks.forEach((e, idx) => {
-      if(btsPnt[idx].arrMark == i){//tinggal membuat kondisi apabila teks di index 0 dan memisahkan value point dan teks
+      if (btsPnt[idx].arrMark == i && btsPnt[idx].cekNmr) { //BUG: apabila ditempatkan teks di index 0 maka eror
+        obj.point.push(e.join("").replaceAll("\n") + "\n");
+      } else if (btsPnt[idx].arrMark == i && !btsPnt[idx].cekNmr) {
         obj.teks.push(e.join("").replaceAll("\n") + "\n");
-      };
+      }
     });
-    if(obj.teks.length != 0){
+    if (obj.id_tingkat != null) {
       arrObj.push(obj);
-    };
+    }
   }
   console.log(arrObj);
 }
