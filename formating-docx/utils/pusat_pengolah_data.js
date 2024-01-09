@@ -44,7 +44,9 @@ function bagianTeks(arrInpt) {
   let arrKos = [];
   arrInpt.forEach((e, i) => {
     if (e == "\n" || i == arrInpt.length - 1) {
-      arrKos.push(dummyArr);
+      if(dummyArr.length != 0){
+        arrKos.push(dummyArr);
+      };
       dummyArr = [];
     } else {
       dummyArr.push(e);
@@ -84,6 +86,7 @@ const filterSpasi = (arrKal) => {
 function cekNomor(arrInpt) {
   let arrKos = [];
   let cekPoint = 0;
+  // let cekChild = 0;
   arrInpt.forEach((e, i) => {
     let hsl = cekNmr(e);
     hsl.index = i;
@@ -96,7 +99,6 @@ function cekNomor(arrInpt) {
     }
     arrKos.push(hsl);
   });
-  console.log(arrKos);//BUG: apabila ditemukan nomor dengan tingkatan yan gsama secara berurutan maka akan terjadi eror
   return arrKos;
 }
 
@@ -116,8 +118,9 @@ function groupPoint(arrTeks, btsPnt) {
     } else if (!tskDt.cekNmr && tskDt.index == 0) {
       obj.id_tingkat = 0;
     }
+    //BUG: apabila ditempatkan teks di index 0 maka eror dan ada multiple teks maka juga error
     arrTeks.forEach((e, idx) => {
-      if (btsPnt[idx].arrMark == i && btsPnt[idx].cekNmr) { //BUG: apabila ditempatkan teks di index 0 maka eror
+      if (btsPnt[idx].arrMark == i && btsPnt[idx].cekNmr) {
         obj.point.push(e.join("").replaceAll("\n") + "\n");
       } else if (btsPnt[idx].arrMark == i && !btsPnt[idx].cekNmr) {
         obj.teks.push(e.join("").replaceAll("\n") + "\n");
@@ -130,39 +133,5 @@ function groupPoint(arrTeks, btsPnt) {
   console.log(arrObj);
 }
 
-// function groupPoint(arrTeks, batasPoint){
-//   // console.log(arrTeks, batasPoint);
-//   let arrKos = [];
-//   let dummyObj = null;
-//   let netralObj = {};
-//   let indexOn = -1;
-//   arrTeks.forEach((e, i) => {
-//     batasPoint.forEach((a, idx) => {
-//       if(a.index == i && a.cekNmr){
-//         console.log(e);
-//         if(a.index != indexOn && indexOn != -1){ // BUG!!, data tidak bisa input kearray karena point setelahnya tidak ada
-//           arrKos.push(dummyObj)
-//         };
-
-//         if(Object.keys(netralObj).length != 0){
-//           arrKos.push(netralObj);
-//         };
-//         indexOn = a.index;
-//         dummyObj = {};
-//         dummyObj.id = a.tingkat;
-//         dummyObj.point = e;
-//       };
-//       // if(a.index == i && !a.cekNmr && a.index > indexOn){ // BUG: teks hanya terdeteksi satu kali
-//       if(a.index == i && !a.cekNmr && indexOn != -1){ // BUG: teks hanya terdeteksi satu kali
-//         dummyObj.teks = e;
-//       };
-//       if(indexOn == -1){ // BUG: teks tidak dapat terdeteksi dan server terjadi crash
-//         netralObj.id = indexOn;
-//         netralObj.point = e;
-//       };
-//     });
-//   });
-//   console.log(arrKos);
-// };
 
 module.exports = mentahanData;
