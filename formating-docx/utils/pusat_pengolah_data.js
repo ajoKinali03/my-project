@@ -1,5 +1,6 @@
 const mentahanDataDb = require("../model/mentahan");
 const cekNmr = require("./data_tipe_teks");
+const { innerDocx } = require("./inner-docx");
 
 // code runner
 const mentahanData = async (teks) => {
@@ -10,7 +11,7 @@ const mentahanData = async (teks) => {
   const arrHuruf = filterSpasi(arrInArr);
   const objCkNmr = cekNomor(arrHuruf);
   const grPnt = groupPoint(arrInArr, objCkNmr);
-  // await mentahanDataDb.insertMany(objTeks);
+  const teksStyled = getTextStyle(grPnt, innerDocx);
   return;
 };
 // fungsi memisahkan kalimat berdasrkan enter
@@ -44,9 +45,9 @@ function bagianTeks(arrInpt) {
   let arrKos = [];
   arrInpt.forEach((e, i) => {
     if (e == "\n" || i == arrInpt.length - 1) {
-      if(dummyArr.length != 0){
+      if (dummyArr.length != 0) {
         arrKos.push(dummyArr);
-      };
+      }
       dummyArr = [];
     } else {
       dummyArr.push(e);
@@ -86,7 +87,6 @@ const filterSpasi = (arrKal) => {
 function cekNomor(arrInpt) {
   let arrKos = [];
   let cekPoint = 0;
-  // let cekChild = 0;
   arrInpt.forEach((e, i) => {
     let hsl = cekNmr(e);
     hsl.index = i;
@@ -118,7 +118,7 @@ function groupPoint(arrTeks, btsPnt) {
     } else if (!tskDt.cekNmr && tskDt.index == 0) {
       obj.id_tingkat = 0;
     }
-    //BUG: apabila ditempatkan teks di index 0 maka eror dan ada multiple teks maka juga error
+
     arrTeks.forEach((e, idx) => {
       if (btsPnt[idx].arrMark == i && btsPnt[idx].cekNmr) {
         obj.point.push(e.join("").replaceAll("\n") + "\n");
@@ -130,8 +130,12 @@ function groupPoint(arrTeks, btsPnt) {
       arrObj.push(obj);
     }
   }
-  console.log(arrObj);
+  return arrObj;
 }
 
+// fungsi untuk memberikan style pada teks
+function getTextStyle(teksDt, inStyleDt){
+  // maaf, sebelum anda membuat ini sebaiknya anda mempelajari lagi modul DOCX
+};
 
 module.exports = mentahanData;
