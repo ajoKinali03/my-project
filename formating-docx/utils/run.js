@@ -1,4 +1,4 @@
-const { getInnerDocx } = require("./file-manage");
+
 
 const runDocx = async () => {
   const fs = require("fs");
@@ -22,11 +22,11 @@ const runDocx = async () => {
     page,
   } = require("docx");
 
-  getInnerDocx();
-  let strInnerDocx = JSON.parse(fs.readFileSync("./data/strInnerDocx.json"));
-  strInnerDocx = [strInnerDocx].join();
-  strInnerDocx = strInnerDocx.replaceAll("|-|", "\\" + "\"");
-  strInnerDocx = strInnerDocx.replaceAll(",,", ",");
+  // let strInnerDocx = JSON.parse(fs.readFileSync("./data/strInnerDocx.json"));
+  // strInnerDocx = [strInnerDocx].join();
+  // strInnerDocx = strInnerDocx.replaceAll("|-|", "\\" + "\"");
+  // strInnerDocx = strInnerDocx.replaceAll(",,", ",");
+  
 
   await eval(
     `const doc = new Document({

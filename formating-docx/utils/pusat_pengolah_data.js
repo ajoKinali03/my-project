@@ -12,7 +12,6 @@ const mentahanData = async (teks) => {
   const objCkNmr = cekNomor(arrHuruf);
   const grPnt = groupPoint(arrInArr, objCkNmr);
   const teksStyled = getTextStyle(grPnt, pointStyle, teksStyle);
-  console.log(teksStyled);
   return;
 };
 // fungsi memisahkan kalimat berdasrkan enter
@@ -163,4 +162,4 @@ function getTextStyle(teksDt, pntStyle, tksStyle) {
   return arrKos;
 }
 
-module.exports = mentahanData;
+module.exports = {mentahanData, getTextStyle};
