@@ -7,6 +7,7 @@ const cekNmr = (arrTks) => {
   let tipe = null;
   let tingkatPenomoran = null;
   let count = 0;
+  let idxNmr = null;
   arrTks.forEach((e, i) => {
     if (e != "\t" && e != "") {
       count++;
@@ -16,11 +17,17 @@ const cekNmr = (arrTks) => {
         count == 0;
         result = true;
         tipe = cek.tipe(e);
-        tingkatPenomoran = cek.tingkat
+        tingkatPenomoran = cek.tingkat;
+        idxNmr = i;
       }
     });
   });
-  return { cekNmr: result, tipe: tipe, tingkat: tingkatPenomoran};
+  return {
+    cekNmr: result,
+    tipe: tipe,
+    tingkat: tingkatPenomoran,
+    indexNmr: idxNmr,
+  };
 };
 
 // fungsi menampung arr objek cek penomoran
@@ -90,7 +97,6 @@ function arrObjNmr() {
 }
 
 module.exports = cekNmr;
-
 
 // function cek paragraf
 

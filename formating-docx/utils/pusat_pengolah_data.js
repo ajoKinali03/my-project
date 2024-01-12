@@ -14,7 +14,8 @@ const mentahanData = async (teks) => {
   const objCkNmr = cekNomor(arrHuruf);
   const grPnt = groupPoint(arrInArr, objCkNmr);
   const teksStyled = getTextStyle(grPnt, pointStyle, teksStyle);
-  // return runDocx(teksStyled.join(","));
+  console.log([`${teksStyled.join(",")}`]);
+  return runDocx(`${teksStyled.join(",")}`);
 };
 // fungsi memisahkan kalimat berdasrkan enter
 function filterEnter(teks) {
@@ -123,9 +124,9 @@ function groupPoint(arrTeks, btsPnt) {
 
     arrTeks.forEach((e, idx) => {
       if (btsPnt[idx].arrMark == i && btsPnt[idx].cekNmr) {
-        obj.point.push(e.join("").replaceAll("\n", " "));
+        obj.point.push(e.join("").replaceAll("\n", ""));
       } else if (btsPnt[idx].arrMark == i && !btsPnt[idx].cekNmr) {
-        obj.teks.push(e.join("").replaceAll("\n", " "));
+        obj.teks.push(e.join("").replaceAll("\n", ""));
       }
     });
     if (obj.id_tingkat != null) {
@@ -137,13 +138,16 @@ function groupPoint(arrTeks, btsPnt) {
 
 // fungsi untuk memberikan style pada teks
 function getTextStyle(teksDt, pntStyle, tksStyle) {
-  clearPoint(teksDt)
+  teksDt = clearPoint(teksDt);
+  // console.log(teksDt);
   let arrKos = [];
   teksDt.forEach((e, i) => {
     let cekPoint = false;
     let cekTeks = false;
-    let styleDtA = pntStyle(e.point.join("\n"), 1);
-    let styleDtB = tksStyle(e.teks.join("\n"), 1).style;
+    let styleDtA = pntStyle(e.point.join("\n"));
+    // console.log(`${e.point.join("\n")}`);
+    let styleDtB = tksStyle(`${e.teks.join("\n")}`).style;
+    // console.log([`${e.teks.join("")}`]);
     if (e.point.length != 0) {
       cekPoint = true;
     }
@@ -161,6 +165,7 @@ function getTextStyle(teksDt, pntStyle, tksStyle) {
       }
     });
   });
+  // console.log(arrKos);
   return arrKos;
 }
 
