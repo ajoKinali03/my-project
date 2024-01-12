@@ -1,6 +1,6 @@
 const mentahanDataDb = require("../model/mentahan");
 const cekNmr = require("./data_tipe_teks");
-const { innerDocx } = require("./inner-docx");
+const { pointStyle, teksStyle } = require("./inner-docx");
 
 // code runner
 const mentahanData = async (teks) => {
@@ -11,7 +11,8 @@ const mentahanData = async (teks) => {
   const arrHuruf = filterSpasi(arrInArr);
   const objCkNmr = cekNomor(arrHuruf);
   const grPnt = groupPoint(arrInArr, objCkNmr);
-  const teksStyled = getTextStyle(grPnt, innerDocx);
+  const teksStyled = getTextStyle(grPnt, pointStyle, teksStyle);
+  console.log(teksStyled);
   return;
 };
 // fungsi memisahkan kalimat berdasrkan enter
@@ -135,27 +136,31 @@ function groupPoint(arrTeks, btsPnt) {
 }
 
 // fungsi untuk memberikan style pada teks
-function getTextStyle(teksDt, inStyleDt) {
+function getTextStyle(teksDt, pntStyle, tksStyle) {
   let arrKos = [];
-  let cekPoint = false;
-  let cekTeks = false;
   teksDt.forEach((e, i) => {
-    let styleDt = inStyleDt(e.teks.join("\n"), e.point.join("\n"));
+    let cekPoint = false;
+    let cekTeks = false;
+    let styleDtA = pntStyle(e.point.join("\n"), 1);
+    let styleDtB = tksStyle(e.teks.join("\n"), 1).style;
     if (e.point.length != 0) {
       cekPoint = true;
     }
     if (e.teks.length != 0) {
       cekTeks = true;
     }
-    styleDt.forEach((a, idx) => {
-      if (cekPoint && e.id_tingkat == a.id) {
-        console.log("ini di point");
-      }
-      if (cekTeks && "teks" == a.id) {
-        console.log("ini di teks", a.id);
+    styleDtA.forEach((a, idx) => {
+      if (e.id_tingkat == a.id) {
+        if (cekPoint) {
+          arrKos.push(a.style);
+        }
+        if (cekTeks) {
+          arrKos.push(styleDtB);
+        }
       }
     });
   });
+  return arrKos;
 }
 
 module.exports = mentahanData;

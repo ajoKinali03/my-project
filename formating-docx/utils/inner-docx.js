@@ -1,48 +1,28 @@
-const innerDocx = (text, point, indentLeftValue) => {
-  // console.log(text, point);
+const pointStyle = (point, indentLeftValue) => {
   return [
     {
-      id: "jb",
+      id: "0",
       style: `new Paragraph({
         children: [
           new TextRun({
-            text: "${text}",
-            bold: true,
-            size: 24,
-            color: "000000",
-            allCaps: true,
-            font: "Times New Roman",
-          }),
-        ],
-        alignment: AlignmentType.CENTER,
-        spacing: {
-          line: 360,
-        },
-        indent: {
-          left: ${indentLeftValue},
-          hanging: 0,
-          firstLine: 0,
-        },
-      }),`,
-    },
-    {
-      id: "teks",
-      style: `new Paragraph({
-        children: [
-          new TextRun({
-            text: "${text}",
+            text: "${point}",
             size: 24,
             color: "000000",
             font: "Times New Roman",
           }),
         ],
-        alignment: AlignmentType.JUSTIFIED,
+        style: "bold",
         spacing: {
           line: 360,
         },
         indent: {
-          firstLine: convertMillimetersToTwip(12),
+          hanging: convertMillimetersToTwip(6),
+          firstLine: convertMillimetersToTwip(0),
           left: convertMillimetersToTwip(${indentLeftValue}),
+        },
+        numbering: {
+          reference: "num0",
+          level: 0,
         },
       }),`,
     },
@@ -163,6 +143,55 @@ const innerDocx = (text, point, indentLeftValue) => {
     },
   ];
 };
+
+let teksStyle = (text, indentLeftValue) => {
+  return {
+    style: `new Paragraph({
+      children: [
+        new TextRun({
+          text: "${text}",
+          size: 24,
+          color: "000000",
+          font: "Times New Roman",
+        }),
+      ],
+      alignment: AlignmentType.JUSTIFIED,
+      spacing: {
+        line: 360,
+      },
+      indent: {
+        firstLine: convertMillimetersToTwip(12),
+        left: convertMillimetersToTwip(${indentLeftValue}),
+      },
+    }),`,
+  };
+};
+
+
+// {
+//   id: "jb",
+//   style: `new Paragraph({
+//     children: [
+//       new TextRun({
+//         text: "${text}",
+//         bold: true,
+//         size: 24,
+//         color: "000000",
+//         allCaps: true,
+//         font: "Times New Roman",
+//       }),
+//     ],
+//     alignment: AlignmentType.CENTER,
+//     spacing: {
+//       line: 360,
+//     },
+//     indent: {
+//       left: ${indentLeftValue},
+//       hanging: 0,
+//       firstLine: 0,
+//     },
+//   }),`,
+// },
 // ,
 //       new Paragraph({
 //           children: [
@@ -200,4 +229,4 @@ const innerDocx = (text, point, indentLeftValue) => {
 //         },
 //       }),
 
-module.exports = { innerDocx };
+module.exports = { pointStyle, teksStyle };
