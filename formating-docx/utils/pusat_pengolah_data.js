@@ -136,39 +136,10 @@ function groupPoint(arrTeks, btsPnt) {
   return arrObj;
 }
 
-// fungsi untuk memberikan style pada teks
-// function getTextStyle(teksDt, pntStyle, tksStyle) {
-//   teksDt = clearPoint(teksDt);
-//   let arrKos = [];
-//   teksDt.forEach((e, i) => {
-// let cekPoint = false;
-// let cekTeks = false;
-//     let styleDtA = pntStyle(e.point.join("\n"));
-//     let styleDtB = tksStyle(e.teks.join("\n")).style;
-// if (e.point.length != 0) {
-//   cekPoint = true;
-// }
-// if (e.teks.length != 0) {
-//   cekTeks = true;
-// }
-//     styleDtA.forEach((a, idx) => {
-//       if (e.id_tingkat == a.id) {
-//         if (cekPoint) {
-//           arrKos.push(a.style);
-//         }
-//         if (cekTeks) {
-//           arrKos.push(styleDtB);
-//         }
-//       }
-//     });
-//   });
 function getTextStyle(teksDt, pntStyle, tksStyle) {
   teksDt = clearPoint(teksDt);
-  // console.log(teksDt);
-  // let pjg = pntStyle().length;
-  // let styleDtB = tksStyle().style;
   let arrKos = [];
-  teksDt.forEach((e, i) => {
+  teksDt.forEach((e) => {
     let cekPoint = false;
     let cekTeks = false;
     if (e.point.length != 0) {
@@ -179,15 +150,21 @@ function getTextStyle(teksDt, pntStyle, tksStyle) {
     }
     for (let i = 0; i <= pntStyle().length; i++) {
       if (e.id_tingkat == i) {
-        if (cekPoint) {
-          e.point.forEach((a) => {
-            arrKos.push(pntStyle(a, 1)[i].style);
-          });
-        }
-        if (cekTeks) {
+        if (e.id_tingkat == 0) {
           e.teks.forEach((a) => {
-            arrKos.push(tksStyle(a, 1).style);
+            arrKos.push(pntStyle(a)[i].style);
           });
+        } else {
+          if (cekPoint) {
+            e.point.forEach((a) => {
+              arrKos.push(pntStyle(a)[i].style);
+            });
+          }
+          if (cekTeks) {
+            e.teks.forEach((a) => {
+              arrKos.push(tksStyle(a, 1).style);
+            });
+          }
         }
       }
     }

@@ -1,4 +1,4 @@
-const pointStyle = (point, indentLeftValue) => {
+const pointStyle = (point) => {
   return [
     {
       id: "0",
@@ -11,20 +11,15 @@ const pointStyle = (point, indentLeftValue) => {
             font: "Times New Roman",
           }),
         ],
-        style: "bold",
+        alignment: AlignmentType.JUSTIFIED,
         spacing: {
           line: 360,
         },
         indent: {
-          hanging: convertMillimetersToTwip(6),
-          firstLine: convertMillimetersToTwip(0),
-          left: convertMillimetersToTwip(${indentLeftValue}),
+          firstLine: convertMillimetersToTwip(9.8),
+          left: convertMillimetersToTwip(0.2),
         },
-        numbering: {
-          reference: "num0",
-          level: 0,
-        },
-      }),`,
+      }),`
     },
     {
       id: "1",
@@ -35,13 +30,14 @@ const pointStyle = (point, indentLeftValue) => {
           }),
         ],
         style: "bold",
+        alignment: AlignmentType.JUSTIFIED,
         spacing: {
           line: 360,
         },
         indent: {
-          hanging: convertMillimetersToTwip(6),
+          hanging: convertMillimetersToTwip(4.8),
           firstLine: convertMillimetersToTwip(0),
-          left: convertMillimetersToTwip(${indentLeftValue}),
+          left: convertMillimetersToTwip(5),
         },
         numbering: {
           reference: "num0",
@@ -58,13 +54,14 @@ const pointStyle = (point, indentLeftValue) => {
           }),
         ],
         style: "normal",
+        alignment: AlignmentType.JUSTIFIED,
         spacing: {
           line: 360,
         },
         indent: {
-          hanging: convertMillimetersToTwip(5),
-          firstLine: convertMillimetersToTwip(5),
-          left: convertMillimetersToTwip(${indentLeftValue}),
+          hanging: convertMillimetersToTwip(4.9),
+          firstLine: convertMillimetersToTwip(4.9),
+          left: convertMillimetersToTwip(10),
         },
         numbering: {
           reference: "num1",
@@ -81,13 +78,14 @@ const pointStyle = (point, indentLeftValue) => {
           }),
         ],
         style: "normal",
+        alignment: AlignmentType.JUSTIFIED,
         spacing: {
           line: 360,
         },
         indent: {
           hanging: convertMillimetersToTwip(5),
           firstLine: convertMillimetersToTwip(5),
-          left: convertMillimetersToTwip(${indentLeftValue}),
+          left: convertMillimetersToTwip(15),
         },
         numbering: {
           reference: "num2",
@@ -104,13 +102,14 @@ const pointStyle = (point, indentLeftValue) => {
           }),
         ],
         style: "normal",
+        alignment: AlignmentType.JUSTIFIED,
         spacing: {
           line: 360,
         },
         indent: {
-          hanging: convertMillimetersToTwip(6),
-          firstLine: convertMillimetersToTwip(6),
-          left: convertMillimetersToTwip(${indentLeftValue}),
+          hanging: convertMillimetersToTwip(5),
+          firstLine: convertMillimetersToTwip(5),
+          left: convertMillimetersToTwip(20),
         },
         numbering: {
           reference: "num3",
@@ -127,13 +126,14 @@ const pointStyle = (point, indentLeftValue) => {
           }),
         ],
         style: "normal",
+        alignment: AlignmentType.JUSTIFIED,
         spacing: {
           line: 360,
         },
         indent: {
-          hanging: convertMillimetersToTwip(6),
-          firstLine: convertMillimetersToTwip(6),
-          left: convertMillimetersToTwip(${indentLeftValue}),
+          hanging: convertMillimetersToTwip(5),
+          firstLine: convertMillimetersToTwip(5),
+          left: convertMillimetersToTwip(25),
         },
         numbering: {
           reference: "num4",
@@ -160,7 +160,7 @@ let teksStyle = (text, indentLeftValue) => {
         line: 360,
       },
       indent: {
-        firstLine: convertMillimetersToTwip(12),
+        firstLine: convertMillimetersToTwip(9.8),
         left: convertMillimetersToTwip(${indentLeftValue}),
       },
     }),`,
