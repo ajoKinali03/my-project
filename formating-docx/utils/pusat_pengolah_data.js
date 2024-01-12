@@ -146,6 +146,7 @@ function getTextStyle(teksDt, pntStyle, tksStyle) {
     let cekTeks = false;
     let styleDtA = pntStyle(e.point.join("\n"));
     // console.log(`${e.point.join("\n")}`);
+    console.log(e.teks);
     let styleDtB = tksStyle(`${e.teks.join("\n")}`).style;
     // console.log([`${e.teks.join("")}`]);
     if (e.point.length != 0) {
