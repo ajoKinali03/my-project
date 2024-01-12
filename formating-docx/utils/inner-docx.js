@@ -1,9 +1,9 @@
-const innerDocx = (text, indentLeftValue) => {
+const innerDocx = (text, point, indentLeftValue) => {
+  // console.log(text, point);
   return [
     {
-      tag: "jb",
-      text: 
-      `new Paragraph({
+      id: "jb",
+      style: `new Paragraph({
         children: [
           new TextRun({
             text: "${text}",
@@ -23,12 +23,11 @@ const innerDocx = (text, indentLeftValue) => {
           hanging: 0,
           firstLine: 0,
         },
-      }),`
+      }),`,
     },
     {
-      tag: "text",
-      text: 
-      `new Paragraph({
+      id: "teks",
+      style: `new Paragraph({
         children: [
           new TextRun({
             text: "${text}",
@@ -45,15 +44,14 @@ const innerDocx = (text, indentLeftValue) => {
           firstLine: convertMillimetersToTwip(12),
           left: convertMillimetersToTwip(${indentLeftValue}),
         },
-      }),`
+      }),`,
     },
     {
-      tag: "num0",
-      text:
-      `new Paragraph({
+      id: "1",
+      style: `new Paragraph({
         children: [
           new TextRun({
-            text: "${text}",
+            text: "${point}",
           }),
         ],
         style: "bold",
@@ -69,15 +67,14 @@ const innerDocx = (text, indentLeftValue) => {
           reference: "num0",
           level: 0,
         },
-      }),`
+      }),`,
     },
     {
-      tag: "num1",
-      text:
-      `new Paragraph({
+      id: "2",
+      style: `new Paragraph({
         children: [
           new TextRun({
-            text: "${text}",
+            text: "${point}",
           }),
         ],
         style: "normal",
@@ -93,15 +90,14 @@ const innerDocx = (text, indentLeftValue) => {
           reference: "num1",
           level: 1,
         },
-      }),`
+      }),`,
     },
     {
-      tag: "num2",
-      text:
-      `new Paragraph({
+      id: "3",
+      style: `new Paragraph({
         children: [
           new TextRun({
-            text: "${text}",
+            text: "${point}",
           }),
         ],
         style: "normal",
@@ -117,15 +113,14 @@ const innerDocx = (text, indentLeftValue) => {
           reference: "num2",
           level: 2,
         },
-      }),`
+      }),`,
     },
     {
-      tag: "num3",
-      text:
-      `new Paragraph({
+      id: "4",
+      style: `new Paragraph({
         children: [
           new TextRun({
-            text: "${text}",
+            text: "${point}",
           }),
         ],
         style: "normal",
@@ -141,15 +136,14 @@ const innerDocx = (text, indentLeftValue) => {
           reference: "num3",
           level: 3,
         },
-      }),`
+      }),`,
     },
     {
-      tag: "num4",
-      text:
-      `new Paragraph({
+      id: "5",
+      style: `new Paragraph({
         children: [
           new TextRun({
-            text: "${text}",
+            text: "${point}",
           }),
         ],
         style: "normal",
@@ -165,45 +159,45 @@ const innerDocx = (text, indentLeftValue) => {
           reference: "num4",
           level: 4,
         },
-      }),
-      new Paragraph({
-          children: [
-            new TextRun({
-              text: "${text}",
-              size: 36,
-              color: "000000",
-              font: "Traditional Arabic",
-            }),
-          ],
-          alignment: AlignmentType.RIGHT,
-          spacing: {
-            line: 360,
-          },
-          indent: {
-            firstLine: convertMillimetersToTwip(12),
-            left: convertMillimetersToTwip(${indentLeftValue}),
-          },
-        }),
-        new TextRun({
-          text: '"${text}"',
-          size: 24,
-          italics: true,
-          color: "000000",
-          font: "Times New Roman",
-        }),
-        ],
-        alignment: AlignmentType.JUSTIFIED,
-        spacing: {
-          line: 240,
-        },
-        indent: {
-          // firstLine: convertMillimetersToTwip(12),
-          left: convertMillimetersToTwip(${indentLeftValue}),
-        },
-      }),`
+      }),`,
     },
-  ]
+  ];
 };
+// ,
+//       new Paragraph({
+//           children: [
+//             new TextRun({
+//               text: "${text}",
+//               size: 36,
+//               color: "000000",
+//               font: "Traditional Arabic",
+//             }),
+//           ],
+//           alignment: AlignmentType.RIGHT,
+//           spacing: {
+//             line: 360,
+//           },
+//           indent: {
+//             firstLine: convertMillimetersToTwip(12),
+//             left: convertMillimetersToTwip(${indentLeftValue}),
+//           },
+//         }),
+//         new TextRun({
+//           text: '"${text}"',
+//           size: 24,
+//           italics: true,
+//           color: "000000",
+//           font: "Times New Roman",
+//         }),
+//         ],
+//         alignment: AlignmentType.JUSTIFIED,
+//         spacing: {
+//           line: 240,
+//         },
+//         indent: {
+//           // firstLine: convertMillimetersToTwip(12),
+//           left: convertMillimetersToTwip(${indentLeftValue}),
+//         },
+//       }),
 
-
-module.exports = {innerDocx};
+module.exports = { innerDocx };

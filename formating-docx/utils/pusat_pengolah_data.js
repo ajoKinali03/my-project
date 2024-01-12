@@ -114,16 +114,17 @@ function groupPoint(arrTeks, btsPnt) {
     obj.teks = [];
 
     if (tskDt.cekNmr) {
-      obj.id_tingkat = tskDt.tingkat;
+      obj.id_tingkat = tskDt.tingkat.toString();
     } else if (!tskDt.cekNmr && tskDt.index == 0) {
-      obj.id_tingkat = 0;
+      obj.id_tingkat = "0";
     }
 
     arrTeks.forEach((e, idx) => {
       if (btsPnt[idx].arrMark == i && btsPnt[idx].cekNmr) {
-        obj.point.push(e.join("").replaceAll("\n") + "\n");
+        obj.point.push(e.join("").replaceAll("\n", " ") + "\n");
       } else if (btsPnt[idx].arrMark == i && !btsPnt[idx].cekNmr) {
-        obj.teks.push(e.join("").replaceAll("\n") + "\n");
+        // console.log(e.join("").replaceAll("\n") + "\n");
+        obj.teks.push(e.join("").replaceAll("\n", " ") + "\n");
       }
     });
     if (obj.id_tingkat != null) {
@@ -134,8 +135,27 @@ function groupPoint(arrTeks, btsPnt) {
 }
 
 // fungsi untuk memberikan style pada teks
-function getTextStyle(teksDt, inStyleDt){
-  // maaf, sebelum anda membuat ini sebaiknya anda mempelajari lagi modul DOCX
-};
+function getTextStyle(teksDt, inStyleDt) {
+  let arrKos = [];
+  let cekPoint = false;
+  let cekTeks = false;
+  teksDt.forEach((e, i) => {
+    let styleDt = inStyleDt(e.teks.join("\n"), e.point.join("\n"));
+    if (e.point.length != 0) {
+      cekPoint = true;
+    }
+    if (e.teks.length != 0) {
+      cekTeks = true;
+    }
+    styleDt.forEach((a, idx) => {
+      if (cekPoint && e.id_tingkat == a.id) {
+        console.log("ini di point");
+      }
+      if (cekTeks && "teks" == a.id) {
+        console.log("ini di teks", a.id);
+      }
+    });
+  });
+}
 
 module.exports = mentahanData;
