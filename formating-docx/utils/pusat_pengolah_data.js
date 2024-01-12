@@ -14,8 +14,8 @@ const mentahanData = async (teks) => {
   const objCkNmr = cekNomor(arrHuruf);
   const grPnt = groupPoint(arrInArr, objCkNmr);
   const teksStyled = getTextStyle(grPnt, pointStyle, teksStyle);
-  console.log([`${teksStyled.join(",")}`]);
-  return runDocx(`${teksStyled.join(",")}`);
+  return runDocx(teksStyled.join(","));
+  // return;
 };
 // fungsi memisahkan kalimat berdasrkan enter
 function filterEnter(teks) {
@@ -137,36 +137,61 @@ function groupPoint(arrTeks, btsPnt) {
 }
 
 // fungsi untuk memberikan style pada teks
+// function getTextStyle(teksDt, pntStyle, tksStyle) {
+//   teksDt = clearPoint(teksDt);
+//   let arrKos = [];
+//   teksDt.forEach((e, i) => {
+// let cekPoint = false;
+// let cekTeks = false;
+//     let styleDtA = pntStyle(e.point.join("\n"));
+//     let styleDtB = tksStyle(e.teks.join("\n")).style;
+// if (e.point.length != 0) {
+//   cekPoint = true;
+// }
+// if (e.teks.length != 0) {
+//   cekTeks = true;
+// }
+//     styleDtA.forEach((a, idx) => {
+//       if (e.id_tingkat == a.id) {
+//         if (cekPoint) {
+//           arrKos.push(a.style);
+//         }
+//         if (cekTeks) {
+//           arrKos.push(styleDtB);
+//         }
+//       }
+//     });
+//   });
 function getTextStyle(teksDt, pntStyle, tksStyle) {
   teksDt = clearPoint(teksDt);
   // console.log(teksDt);
+  // let pjg = pntStyle().length;
+  // let styleDtB = tksStyle().style;
   let arrKos = [];
   teksDt.forEach((e, i) => {
     let cekPoint = false;
     let cekTeks = false;
-    let styleDtA = pntStyle(e.point.join("\n"));
-    // console.log(`${e.point.join("\n")}`);
-    console.log(e.teks);
-    let styleDtB = tksStyle(`${e.teks.join("\n")}`).style;
-    // console.log([`${e.teks.join("")}`]);
     if (e.point.length != 0) {
       cekPoint = true;
     }
     if (e.teks.length != 0) {
       cekTeks = true;
     }
-    styleDtA.forEach((a, idx) => {
-      if (e.id_tingkat == a.id) {
+    for (let i = 0; i <= pntStyle().length; i++) {
+      if (e.id_tingkat == i) {
         if (cekPoint) {
-          arrKos.push(a.style);
+          e.point.forEach((a) => {
+            arrKos.push(pntStyle(a, 1)[i].style);
+          });
         }
         if (cekTeks) {
-          arrKos.push(styleDtB);
+          e.teks.forEach((a) => {
+            arrKos.push(tksStyle(a, 1).style);
+          });
         }
       }
-    });
+    }
   });
-  // console.log(arrKos);
   return arrKos;
 }
 
