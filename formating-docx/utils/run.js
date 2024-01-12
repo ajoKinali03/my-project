@@ -1,6 +1,6 @@
 
 
-const runDocx = async () => {
+const runDocx = async (data) => {
   const fs = require("fs");
   const {
     BorderStyle,
@@ -148,7 +148,7 @@ const runDocx = async () => {
             },
           },
         },
-        children: [${strInnerDocx}],
+        children: [${data}],
       },
     ],
   });
@@ -158,5 +158,5 @@ const runDocx = async () => {
   });`
   );
 };
-runDocx()
+
 module.exports = {runDocx};
