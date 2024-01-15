@@ -162,7 +162,7 @@ function getTextStyle(teksDt, pntStyle, tksStyle) {
           }
           if (cekTeks) {
             e.teks.forEach((a) => {
-              arrKos.push(tksStyle(a, 1).style);
+              arrKos.push(tksStyle(a, pntStyle()[i].leftValue).style);
             });
           }
         }

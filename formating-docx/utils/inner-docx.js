@@ -1,7 +1,9 @@
 const pointStyle = (point) => {
+  let arrLeftValue = [0.2, 5, 10, 15, 20, 25];
   return [
     {
       id: "0",
+      leftValue: arrLeftValue[0],
       style: `new Paragraph({
         children: [
           new TextRun({
@@ -17,12 +19,13 @@ const pointStyle = (point) => {
         },
         indent: {
           firstLine: convertMillimetersToTwip(9.8),
-          left: convertMillimetersToTwip(0.2),
+          left: convertMillimetersToTwip(${arrLeftValue[0]}),
         },
       }),`
     },
     {
       id: "1",
+      leftValue: arrLeftValue[1],
       style: `new Paragraph({
         children: [
           new TextRun({
@@ -37,7 +40,7 @@ const pointStyle = (point) => {
         indent: {
           hanging: convertMillimetersToTwip(4.8),
           firstLine: convertMillimetersToTwip(0),
-          left: convertMillimetersToTwip(5),
+          left: convertMillimetersToTwip(${arrLeftValue[1]}),
         },
         numbering: {
           reference: "num0",
@@ -47,6 +50,7 @@ const pointStyle = (point) => {
     },
     {
       id: "2",
+      leftValue: arrLeftValue[2],
       style: `new Paragraph({
         children: [
           new TextRun({
@@ -61,7 +65,7 @@ const pointStyle = (point) => {
         indent: {
           hanging: convertMillimetersToTwip(4.9),
           firstLine: convertMillimetersToTwip(4.9),
-          left: convertMillimetersToTwip(10),
+          left: convertMillimetersToTwip(${arrLeftValue[2]}),
         },
         numbering: {
           reference: "num1",
@@ -71,6 +75,7 @@ const pointStyle = (point) => {
     },
     {
       id: "3",
+      leftValue: arrLeftValue[3],
       style: `new Paragraph({
         children: [
           new TextRun({
@@ -85,7 +90,7 @@ const pointStyle = (point) => {
         indent: {
           hanging: convertMillimetersToTwip(5),
           firstLine: convertMillimetersToTwip(5),
-          left: convertMillimetersToTwip(15),
+          left: convertMillimetersToTwip(${arrLeftValue[3]}),
         },
         numbering: {
           reference: "num2",
@@ -95,6 +100,7 @@ const pointStyle = (point) => {
     },
     {
       id: "4",
+      leftValue: arrLeftValue[4],
       style: `new Paragraph({
         children: [
           new TextRun({
@@ -109,7 +115,7 @@ const pointStyle = (point) => {
         indent: {
           hanging: convertMillimetersToTwip(5),
           firstLine: convertMillimetersToTwip(5),
-          left: convertMillimetersToTwip(20),
+          left: convertMillimetersToTwip(${arrLeftValue[4]}),
         },
         numbering: {
           reference: "num3",
@@ -119,6 +125,7 @@ const pointStyle = (point) => {
     },
     {
       id: "5",
+      leftValue: arrLeftValue[5],
       style: `new Paragraph({
         children: [
           new TextRun({
@@ -133,7 +140,7 @@ const pointStyle = (point) => {
         indent: {
           hanging: convertMillimetersToTwip(5),
           firstLine: convertMillimetersToTwip(5),
-          left: convertMillimetersToTwip(25),
+          left: convertMillimetersToTwip(${arrLeftValue[5]}),
         },
         numbering: {
           reference: "num4",
