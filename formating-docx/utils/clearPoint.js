@@ -1,5 +1,4 @@
 const cekNmr = require("./data_tipe_teks");
-
 // fungsi pembersih teks
 const clearPoint = (teksDt) => {
   return teksDt.map((e, i) => {
