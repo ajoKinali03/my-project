@@ -133,9 +133,11 @@ function groupPoint(arrTeks, btsPnt) {
       arrObj.push(obj);
     }
   }
+  console.log(arrObj);
   return arrObj;
 }
 
+// penggabungan data dengan style teks
 function getTextStyle(teksDt, pntStyle, tksStyle) {
   teksDt = clearPoint(teksDt);
   let arrKos = [];

@@ -1,0 +1,13 @@
+extends layout
+
+block content
+  .container-input
+    h3 Masukan data referensi anda di bawah ini
+    .select-type(style="display: flex")
+      p tipe referensi
+      select#tipe-ref(name="tipe")
+        option(value="jurnal") Jurnal
+        option(value="buku") Buku
+        option(value="tesis") Tesis
+  .container-ref
+    .show-ref

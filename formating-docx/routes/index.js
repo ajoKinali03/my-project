@@ -61,4 +61,36 @@ router.get("/setting", async function (req, res) {
   }
 });
 
+router.get("/about", async function (req, res) {
+  res.render("about", {
+    title: "shortcut-docx"
+  })
+
+  // const hslData = await mentahanDataDb.find();
+  // if (hslData.length != 0) {
+  //   res.render("setting", {
+  //     teks: JSON.stringify(hslData),
+  //     title: "shortcut-docx",
+  //   });
+  // } else {
+  //   res.render("setting", { title: "shortcut-docx"});
+  // }
+});
+
+router.get("/referensi", async function (req, res) {
+  res.render("referensi", {
+    title: "shortcut-docx"
+  })
+  
+  // const hslData = await mentahanDataDb.find();
+  // if (hslData.length != 0) {
+  //   res.render("setting", {
+  //     teks: JSON.stringify(hslData),
+  //     title: "shortcut-docx",
+  //   });
+  // } else {
+  //   res.render("setting", { title: "shortcut-docx"});
+  // }
+});
+
 module.exports = router;
