@@ -3,20 +3,21 @@ extends layout
 block content
   .container-input
     h3 Masukan data referensi anda di bawah ini
-    .select-type(style="display: flex")
-      p tipe referensi
+    p(style="margin: 0 5px") tipe referensi
+    .select-type(style="margin: 0 0 10px 5px")
       select#tipe-ref(name="tipe")
         option(value="jurnal") Jurnal
         option(value="buku") Buku
         option(value="tesis") Tesis
+      button#btn-confirm-text(type="button", style="margin-left: 5px") Selesai 
+
     form.form-input
-      input(type="text", placeholder="Judul")
-      input(type="text", placeholder="Penulis")
-      input(type="text", placeholder="Nama Jurnal")
-      input(type="text", placeholder="Tahun")
-      input(type="text", placeholder="Volume")
-      input(type="text", placeholder="Nomor")
-      input(type="text", placeholder="Halaman")
+      input.inpt-txt(type="text", placeholder="Judul")
+      input.inpt-txt(type="text", placeholder="Penulis")
+      input.inpt-txt(type="text", placeholder="Nama Jurnal")
+      input.inpt-txt(type="text", placeholder="Tahun")
+      input.inpt-txt(type="text", placeholder="Volume")
+      input.inpt-txt(type="text", placeholder="Nomor")
+      input.inpt-txt(type="text", placeholder="Halaman")
       
   .container-ref
-    .show-ref
