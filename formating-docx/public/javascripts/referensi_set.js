@@ -1,8 +1,10 @@
 const cntrRefInpt = document.getElementsByClassName("container-input")[0];
 const selectType = document.getElementById("tipe-ref");
 const optType = document.getElementsByTagName("option");
+const formInpt = document.getElementsByClassName("form-input")[0];
 
 const crtInptDt = (type) => {
+  console.log(type);
   let arrInpt;
   if (type == "jurnal") {
     arrInpt = [
@@ -13,34 +15,50 @@ const crtInptDt = (type) => {
       "Volume",
       "Nomor",
       "Halaman",
+      "ISBN",
     ];
+  } else if (type == "buku") {
+    arrInpt = [
+      "Judul",
+      "Penulis",
+      "Kota Terbit",
+      "Penerbit",
+      "Halaman",
+      "ISBN",
+    ];
+  } else if (type == "tesis") {
+    arrInpt = ["Judul", "Penulis", "Jurusan", "Universitas"];
   }
 
   let form = document.createElement("form");
+  let classForm = document.createAttribute("class");
+  classForm.value = "form-input";
+  form.setAttributeNode(classForm);
 
   let inptdFrag = document.createDocumentFragment();
 
-  console.log(type);
+  // munukar input yang sudah ada dengan fungsi repalaceChild(child lama, child baru)
+
+  console.log(arrInpt);
   arrInpt.forEach((e, i) => {
-    console.log(e);
-    let label = document.createElement("label");
-    let namaLabel = document.createAttribute("for");
-    namaLabel.value = e;
-    label.setAttribute(namaLabel);
+    // console.log(e);
     let input = document.createElement("input");
-    let namaInput = document.createAttribute("name");
+    let namaInput = document.createAttribute("placeholder");
     namaInput.value = e;
     let type = document.createAttribute("type");
     type.value = "text";
-    input.setAttribute(namaInput);
-    input.setAttribute(type);
-    inptdFrag.appendChild(label);
+    input.setAttributeNode(namaInput);
+    input.setAttributeNode(type);
     inptdFrag.appendChild(input);
   });
   form.appendChild(inptdFrag);
   cntrRefInpt.appendChild(form);
+  // formInpt.parentNode.replaceChild(form, formInpt);
 };
 
 selectType.addEventListener("change", () => {
+  let indukElement = formInpt.parentElement;
+  console.log(indukElement);
+  indukElement.removeChild(formInpt)
   crtInptDt(selectType.value);
 });
