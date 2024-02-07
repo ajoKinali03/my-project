@@ -64,6 +64,7 @@ selectType.addEventListener("change", () => {
   crtInptDt(selectType.value);
 });
 
+// fungsi membuat tampilan show ref
 function crtShowDt(data) {
   let cntrRef = document.getElementsByClassName("container-ref")[0];
 
@@ -74,9 +75,8 @@ function crtShowDt(data) {
 
   let showdFrag = document.createDocumentFragment();
   let dtArrKeys = Object.keys(data);
-  console.log(data);
+
   for (let i = 0; i < dtArrKeys.length; i++) {
-    console.log(i)
     let shwTextP = document.createElement("p");
     shwTextP.innerText = `${dtArrKeys[i]}: ${data[dtArrKeys[i]]}`;
     showdFrag.appendChild(shwTextP);
@@ -90,9 +90,7 @@ btnConfirmTxt.addEventListener("click", () => {
   const objDataTxt = {};
   objDataTxt.type = selectType.value;
   for (let i = 0; i < inptTxt.length; i++) {
-    let e = inptTxt[i]; // BUG DISNIIII KENAPA TIDAK SAMPAI KE TUJUH MALAH ENAMMMMM
-    console.log(i);
-    console.log(e.attributes.placeholder.value, i);
+    let e = inptTxt[i];
     objDataTxt[e.attributes.placeholder.value] = e.value;
   }
   crtShowDt(objDataTxt);
