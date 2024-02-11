@@ -55,6 +55,12 @@ const crtInptDt = (type) => {
   cntrRefInpt.appendChild(form);
 };
 
+//stage menampilkan data ref jika ada ci cookie
+if(document.cookie.split(";")[1]){
+  const data = JSON.parse(document.cookie.split(";")[1].split("=")[1]);
+  data.forEach(e => crtShowDt(e));
+};
+
 // penjalan fungsi crtInptDt
 selectType.addEventListener("change", () => {
   const formInpt = document.getElementsByClassName("form-input")[0];
@@ -62,6 +68,18 @@ selectType.addEventListener("change", () => {
   indukElement.removeChild(formInpt);
 
   crtInptDt(selectType.value);
+});
+
+// fungsi untuk mengambil data text dari input
+btnConfirmTxt.addEventListener("click", () => {
+  const objDataTxt = {};
+  objDataTxt.type = selectType.value;
+  for (let i = 0; i < inptTxt.length; i++) {
+    let e = inptTxt[i];
+    objDataTxt[e.attributes.placeholder.value] = e.value;
+  }
+  cookieFunc(objDataTxt);
+  crtShowDt(objDataTxt);
 });
 
 // fungsi membuat tampilan show ref
@@ -85,13 +103,19 @@ function crtShowDt(data) {
   cntrRef.appendChild(showRefParent);
 }
 
-// fungsi untuk mengambil data text dari input
-btnConfirmTxt.addEventListener("click", () => {
-  const objDataTxt = {};
-  objDataTxt.type = selectType.value;
-  for (let i = 0; i < inptTxt.length; i++) {
-    let e = inptTxt[i];
-    objDataTxt[e.attributes.placeholder.value] = e.value;
+// minyimpan data ke cookie
+function cookieFunc(data) {
+  const d = new Date();
+  d.setTime(d.getTime() + 1 * 24 * 60 * 60 * 1000);
+  let expires = "expires=" + d.toUTCString();
+
+  if (document.cookie.split(";")[1]) {
+    let cekCookieValue = document.cookie.split(";")[1].split("=")[1];
+    let objArray = cekCookieValue ? JSON.parse(cekCookieValue) : [];
+    objArray.push(data);
+
+    document.cookie = `obj=${JSON.stringify(objArray)};${expires};path=/`;
+  } else {
+    document.cookie = `obj=${JSON.stringify([data])};${expires};path=/`;
   }
-  crtShowDt(objDataTxt);
-});
+}

@@ -1,15 +1,19 @@
 extends layout
 
 block content
-  .container-content(style="display: flex;")
+  .container-content(style="display: flex; flex-wrap: wrap;")
     textarea(spellcheck="false", name="text-input", cols="80", rows="23", placeholder="harap untuk memisahkan setiap teks dengan 1x enter", style="padding: 20px; text-align: justify;", onkeydown="if(event.keyCode===9){var v=this.value,s=this.selectionStart,e=this.selectionEnd;this.value=v.substring(0, s)+'\t'+v.substring(e);this.selectionStart=this.selectionEnd=s+1;return false;}")#form-input
-      | #{teks}
+    
     form#form-post(action="/home", method="post")
       input#input-post(type="hidden", name="postInput")
       button#btn-post(type="submit", style="width: 100px; height: 30px;")
         |Save
-      button(type="button", style="width: 100px; height: 30px;")#btn-download
+      button#btn-download(type="button", style="width: 100px; height: 30px;")
         |Download
-    form#form-post(action="/deleteDb", method="post")
-      button(type="submit", style="width: 100px; height: 30px;")#btn-download
-        |Delete
+      button#btn-showref(type="button", style="width: 100px; height: 30px;")
+        |Referensi
+
+    .show-ref-home
+    //- form#form-post(action="/deleteDb", method="post")
+    //-   button(type="submit", style="width: 100px; height: 30px;")#btn-delete
+    //-     |Delete

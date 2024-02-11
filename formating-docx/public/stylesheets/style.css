@@ -3,10 +3,12 @@
   margin: 0;
   box-sizing: border-box;
   font-family: 'Noto Sans JP', sans-serif;
-  /* outline: 1px red solid; */
+  outline: 1px red solid;
 }
 
-.costume-btn{
+/* style untuk setting (belum digunakan) */
+
+/* .costume-btn{
   color: rgb(211, 211, 211);
 }
 
@@ -27,10 +29,15 @@
 .costume-list-data-div{
   outline: solid 1px black;
   border-radius: 5px;
-}
+} */
 
 /* style untuk halam home */
 
+.show-ref-home{
+  width: 100%;
+  height: max-content;
+  background-color: white;
+}
 
 /* style untuk halam setting */
 
