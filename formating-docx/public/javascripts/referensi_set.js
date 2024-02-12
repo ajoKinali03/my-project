@@ -4,6 +4,8 @@ const optType = document.getElementsByTagName("option");
 const btnConfirmTxt = document.getElementById("btn-confirm-text");
 const inptTxt = document.getElementsByClassName("inpt-txt");
 
+
+
 // fungsi membuat input yang selalu berganti sesui opsi yang diinginkan
 const crtInptDt = (type) => {
   let arrInpt;
@@ -41,7 +43,11 @@ const crtInptDt = (type) => {
   arrInpt.forEach((e, i) => {
     let input = document.createElement("input");
     let namaInput = document.createAttribute("placeholder");
-    namaInput.value = e;
+    if(e == "ISBN"){
+      namaInput.value = e + " (Opsional)";
+    }else{
+      namaInput.value = e;
+    }
     let type = document.createAttribute("type");
     type.value = "text";
     let classInpt = document.createAttribute("class");
@@ -76,7 +82,8 @@ btnConfirmTxt.addEventListener("click", () => {
   objDataTxt.type = selectType.value;
   for (let i = 0; i < inptTxt.length; i++) {
     let e = inptTxt[i];
-    objDataTxt[e.attributes.placeholder.value] = e.value;
+    objDataTxt[e.attributes.placeholder.value.split(" ")[0]] = e.value;
+    console.log(e.attributes.placeholder.value.split(" ")[0]);
   }
   cookieFunc(objDataTxt);
   crtShowDt(objDataTxt);

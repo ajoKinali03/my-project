@@ -1,8 +1,8 @@
-*{
+* {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  font-family: 'Noto Sans JP', sans-serif;
+  font-family: "Noto Sans JP", sans-serif;
   outline: 1px red solid;
 }
 
@@ -33,15 +33,49 @@
 
 /* style untuk halam home */
 
-.show-ref-home{
+.container-home {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  gap: 5px;
   width: 100%;
   height: max-content;
+}
+
+.btn-home{
+  width: 33%;
+  height: 30px;
+}
+
+.show-ref-home {
+  /* width: 300px; */
+  width: 25%;
+  height: 85vh;
   background-color: white;
+  padding: 5px;
+  border-radius: 5px;
+  border: 5px solid white;
+  overflow: scroll;
+  overflow-x: hidden;
+}
+
+.ref-home{
+  width: 100%;
+  height: max-content;
+  margin-bottom: 10px;
+  background-color: rgb(126, 126, 126);
+  padding: 5px;
+  border-radius: 10px;
+}
+.ref-home > p{
+  color: white;
+  margin: 0 0 3px 0;
+  text-align: justify;
 }
 
 /* style untuk halam setting */
-
-.container-setting{
+/* 
+.container-setting {
   margin: 0;
   padding: 0;
   width: 100%;
@@ -51,13 +85,13 @@
   justify-content: center;
 }
 
-.dashboard-setting{
+.dashboard-setting {
   width: 180px;
   height: 100%;
   background-color: aliceblue;
 }
 
-.parent-setting{
+.parent-setting {
   margin: 0;
   padding: 0;
   width: 70%;
@@ -69,31 +103,31 @@
   background-color: black;
 }
 
-.child-setting{
+.child-setting {
   margin: 0;
   padding: 0;
   width: 70%;
   background-color: white;
 }
 
-.textarea-setting{
+.textarea-setting {
   width: 100%;
   outline: none;
   border: none;
   resize: none;
 }
-.textarea-setting:focus{
+.textarea-setting:focus {
   background-color: rgb(236, 236, 236);
-}
+} */
 
-.container-input{
+.container-input {
   background-color: white;
   width: 100%;
   border-radius: 5px;
   padding: 5px;
 }
 
-.container-ref{
+.container-ref {
   display: flex;
   flex-direction: row-reverse;
   flex-wrap: wrap-reverse;
@@ -102,7 +136,7 @@
   margin-top: 5px;
 }
 
-.container-ref > .show-ref{
+.container-ref > .show-ref {
   background-color: white;
   max-width: 250px;
   width: max-content;
@@ -112,18 +146,18 @@
   margin: 3px;
 }
 
-.container-ref > .show-ref > p{
+.container-ref > .show-ref > p {
   margin: 0;
   font-size: smaller;
   font-weight: bold;
   text-align: justify;
 }
 
-.form-input{
+.form-input {
   display: flex;
   flex-direction: column;
 }
 
-.form-input > input{
+.form-input > input {
   margin: 2px 5px;
 }
