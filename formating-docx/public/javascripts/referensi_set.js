@@ -3,8 +3,7 @@ const selectType = document.getElementById("tipe-ref");
 const optType = document.getElementsByTagName("option");
 const btnConfirmTxt = document.getElementById("btn-confirm-text");
 const inptTxt = document.getElementsByClassName("inpt-txt");
-
-
+const cntrRef = document.getElementsByClassName("container-ref")[0];
 
 // fungsi membuat input yang selalu berganti sesui opsi yang diinginkan
 const crtInptDt = (type) => {
@@ -43,9 +42,9 @@ const crtInptDt = (type) => {
   arrInpt.forEach((e, i) => {
     let input = document.createElement("input");
     let namaInput = document.createAttribute("placeholder");
-    if(e == "ISBN"){
+    if (e == "ISBN") {
       namaInput.value = e + " (Opsional)";
-    }else{
+    } else {
       namaInput.value = e;
     }
     let type = document.createAttribute("type");
@@ -62,10 +61,10 @@ const crtInptDt = (type) => {
 };
 
 //stage menampilkan data ref jika ada ci cookie
-if(document.cookie.split(";")[1]){
+if (document.cookie.split(";")[1]) {
   const data = JSON.parse(document.cookie.split(";")[1].split("=")[1]);
-  data.forEach(e => crtShowDt(e));
-};
+  data.forEach((e) => crtShowDt(e));
+}
 
 // penjalan fungsi crtInptDt
 selectType.addEventListener("change", () => {
@@ -78,12 +77,17 @@ selectType.addEventListener("change", () => {
 
 // fungsi untuk mengambil data text dari input
 btnConfirmTxt.addEventListener("click", () => {
+  const cekPanjangDtCookie = document.cookie.split(";")[1]
+    ? JSON.parse(document.cookie.split(";")[1].split("=")[1]).length
+    : 0;
   const objDataTxt = {};
+  let idRef = 0 + cekPanjangDtCookie;
+  idRef++;
+  objDataTxt.ID = idRef;
   objDataTxt.type = selectType.value;
   for (let i = 0; i < inptTxt.length; i++) {
     let e = inptTxt[i];
     objDataTxt[e.attributes.placeholder.value.split(" ")[0]] = e.value;
-    console.log(e.attributes.placeholder.value.split(" ")[0]);
   }
   cookieFunc(objDataTxt);
   crtShowDt(objDataTxt);
@@ -91,8 +95,6 @@ btnConfirmTxt.addEventListener("click", () => {
 
 // fungsi membuat tampilan show ref
 function crtShowDt(data) {
-  let cntrRef = document.getElementsByClassName("container-ref")[0];
-
   let showRefParent = document.createElement("div");
   let refClass = document.createAttribute("class");
   refClass.value = "show-ref";
@@ -103,10 +105,23 @@ function crtShowDt(data) {
 
   for (let i = 0; i < dtArrKeys.length; i++) {
     let shwTextP = document.createElement("p");
-    shwTextP.innerText = `${dtArrKeys[i]}: ${data[dtArrKeys[i]]}`;
+    if (dtArrKeys[i] == "ID") {
+      shwTextP.innerText = `${dtArrKeys[i]}:${data[dtArrKeys[i]]}`;
+      shwTextP.style.display = "none";
+    } else {
+      shwTextP.innerText = `${dtArrKeys[i]}: ${data[dtArrKeys[i]]}`;
+    }
     showdFrag.appendChild(shwTextP);
   }
   showRefParent.appendChild(showdFrag);
+
+  let btnDel = document.createElement("button");
+  let idBtnDel = document.createAttribute("id");
+  idBtnDel.value = "ref-btn-del";
+  btnDel.setAttributeNode(idBtnDel);
+  btnDel.innerText = "HAPUS";
+  showRefParent.appendChild(btnDel);
+
   cntrRef.appendChild(showRefParent);
 }
 
@@ -115,7 +130,6 @@ function cookieFunc(data) {
   const d = new Date();
   d.setTime(d.getTime() + 1 * 24 * 60 * 60 * 1000);
   let expires = "expires=" + d.toUTCString();
-
   if (document.cookie.split(";")[1]) {
     let cekCookieValue = document.cookie.split(";")[1].split("=")[1];
     let objArray = cekCookieValue ? JSON.parse(cekCookieValue) : [];
@@ -125,4 +139,62 @@ function cookieFunc(data) {
   } else {
     document.cookie = `obj=${JSON.stringify([data])};${expires};path=/`;
   }
+}
+
+// fungsi untuk menghapus data refrensi
+document.addEventListener("click", (event) => {
+  let arrayChildren = event.target.parentElement.children;
+  let triger = event.target;
+
+  if (triger.id == "ref-btn-del") {
+    let dataCookie = JSON.parse(document.cookie.split(";")[1].split("=")[1]);
+
+    for (let value of arrayChildren) {
+      if (value.innerText.includes("ID:")) {
+        let idElement = value.innerText.split(":")[1];
+        let dataAfterDelete = dataCookie.filter((e) => e.ID != idElement);
+        delElment(dataAfterDelete);
+        location.reload(true);
+      }
+    }
+  }
+});
+
+function delElment(dataDel) {
+  let d = new Date();
+  let hari = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  let dayIndex = d.getDay();
+
+  let bulan = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
+  let expiresDel = `expires=${hari[d.getDay()]}, ${d.getDate()} ${
+    bulan[d.getMonth()]
+  } ${d.getFullYear()} 00:00:00 UTC`;
+  document.cookie = `obj=;${expiresDel}, ; path=/`;
+  dataDel.forEach((e, i) => {
+    i++;
+    e.ID = i;
+    cookieFunc(e);
+  });
 }

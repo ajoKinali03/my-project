@@ -3,7 +3,7 @@
   margin: 0;
   box-sizing: border-box;
   font-family: "Noto Sans JP", sans-serif;
-  outline: 1px red solid;
+  /* outline: 1px red solid; */
 }
 
 /* style untuk setting (belum digunakan) */
@@ -48,9 +48,6 @@
 }
 
 .show-ref-home {
-  /* width: 300px; */
-  width: 25%;
-  height: 85vh;
   background-color: white;
   padding: 5px;
   border-radius: 5px;
@@ -160,4 +157,14 @@
 
 .form-input > input {
   margin: 2px 5px;
+}
+
+#ref-btn-del{
+  width: 100%;
+  height: max-content;
+  padding: 3px;
+  background-color: rgb(255, 49, 49);
+  text-align: center;
+  font-weight: bolder;
+  border-radius: 5px;
 }
