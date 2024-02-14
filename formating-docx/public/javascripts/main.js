@@ -4,6 +4,19 @@ const inputPost = document.getElementById("input-post");
 const btnShwRef = document.getElementById("btn-showref");
 const cntrCntn = document.getElementsByClassName("container-home")[0];
 const cntrShwRefHome = document.getElementsByClassName("show-ref-home")[0];
+const btnPostText = document.getElementById("btn-post");
+
+// mencari data dari cookie
+function searchCookie(key) {
+  let arrData = document.cookie.split(";");
+  for (let value of arrData) {
+    if (value.split("=")[0].replace(" ", "") == key) {
+      let key = value.split("=")[0].replace(" ", "");
+      let isi = value.split("=")[1];
+      return { key: key, value: isi };
+    }
+  }
+}
 
 // auto set lebar atau responsif dari tampilan home
 let lebarCntrCntn = cntrCntn.getBoundingClientRect().width;
@@ -17,24 +30,34 @@ if (lebarCntrCntn <= 1039) {
   formPost.style.width = `${parseInt(0.99 * lebarCntrCntn)}px`;
 }
 
+// pencekan awal apakah ada text yang tersimpan di dalam cookie
+if (searchCookie("txt") != undefined && searchCookie("txt").value.length != 0) {
+ inpt.value = decodeURIComponent(searchCookie("txt").value) 
+}
+// delData();
+
 // input text
-document.addEventListener("keyup", () => {
+document.addEventListener("keyup", (event) => {
+  let text = inpt.value;
   if (event.code == "Enter") {
-    inputPost.value = JSON.stringify({ teks: inpt.value });
+    inputPost.value = JSON.stringify({ teks: text });
   }
+  if(text == ""){
+    delData();
+  };
 });
 
 // fungsi untuk menampilkan
 btnShwRef.addEventListener("click", () => {
-  if (document.cookie.split(";")[1]) {
-    let data = JSON.parse(document.cookie.split(";")[1].split("=")[1]);
+  let target = searchCookie("obj");
+  if (target != undefined) {
+    let data = JSON.parse(target.value);
 
     crtCntrShwRef(data, true);
   } else {
     crtCntrShwRef("Referensi Belum Anda Masukan", false);
   }
 });
-
 
 function crtCntrShwRef(respon, bool) {
   let listItemChild = cntrCntn.children.item(2);
@@ -122,3 +145,23 @@ document.addEventListener("click", (event) => {
       });
   }
 });
+
+btnPostText.addEventListener("click", () => {
+  delData()
+  saveData(encodeURIComponent(inpt.value));
+});
+
+// minyimpan data ke cookie
+function saveData(txt) {
+  const d = new Date();
+  d.setTime(d.getTime() + 1 * 24 * 60 * 60 * 1000);
+  let expires = "expires=" + d.toUTCString();
+  console.log(txt);
+  document.cookie = `txt=${txt}; ${expires}; path=/home`;
+}
+// fungsi untuk menghapus data
+function delData() {
+  let expiredDate = new Date(0);
+  document.cookie =
+    "txt" + "=; expires=" + expiredDate.toUTCString() + "; path=/home";
+}

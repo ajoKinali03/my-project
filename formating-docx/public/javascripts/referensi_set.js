@@ -5,6 +5,7 @@ const btnConfirmTxt = document.getElementById("btn-confirm-text");
 const inptTxt = document.getElementsByClassName("inpt-txt");
 const cntrRef = document.getElementsByClassName("container-ref")[0];
 
+
 // fungsi membuat input yang selalu berganti sesui opsi yang diinginkan
 const crtInptDt = (type) => {
   let arrInpt;
@@ -161,37 +162,8 @@ document.addEventListener("click", (event) => {
 });
 
 function delElment(dataDel) {
-  let d = new Date();
-  let hari = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-  ];
-  let dayIndex = d.getDay();
-
-  let bulan = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
-
-  let expiresDel = `expires=${hari[d.getDay()]}, ${d.getDate()} ${
-    bulan[d.getMonth()]
-  } ${d.getFullYear()} 00:00:00 UTC`;
-  document.cookie = `obj=;${expiresDel}, ; path=/`;
+  let expiredDate = new Date(0);
+  document.cookie = "obj" + "=; expires=" + expiredDate.toUTCString() + "; path=/";
   dataDel.forEach((e, i) => {
     i++;
     e.ID = i;
