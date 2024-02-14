@@ -23,7 +23,7 @@ let lebarCntrCntn = cntrCntn.getBoundingClientRect().width;
 
 if (lebarCntrCntn >= 1000) {
   inpt.style.width = `${parseInt(0.5 * lebarCntrCntn)}px`;
-  formPost.style.width = `${parseInt(0.23 * lebarCntrCntn)}px`;
+  formPost.style.width = `${parseInt(0.22 * lebarCntrCntn)}px`;
 }
 if (lebarCntrCntn <= 1039) {
   inpt.style.width = `${parseInt(0.99 * lebarCntrCntn)}px`;
@@ -34,13 +34,17 @@ if (lebarCntrCntn <= 1039) {
 if (searchCookie("txt") != undefined && searchCookie("txt").value.length != 0) {
  inpt.value = decodeURIComponent(searchCookie("txt").value) 
 }
-// delData();
+
 
 // input text
 document.addEventListener("keyup", (event) => {
   let text = inpt.value;
   if (event.code == "Enter") {
-    inputPost.value = JSON.stringify({ teks: text });
+    if(searchCookie("obj") != undefined){
+      inputPost.value = JSON.stringify({ teks: text, ref: JSON.parse(searchCookie("obj").value)});
+    }else{
+      inputPost.value = JSON.stringify({ teks: text, ref: null});
+    };
   }
   if(text == ""){
     delData();
@@ -66,6 +70,10 @@ function crtCntrShwRef(respon, bool) {
     let attrClass = document.createAttribute("class");
     attrClass.value = "show-ref-home";
     shwRefHome.setAttributeNode(attrClass);
+
+    if (lebarCntrCntn >= 1000) {
+      shwRefHome.style.height = "85vh"
+    }
 
     // auto set lebar dari tampilan cntr ref
     if (lebarCntrCntn >= 1000) {

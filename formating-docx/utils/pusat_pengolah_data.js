@@ -2,21 +2,31 @@ const mentahanDataDb = require("../model/mentahan");
 const clearPoint = require("./clearPoint");
 const cekNmr = require("./data_tipe_teks");
 const { pointStyle, teksStyle } = require("./inner-docx");
+const searchRef = require("./ref-manage");
 const { runDocx } = require("./run");
 
 // code runner
-const mentahanData = async (teks) => {
-  teks = JSON.parse(teks);
-  teks = teks.teks;
+const mentahanData = async (data) => {
+  data = JSON.parse(data);
+  teks = data.teks;
+  ref = data.ref;
+
+  // kelola data text input
   const lineTeks = filterEnter(teks);
   const arrInArr = bagianTeks(lineTeks);
   const arrHuruf = filterSpasi(arrInArr);
   const objCkNmr = cekNomor(arrHuruf);
   const grPnt = groupPoint(arrInArr, objCkNmr);
+
+  // kelola data input referensi
+  mainManageRef(ref, grPnt);
+
+  // membuat file
   const teksStyled = getTextStyle(grPnt, pointStyle, teksStyle);
   return runDocx(teksStyled.join(","));
   // return;
 };
+
 // fungsi memisahkan kalimat berdasrkan enter
 function filterEnter(teks) {
   const arrWord = [...teks];
@@ -133,7 +143,6 @@ function groupPoint(arrTeks, btsPnt) {
       arrObj.push(obj);
     }
   }
-  console.log(arrObj);
   return arrObj;
 }
 
@@ -173,5 +182,19 @@ function getTextStyle(teksDt, pntStyle, tksStyle) {
   });
   return arrKos;
 }
+
+// pengolahan data referensi
+const mainManageRef =  (ref, textDt) => {
+  let refTeksPosition = searchRef(ref, textDt);
+  console.log(refTeksPosition[0].teks);
+
+
+  // for(let value of dtText){
+
+  //   dtText.refStrID = `-(footnote:${idRef})-`;
+  //   dtText.refID = idRef;
+  // };
+
+};
 
 module.exports = mentahanData;
