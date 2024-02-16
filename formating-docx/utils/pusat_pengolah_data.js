@@ -2,7 +2,7 @@ const mentahanDataDb = require("../model/mentahan");
 const clearPoint = require("./clearPoint");
 const cekNmr = require("./data_tipe_teks");
 const { pointStyle, teksStyle } = require("./inner-docx");
-const searchRef = require("./ref-manage");
+const {mainManageRef, extractTxt} = require("./ref-manage");
 const { runDocx } = require("./run");
 
 // code runner
@@ -150,51 +150,90 @@ function groupPoint(arrTeks, btsPnt) {
 function getTextStyle(teksDt, pntStyle, tksStyle) {
   teksDt = clearPoint(teksDt);
   let arrKos = [];
+  let count = 0;
+  let tempStyle = (txt, ftNt) => {
+    return {
+      txt: `new TextRun({
+              text: "${txt}",
+              size: 24,
+              color: "000000",
+              font: "Times New Roman",
+            })`,
+      ftNt: `new FootnoteReferenceRun(${ftNt})`,
+    };
+  };
   teksDt.forEach((e) => {
-    let cekPoint = false;
-    let cekTeks = false;
-    if (e.point.length != 0) {
-      cekPoint = true;
-    }
-    if (e.teks.length != 0) {
-      cekTeks = true;
-    }
-    for (let i = 0; i <= pntStyle().length; i++) {
-      if (e.id_tingkat == i) {
-        if (e.id_tingkat == 0) {
-          e.teks.forEach((a) => {
-            arrKos.push(pntStyle(a)[i].style);
-          });
-        } else {
-          if (cekPoint) {
-            e.point.forEach((a) => {
-              arrKos.push(pntStyle(a)[i].style);
-            });
-          }
-          if (cekTeks) {
+    if (e.cekIdRef) {
+      // extractTxt(e, tempStyle, count);
+      console.log(e) // pengolahan data footnote dan txt di sini
+      // let cekPoint = false;
+      // let cekTeks = false;
+      // if (e.point.length != 0) {
+      //   cekPoint = true;
+      // }
+      // if (e.teks.length != 0) {
+      //   cekTeks = true;
+      // }
+      // for (let i = 0; i <= pntStyle().length; i++) {
+      //   if (e.id_tingkat == i) {
+      //     if (e.id_tingkat == 0) {
+      //       e.teks.forEach((a) => {
+      //         arrKos.push(pntStyle(`[${tempStyle(a).txt}]`)[i].style);
+      //       });
+      //     } else {
+      //       if (cekPoint) {
+      //         e.point.forEach((a) => {
+      //           arrKos.push(pntStyle(`[${tempStyle(a).txt}]`)[i].style);
+      //         });
+      //       }
+      //       if (cekTeks) {
+      //         e.teks.forEach((a) => {
+      //           arrKos.push(
+      //             tksStyle(`[${tempStyle(a).txt}]`, pntStyle()[i].leftValue)
+      //               .style
+      //           );
+      //         });
+      //       }
+      //     }
+      //   }
+      // }
+
+    } else {
+      let cekPoint = false;
+      let cekTeks = false;
+      if (e.point.length != 0) {
+        cekPoint = true;
+      }
+      if (e.teks.length != 0) {
+        cekTeks = true;
+      }
+      for (let i = 0; i <= pntStyle().length; i++) {
+        if (e.id_tingkat == i) {
+          if (e.id_tingkat == 0) {
             e.teks.forEach((a) => {
-              arrKos.push(tksStyle(a, pntStyle()[i].leftValue).style);
+              arrKos.push(pntStyle(`[${tempStyle(a).txt}]`)[i].style);
             });
+          } else {
+            if (cekPoint) {
+              e.point.forEach((a) => {
+                arrKos.push(pntStyle(`[${tempStyle(a).txt}]`)[i].style);
+              });
+            }
+            if (cekTeks) {
+              e.teks.forEach((a) => {
+                arrKos.push(
+                  tksStyle(`[${tempStyle(a).txt}]`, pntStyle()[i].leftValue)
+                    .style
+                );
+              });
+            }
           }
         }
       }
     }
   });
+  // console.log(arrKos);
   return arrKos;
 }
-
-// pengolahan data referensi
-const mainManageRef =  (ref, textDt) => {
-  let refTeksPosition = searchRef(ref, textDt);
-  console.log(refTeksPosition[0].teks);
-
-
-  // for(let value of dtText){
-
-  //   dtText.refStrID = `-(footnote:${idRef})-`;
-  //   dtText.refID = idRef;
-  // };
-
-};
 
 module.exports = mentahanData;

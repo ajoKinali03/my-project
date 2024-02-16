@@ -24,7 +24,7 @@ const doc = new Document({
                         new TextRun({
                             children: [" World!"],
                         }),
-                        new FootnoteReferenceRun(2),
+                        new FootnoteReferenceRun(1),
                         new TextRun({
                             children: [" GitHub!"],
                         }),

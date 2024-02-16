@@ -5,14 +5,7 @@ const pointStyle = (point) => {
       id: "0",
       leftValue: arrLeftValue[0],
       style: `new Paragraph({
-        children: [
-          new TextRun({
-            text: "${point}",
-            size: 24,
-            color: "000000",
-            font: "Times New Roman",
-          }),
-        ],
+        children: ${point},
         alignment: AlignmentType.JUSTIFIED,
         spacing: {
           line: 360,
@@ -27,11 +20,7 @@ const pointStyle = (point) => {
       id: "1",
       leftValue: arrLeftValue[1],
       style: `new Paragraph({
-        children: [
-          new TextRun({
-            text: "${point}",
-          }),
-        ],
+        children: ${point},
         style: "bold",
         alignment: AlignmentType.JUSTIFIED,
         spacing: {
@@ -52,11 +41,7 @@ const pointStyle = (point) => {
       id: "2",
       leftValue: arrLeftValue[2],
       style: `new Paragraph({
-        children: [
-          new TextRun({
-            text: "${point}",
-          }),
-        ],
+        children: ${point},
         style: "normal",
         alignment: AlignmentType.JUSTIFIED,
         spacing: {
@@ -77,11 +62,7 @@ const pointStyle = (point) => {
       id: "3",
       leftValue: arrLeftValue[3],
       style: `new Paragraph({
-        children: [
-          new TextRun({
-            text: "${point}",
-          }),
-        ],
+        children: ${point},
         style: "normal",
         alignment: AlignmentType.JUSTIFIED,
         spacing: {
@@ -102,11 +83,7 @@ const pointStyle = (point) => {
       id: "4",
       leftValue: arrLeftValue[4],
       style: `new Paragraph({
-        children: [
-          new TextRun({
-            text: "${point}",
-          }),
-        ],
+        children: ${point},
         style: "normal",
         alignment: AlignmentType.JUSTIFIED,
         spacing: {
@@ -127,11 +104,7 @@ const pointStyle = (point) => {
       id: "5",
       leftValue: arrLeftValue[5],
       style: `new Paragraph({
-        children: [
-          new TextRun({
-            text: "${point}",
-          }),
-        ],
+        children: ${point},
         style: "normal",
         alignment: AlignmentType.JUSTIFIED,
         spacing: {
@@ -174,6 +147,7 @@ let teksStyle = (text, indentLeftValue) => {
   };
 };
 
+let footnoteStyled = () => {};
 
 // {
 //   id: "jb",

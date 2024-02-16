@@ -18,6 +18,7 @@ const runDocx = async (data) => {
     PageOrientation,
     PageSize,
     page,
+    FootnoteReferenceRun,
   } = require("docx");
 
   // let strInnerDocx = JSON.parse(fs.readFileSync("./data/strInnerDocx.json"));
