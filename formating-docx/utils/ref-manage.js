@@ -45,7 +45,7 @@ const mainManageRef = (refData, txtData) => {
   let arrCodeFtNt = data.ttlFtNt;
   // console.log(arrCodeFtNt);
 
-  return data.txt;
+  return data;
 };
 
 // Fungsi untuk mencari dan memisahkan kecocokan teks yang memiliki tanda footnote

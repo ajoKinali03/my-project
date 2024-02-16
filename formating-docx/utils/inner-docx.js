@@ -127,14 +127,7 @@ const pointStyle = (point) => {
 let teksStyle = (text, indentLeftValue) => {
   return {
     style: `new Paragraph({
-      children: [
-        new TextRun({
-          text: "${text}",
-          size: 24,
-          color: "000000",
-          font: "Times New Roman",
-        }),
-      ],
+      children: ${text},
       alignment: AlignmentType.JUSTIFIED,
       spacing: {
         line: 360,

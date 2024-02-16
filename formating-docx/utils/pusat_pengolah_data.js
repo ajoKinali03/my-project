@@ -2,7 +2,8 @@ const mentahanDataDb = require("../model/mentahan");
 const clearPoint = require("./clearPoint");
 const cekNmr = require("./data_tipe_teks");
 const { pointStyle, teksStyle } = require("./inner-docx");
-const {mainManageRef, extractTxt} = require("./ref-manage");
+const { mainManageRef, extractTxt } = require("./ref-manage");
+const refStyled = require("./ref-style");
 const { runDocx } = require("./run");
 
 // code runner
@@ -16,14 +17,17 @@ const mentahanData = async (data) => {
   const arrInArr = bagianTeks(lineTeks);
   const arrHuruf = filterSpasi(arrInArr);
   const objCkNmr = cekNomor(arrHuruf);
-  const grPnt = groupPoint(arrInArr, objCkNmr);
+  let grPnt = groupPoint(arrInArr, objCkNmr);
 
   // kelola data input referensi
-  mainManageRef(ref, grPnt);
+  let mergeRefAndTxt = mainManageRef(ref, grPnt);
+  grPnt = mergeRefAndTxt.txt;
+
+  let listRef = refStyled(mergeRefAndTxt.ttlFtNt, ref)
 
   // membuat file
   const teksStyled = getTextStyle(grPnt, pointStyle, teksStyle);
-  return runDocx(teksStyled.join(","));
+  return runDocx(teksStyled.join(","), listRef);
   // return;
 };
 
@@ -164,40 +168,52 @@ function getTextStyle(teksDt, pntStyle, tksStyle) {
   };
   teksDt.forEach((e) => {
     if (e.cekIdRef) {
-      // extractTxt(e, tempStyle, count);
-      console.log(e) // pengolahan data footnote dan txt di sini
-      // let cekPoint = false;
-      // let cekTeks = false;
-      // if (e.point.length != 0) {
-      //   cekPoint = true;
-      // }
-      // if (e.teks.length != 0) {
-      //   cekTeks = true;
-      // }
-      // for (let i = 0; i <= pntStyle().length; i++) {
-      //   if (e.id_tingkat == i) {
-      //     if (e.id_tingkat == 0) {
-      //       e.teks.forEach((a) => {
-      //         arrKos.push(pntStyle(`[${tempStyle(a).txt}]`)[i].style);
-      //       });
-      //     } else {
-      //       if (cekPoint) {
-      //         e.point.forEach((a) => {
-      //           arrKos.push(pntStyle(`[${tempStyle(a).txt}]`)[i].style);
-      //         });
-      //       }
-      //       if (cekTeks) {
-      //         e.teks.forEach((a) => {
-      //           arrKos.push(
-      //             tksStyle(`[${tempStyle(a).txt}]`, pntStyle()[i].leftValue)
-      //               .style
-      //           );
-      //         });
-      //       }
-      //     }
-      //   }
-      // }
-
+      let cekPoint = false;
+      let cekTeks = false;
+      if (e.point.length != 0) {
+        cekPoint = true;
+      }
+      if (e.teks.length != 0) {
+        cekTeks = true;
+      }
+      for (let i = 0; i <= pntStyle().length; i++) {
+        if (e.id_tingkat == i) {
+          if (e.id_tingkat == 0) {
+            e.teks.forEach((a) => {
+              let arrStyl = [];
+              a.forEach((c) => {
+                count += 1;
+                arrStyl.push(tempStyle(c).txt);
+                arrStyl.push(`new FootnoteReferenceRun(${count})`);
+              });
+              arrKos.push(pntStyle(`[${arrStyl}]`)[i].style);
+            });
+          } else {
+            if (cekPoint) {
+              let arrStyl = [];
+              e.point.forEach((a) => {
+                count += 1;
+                arrStyl.push(tempStyle(a).txt);
+                arrStyl.push(`new FootnoteReferenceRun(${count})`);
+              });
+              arrKos.push(pntStyle(`[${arrStyl}]`)[i].style);
+            }
+            if (cekTeks) {
+              e.teks.forEach((a) => {
+                let arrStyl = [];
+                a.forEach((c) => {
+                  count += 1;
+                  arrStyl.push(tempStyle(c).txt);
+                  arrStyl.push(`new FootnoteReferenceRun(${count})`);
+                });
+                arrKos.push(
+                  tksStyle(`[${arrStyl}]`, pntStyle()[i].leftValue).style
+                );
+              });
+            }
+          }
+        }
+      }
     } else {
       let cekPoint = false;
       let cekTeks = false;
@@ -233,6 +249,7 @@ function getTextStyle(teksDt, pntStyle, tksStyle) {
     }
   });
   // console.log(arrKos);
+  // console.log(arrKos)
   return arrKos;
 }
 

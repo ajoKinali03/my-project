@@ -12,6 +12,7 @@ const doc = new Document({
         5: { children: [new Paragraph("Test1")] },
         6: { children: [new Paragraph("My amazing reference1")] },
     },
+    
     sections: [
         {
             children: [

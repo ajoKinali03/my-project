@@ -1,4 +1,4 @@
-const runDocx = async (data) => {
+const runDocx = async (data, refData) => {
   const fs = require("fs");
   const {
     BorderStyle,
@@ -129,6 +129,7 @@ const runDocx = async (data) => {
           },
         ],
       },
+      ${refData}
       sections: [
         {
           properties: {
