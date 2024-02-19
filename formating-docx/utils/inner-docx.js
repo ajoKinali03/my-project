@@ -140,7 +140,6 @@ let teksStyle = (text, indentLeftValue) => {
   };
 };
 
-let footnoteStyled = () => {};
 
 // {
 //   id: "jb",

@@ -5,7 +5,6 @@ const btnConfirmTxt = document.getElementById("btn-confirm-text");
 const inptTxt = document.getElementsByClassName("inpt-txt");
 const cntrRef = document.getElementsByClassName("container-ref")[0];
 
-
 // fungsi membuat input yang selalu berganti sesui opsi yang diinginkan
 const crtInptDt = (type) => {
   let arrInpt;
@@ -26,11 +25,23 @@ const crtInptDt = (type) => {
       "Penulis",
       "Kota Terbit",
       "Penerbit",
+      "Tahun",
       "Halaman",
+      "Penterjemah",
       "ISBN",
     ];
   } else if (type == "tesis") {
-    arrInpt = ["Judul", "Penulis", "Jurusan", "Universitas"];
+    arrInpt = [
+      "Tipe EX: Tesis/Skripsi/Diseratsi",
+      "Judul",
+      "Penulis",
+      "Kota",
+      "Universitas",
+      "Tahun",
+      "Halaman",
+    ];
+  } else if (type == "website") {
+    arrInpt = ["Judul", "Penulis", "Tanggal_Akses", "URL"];
   }
 
   let form = document.createElement("form");
@@ -43,7 +54,7 @@ const crtInptDt = (type) => {
   arrInpt.forEach((e, i) => {
     let input = document.createElement("input");
     let namaInput = document.createAttribute("placeholder");
-    if (e == "ISBN") {
+    if (e == "ISBN" || e == "Penterjemah") {
       namaInput.value = e + " (Opsional)";
     } else {
       namaInput.value = e;
@@ -61,7 +72,7 @@ const crtInptDt = (type) => {
   cntrRefInpt.appendChild(form);
 };
 
-//stage menampilkan data ref jika ada ci cookie
+//stage menampilkan data ref jika ada di cookie
 if (document.cookie.split(";")[1]) {
   const data = JSON.parse(document.cookie.split(";")[1].split("=")[1]);
   data.forEach((e) => crtShowDt(e));
@@ -72,7 +83,7 @@ selectType.addEventListener("change", () => {
   const formInpt = document.getElementsByClassName("form-input")[0];
   let indukElement = formInpt.parentElement;
   indukElement.removeChild(formInpt);
-
+  console.log(selectType.value);
   crtInptDt(selectType.value);
 });
 
@@ -129,7 +140,7 @@ function crtShowDt(data) {
 // minyimpan data ke cookie
 function cookieFunc(data) {
   const d = new Date();
-  d.setTime(d.getTime() + 1 * 24 * 60 * 60 * 1000);
+  d.setTime(d.getTime() + 7 * 24 * 60 * 60 * 1000);
   let expires = "expires=" + d.toUTCString();
   if (document.cookie.split(";")[1]) {
     let cekCookieValue = document.cookie.split(";")[1].split("=")[1];
@@ -163,7 +174,8 @@ document.addEventListener("click", (event) => {
 
 function delElment(dataDel) {
   let expiredDate = new Date(0);
-  document.cookie = "obj" + "=; expires=" + expiredDate.toUTCString() + "; path=/";
+  document.cookie =
+    "obj" + "=; expires=" + expiredDate.toUTCString() + "; path=/";
   dataDel.forEach((e, i) => {
     i++;
     e.ID = i;

@@ -164,8 +164,17 @@ function createObjTeksFootnote(ref, txt) {
   return { txt: txt, ttlFtNt: ttlFootNote };
 }
 
-const extractTxt = (txt, temp) => {
-  return txt.teks;
+const extractTxt = (txt) => {
+  let regex = /-\(footnote:(\d+)\)-/g;
+  return txt.map((e) => {
+    e.teks = e.teks.map((a) => {
+      return a.replaceAll(regex, "");
+    });
+    e.point = e.point.map((a) => {
+      return a.replaceAll(regex, "");
+    });
+    return e
+  });
 };
 
 module.exports = { mainManageRef, extractTxt };

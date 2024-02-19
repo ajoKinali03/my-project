@@ -162,7 +162,7 @@ btnPostText.addEventListener("click", () => {
 // minyimpan data ke cookie
 function saveData(txt) {
   const d = new Date();
-  d.setTime(d.getTime() + 1 * 24 * 60 * 60 * 1000);
+  d.setTime(d.getTime() + 7 * 24 * 60 * 60 * 1000);
   let expires = "expires=" + d.toUTCString();
   console.log(txt);
   document.cookie = `txt=${txt}; ${expires}; path=/home`;

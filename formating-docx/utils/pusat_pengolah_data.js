@@ -19,15 +19,19 @@ const mentahanData = async (data) => {
   const objCkNmr = cekNomor(arrHuruf);
   let grPnt = groupPoint(arrInArr, objCkNmr);
 
-  // kelola data input referensi
-  let mergeRefAndTxt = mainManageRef(ref, grPnt);
-  grPnt = mergeRefAndTxt.txt;
-
-  let listRef = refStyled(mergeRefAndTxt.ttlFtNt, ref)
-
+  let listRef = "";
+  if(ref){
+    // kelola data input referensi
+    let mergeRefAndTxt = mainManageRef(ref, grPnt);
+    grPnt = mergeRefAndTxt.txt;
+  
+     listRef = refStyled(mergeRefAndTxt.ttlFtNt, ref)
+  }else{
+    grPnt = extractTxt(grPnt);
+  };
   // membuat file
   const teksStyled = getTextStyle(grPnt, pointStyle, teksStyle);
-  return runDocx(teksStyled.join(","), listRef);
+  return runDocx(teksStyled.join(","), listRef ? listRef : "");
   // return;
 };
 
@@ -138,9 +142,9 @@ function groupPoint(arrTeks, btsPnt) {
 
     arrTeks.forEach((e, idx) => {
       if (btsPnt[idx].arrMark == i && btsPnt[idx].cekNmr) {
-        obj.point.push(e.join("").replaceAll("\n", ""));
+        obj.point.push(e.join("").replaceAll("\n", "").replaceAll('"', '\\"'));
       } else if (btsPnt[idx].arrMark == i && !btsPnt[idx].cekNmr) {
-        obj.teks.push(e.join("").replaceAll("\n", ""));
+        obj.teks.push(e.join("").replaceAll("\n", "").replaceAll('"', '\\"'));
       }
     });
     if (obj.id_tingkat != null) {
