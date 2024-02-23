@@ -134,7 +134,7 @@ const runDocx = async (data, refData) => {
           },
         ],
       },
-      ${refData}
+      ${refData.ftNt}
       sections: [
         {
           properties: {
@@ -401,7 +401,63 @@ const runDocx = async (data, refData) => {
             }),
           ],
         },
-
+        {
+          properties: {
+            page: {
+              pageNumbers: {
+                separator: PageNumberSeparator.EM_DASH,
+              },
+              size: {
+                orientation: PageOrientation.PORTRAIT,
+                width: convertMillimetersToTwip(210),
+                height: convertMillimetersToTwip(297),
+              },
+              margin: {
+                top: convertMillimetersToTwip(40),
+                right: convertMillimetersToTwip(30),
+                bottom: convertMillimetersToTwip(30),
+                left: convertMillimetersToTwip(40),
+              },
+            },
+          },
+          footers: {
+            default: new Footer({
+              children: [
+                new Paragraph({
+                  children: [
+                    new TextRun({}),
+                  ],
+                }),
+              ],
+            }),
+          },
+          children: [
+            new Paragraph({
+              children: [
+                new TextRun({
+                  text: "DAFTAR PUSTAKA",
+                  size: 24,
+                  color: "000000",
+                  bold: true,
+                  font: "Times New Roman",
+                }),
+              ],
+              alignment: AlignmentType.CENTER,
+            }),
+            new Paragraph({
+              children: [
+                new TextRun({
+                  text: "",
+                  size: 24,
+                  color: "000000",
+                  font: "Times New Roman",
+                }),
+              ],
+              alignment: AlignmentType.CENTER,
+            }),
+            ${refData.dfPstk}
+          ],
+        },
       ],
     });
     Packer.toBuffer(doc).then((buffer) => {

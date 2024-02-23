@@ -41,7 +41,14 @@ const crtInptDt = (type) => {
       "Halaman",
     ];
   } else if (type == "website") {
-    arrInpt = ["Judul", "Penulis", "Tanggal_Akses", "URL"];
+    arrInpt = [
+      "Judul",
+      "Penulis",
+      "Tahun",
+      "Link Sumber",
+      "Tanggal Lengkap Akses",
+      "Waktu Akses",
+    ];
   }
 
   let form = document.createElement("form");

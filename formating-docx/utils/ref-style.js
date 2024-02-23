@@ -1,20 +1,42 @@
 const refStyled = (listRef, ref) => {
   // let sampel = `1: { children: [new Paragraph("Foo")}`
-
-  let tst = listRef.map((e, i) => {
+  let ftNt = listRef.map((e, i) => {
     i++;
     for (let v of ref) {
-      console.log(v);
       if (e == `-(footnote:${v.ID})-`) {
-        return (e = styleRef(v, i, v.type));
+        return (e = footnoteStyle(v, i, v.type));
       }
     }
   });
-  return `footnotes:{ ${tst.join(",")}},`;
+  ref = sortingRef(ref);
+  let dfPstk = ref.map((e, i) => {
+    return daftarPustakaStyle(e, i, e.type);
+  });
+  return { ftNt: `footnotes:{ ${ftNt.join(",")}},`, dfPstk: dfPstk.join("") };
 };
 
-function styleRef(data, idx, type) {
-  console.log(data);
+function pembalikNama(nama) {
+  if (nama.includes(" ")) {
+    nama = nama.split(" ");
+    let namaBelakang = nama.pop();
+    let namaDepan = nama.join(" ");
+    let hslNama = `${namaBelakang}, ${namaDepan}`;
+    return hslNama;
+  } else {
+    return nama;
+  }
+}
+
+function sortingRef(data){
+  data = data.map((e, i) => {
+    e.Penulis = pembalikNama(e.Penulis);
+    return e
+  });
+  data.sort((a, b) => a.Penulis.toLowerCase().localeCompare(b.Penulis.toLowerCase()));
+  return data;
+};
+
+function footnoteStyle(data, idx, type) {
   if (type == "jurnal") {
     return `${idx}: {
               children: [
@@ -51,7 +73,7 @@ function styleRef(data, idx, type) {
   if (type == "buku") {
     let tst = () => {
       if (data.Penterjemah.length != 0) {
-        return {ok: `Terj. ${data.Penterjemah}, `, cek: true};
+        return { ok: `Terj. ${data.Penterjemah}, `, cek: true };
       } else {
         return false;
       }
@@ -74,7 +96,9 @@ function styleRef(data, idx, type) {
                       italics: true,
                     }),
                     new TextRun({
-                      text: "${tst().cek ? tst.ok : ""}(${data.Kota}: ${data.Penerbit}, ${data.Tahun}), Hal. ${data.Halaman}.",
+                      text: "${tst().cek ? tst.ok : ""}(${data.Kota}: ${
+      data.Penerbit
+    }, ${data.Tahun}), Hal. ${data.Halaman}.",
                       size: 20,
                       color: "000000",
                       font: "Times New Roman",
@@ -107,6 +131,130 @@ function styleRef(data, idx, type) {
                 }),
               ],
             }`;
+  }
+  if (type == "website") {
+    return `${idx}: {
+              children: [
+                new Paragraph({
+                  children: [
+                    new TextRun({
+                      text: "${data.Penulis}, \\"${data.Judul}\\" (${data.Link}, diakses tanggal ${data.Tanggal} pukul ${data.Waktu}).",
+                      size: 20,
+                      color: "000000",
+                      font: "Times New Roman",
+                    }),
+                  ],
+                  alignment: AlignmentType.JUSTIFIED,
+                  spacing: {
+                    line: 240,
+                  },
+                }),
+              ],
+            }`;
+  }
+}
+
+function daftarPustakaStyle(data, idx, type) {
+  if (type == "jurnal") {
+    return `
+                new Paragraph({
+                  children: [
+                    new TextRun({
+                      text: "${data.Penulis}. ${data.Tahun}. \\"${data.Judul}\\". ",
+                      size: 24,
+                      color: "000000",
+                      font: "Times New Roman",
+                    }),
+                    new TextRun({
+                      text: "${data.Nama}, ",
+                      size: 24,
+                      color: "000000",
+                      font: "Times New Roman",
+                      italics: true,
+                    }),
+                    new TextRun({
+                      text: "Vol. ${data.Volume}, No. ${data.Nomor}.",
+                      size: 24,
+                      color: "000000",
+                      font: "Times New Roman",
+                    }),
+                  ],
+                  alignment: AlignmentType.JUSTIFIED,
+                  spacing: {
+                    line: 360,
+                  },
+                }), `;
+  }
+  if (type == "buku") {
+    let penterjemah = () => {
+      if (data.Penterjemah.length != 0) {
+        return { ok: `Terj. ${data.Penterjemah}. `, cek: true };
+      } else {
+        return false;
+      }
+    };
+    return ` 
+                new Paragraph({
+                  children: [
+                    new TextRun({
+                      text: "${data.Penulis}. ${data.Tahun}. ",
+                      size: 24,
+                      color: "000000",
+                      font: "Times New Roman",
+                    }),
+                    new TextRun({
+                      text: "${data.Judul}. ",
+                      size: 24,
+                      color: "000000",
+                      font: "Times New Roman",
+                      italics: true,
+                    }),
+                    new TextRun({
+                      text: "${penterjemah().cek ? penterjemah.ok : ""} ${data.Kota}: ${data.Penerbit}.",
+                      size: 24,
+                      color: "000000",
+                      font: "Times New Roman",
+                    }),
+                  ],
+                  alignment: AlignmentType.JUSTIFIED,
+                  spacing: {
+                    line: 360,
+                  },
+                }), `;
+  }
+  if (type == "tesis") {
+    return ` 
+                new Paragraph({
+                  children: [
+                    new TextRun({
+                      text: "${data.Penulis}. ${data.Tahun}. ${data.Tipe}: \\"${data.Judul}\\". ${data.Kota}: ${data.Universitas}.",
+                      size: 24,
+                      color: "000000",
+                      font: "Times New Roman",
+                    }),
+                  ],
+                  alignment: AlignmentType.JUSTIFIED,
+                  spacing: {
+                    line: 360,
+                  },
+                }), `;
+  }
+  if (type == "website") {
+    return ` 
+                new Paragraph({
+                  children: [
+                    new TextRun({
+                      text: "${data.Penulis}. ${data.Tahun}. \\"${data.Judul}\\" (${data.Link}, diakses tanggal ${data.Tanggal} pukul ${data.Waktu}).",
+                      size: 24,
+                      color: "000000",
+                      font: "Times New Roman",
+                    }),
+                  ],
+                  alignment: AlignmentType.JUSTIFIED,
+                  spacing: {
+                    line: 360,
+                  },
+                }), `;
   }
 }
 
