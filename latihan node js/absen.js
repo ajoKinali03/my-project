@@ -295,7 +295,7 @@ let arrObjAbsn = [
     fakultas: "FUAD",
     jurusan: "Ilmu Al-Qura'an dan Tafsir",
     kelas: "IAT A",
-    nama: "Rizki Ananda Harahap",
+    nama: "unknownChar",
     gender: "L",
     nim: 4122027,
     ip: 29,
@@ -331,224 +331,69 @@ let arrObjAbsn = [
 
 let arrMatkulKel = [
   {
-    matkul: "studi kitab tafsir era klasik sebelum uts",
+    matkul: "Pengantar Linguistik dan filologi",
     crt: "dosen",
     kel: [
-      { kelompok1: "lia yuka dila farhan" },
-      { kelompok2: "ratna rahma mila fahmil" },
-      { kelompok3: "ilma lili arum alvian" },
-      { kelompok4: "fatimah difki qari hamid" },
-      { kelompok5: "fia kina randi delvi bani" },
-      { kelompok6: "tia aul faldi rizki hetri" },
+      { kelompok1: "aul qari hetri" },
+      { kelompok2: "fatimah dila" },
+      { kelompok3: "kina delvi" },
+      { kelompok4: "tia arum" },
+      { kelompok5: "ilma difki" },
+      { kelompok6: "lia alfian" },
+      { kelompok7: "rahma randi" },
+      { kelompok8: "yona hamid" },
+      { kelompok9: "fahmil yuka" },
+      { kelompok10: "mila faldi" },
+      { kelompok11: "dia farhan" },
+      { kelompok12: "ratna bani" },
     ],
   },
   {
-    matkul: "studi kitab tafsir era klasik setelah uts",
-    crt: "kosma",
-    kel: [
-      { kelompok1: "ilma lili arum alvian" },
-      { kelompok2: "fatimah difki qari hamid" },
-      { kelompok3: "tia aul faldi rizki hetri" },
-      { kelompok4: "ratna rahma mila fahmil" },
-      { kelompok5: "fia kina randi delvi bani" },
-      { kelompok6: "lia yuka dila farhan" },
-    ],
-  },
-  {
-    matkul: "fiqih ibadah",
+    matkul: "Studi Kitab Tafsir Era Pertengahan",
     crt: "dosen",
     kel: [
-      { kelompok1: "kating dila kating" },
-      { kelompok2: "kina aul bani" },
-      { kelompok3: "ratna fia hetri" },
-      { kelompok4: "rahma fatimah" },
-      { kelompok5: "difki lili" },
-      { kelompok6: "arum hamid" },
-      { kelompok7: "qari randi" },
-      { kelompok8: "ilma farhan" },
-      { kelompok9: "delvi faldi" },
-      { kelompok10: "tia alvian" },
-      { kelompok11: "rizki fahmil lia" },
-      { kelompok12: "yuka mila" },
+      { kelompok1: "qari yona delvi fahmil" },
+      { kelompok2: "fatimah yuka arum hamid" },
+      { kelompok3: "mila difki kina bani" },
+      { kelompok4: "tia fia hetri alfian" },
+      { kelompok5: "ilma ratna randi adib" },
+      { kelompok6: "aul lia rifaldi rian" },
+      { kelompok7: "rahma dila lili farhan" },
     ],
   },
   {
-    matkul: "takwil al-quran",
-    crt: "dosen",
-    kel: [
-      { kelompok1: "randi fatimah" },
-      { kelompok2: "hamid ilma" },
-      { kelompok3: "bani lili" },
-      { kelompok4: "hetri difki" },
-      { kelompok5: "fahmil arum" },
-      { kelompok6: "farhan mila" },
-      { kelompok7: "faldi yuka" },
-      { kelompok8: "alvian ratna" },
-      { kelompok9: "dila qari" },
-      { kelompok10: "delvi rahma" },
-      { kelompok11: "aul kina" },
-      { kelompok12: "fia lia" },
-      { kelompok13: "tia rizki" },
-    ],
-  },
-  {
-    matkul: "hadist tematik",
-    crt: "dosen",
-    kel: [
-      { kelompok1: "randi rizki fahmil faldi alvian" },
-      { kelompok2: "difki fia arum lia qari" },
-      { kelompok3: "farhan hamid hetri bani" },
-      { kelompok4: "delvi ilma lili fatimah" },
-      { kelompok5: "mila rahma ratna tia" },
-      { kelompok6: "yuka kina dila aul" },
-    ],
-  },
-  {
-    matkul: "kritik hadist sebelum uts",
     crt: "kosma",
+    matkul: "Tafsir Ayat Aqidah sebelum uts",
     kel: [
-      { kelompok1: "tia fia rahma ilma lili" },
-      { kelompok2: "qari kina arum miftahul hetri" },
-      { kelompok3: "fatimah aul difki rafi" },
-      { kelompok4: "faldi lia mila fahmil" },
-      { kelompok5: "delvi yuka dila alvian hamid" },
-      { kelompok6: "bani farhan rizki randi ratna" },
+      { kelompok1: "alfian hamid kina mila" },
+      { kelompok2: "tia lili rahma lia" },
+      { kelompok3: "hetri randi yuka ilma" },
+      { kelompok4: "faldi bani delvi aul ratna" },
+      { kelompok5: "farhan fatimah kakYona qari" },
+      { kelompok6: "fahmil difki dila fia arum" },
     ],
   },
   {
-    matkul: "kritik hadist setelah uts",
     crt: "kosma",
+    matkul: "Tafsir Ayat Aqidah setelah uts",
     kel: [
-      { kelompok1: "hamid delvi bani ratna" },
-      { kelompok2: "arum tia mila lili" },
-      { kelompok3: "fahmil rafi alvian miftahul" },
-      { kelompok4: "kina faldi dila fia" },
-      { kelompok5: "yuka rizki lia fatimah" },
-      { kelompok6: "rahma difki farhan randi" },
-      { kelompok7: "hetri ilma aul qari" },
-    ],
-  },
-  {
-    matkul: "problema hadist kontent porer",
-    crt: "kosma",
-    kel: [
-      { kelompok1: "arum mila" },
-      { kelompok2: "yuka fatimah" },
-      { kelompok3: "rizki faldi" },
-      { kelompok4: "rahma lili" },
-      { kelompok5: "hamid bani" },
-      { kelompok6: "tia fia ilma" },
-      { kelompok7: "ratna lia" },
-      { kelompok8: "kina dila" },
-      { kelompok9: "alvian farhan" },
-      { kelompok10: "qari delvi" },
-      { kelompok11: "difki aul" },
-      { kelompok12: "fahmil hetri randi" },
-    ],
-  },
-  {
-    matkul: "ushul al tafsir wa qawaiduhu",
-    crt: "kosma",
-    kel: [
-      { kelompok1: "rizki difki" },
-      { kelompok2: "fia randi" },
-      { kelompok3: "tia delvi" },
-      { kelompok4: "yuka alvian" },
-      { kelompok5: "farhan fahmil" },
-      { kelompok6: "lia dila" },
-      { kelompok7: "kina fatimah" },
-      { kelompok8: "aul hetri" },
-      { kelompok9: "rahma farhan" },
-      { kelompok10: "faldi arum" },
-      { kelompok11: "qari ilma" },
-      { kelompok12: "hamid bani" },
-      { kelompok13: "mila ratna" },
-    ],
-  },
-  {
-    matkul: "filsafat ilmu",
-    crt: "kosma",
-    kel: [
-      { kelompok1: "kina Ratna" },
-      { kelompok2: "farhan faldi" },
-      { kelompok3: "mila yuka" },
-      { kelompok4: "aul dila" },
-      { kelompok5: "fia tia ilma" },
-      { kelompok6: "fatimah lili" },
-      { kelompok7: "delvi alvian" },
-      { kelompok8: "bani fahmil" },
-      { kelompok9: "hamid randi" },
-      { kelompok10: "rizki hetri kating" },
-      { kelompok11: "rahma qari lia" },
-      { kelompok12: "arum difki" },
-    ],
-  },
-  {
-    matkul: "tafsir ayat ibadah",
-    crt: "kosma",
-    kel: [
-      { kelompok1: "hetri alvian" },
-      { kelompok2: "aul dila" },
-      { kelompok3: "hamid randi" },
-      { kelompok4: "ratna kina" },
-      { kelompok5: "arum difki" },
-      { kelompok6: "lili qari" },
-      { kelompok7: "delvi faldi" },
-      { kelompok8: "mila yuka" },
-      { kelompok9: "lia rahma" },
-      { kelompok10: "fahmil bani" },
-      { kelompok11: "fia fatimah" },
-      { kelompok12: "rizki farhan" },
-      { kelompok13: "tia ilma" },
-    ],
-  },
-  {
-    matkul: "tema tema pokok Al-Qur'an",
-    crt: "kosma",
-    kel: [
-      { kelompok1: "hamid farhan faldi" },
-      { kelompok2: "tia fia" },
-      { kelompok3: "rahma lia" },
-      { kelompok4: "ilma qari" },
-      { kelompok5: "lili fatimah" },
-      { kelompok6: "bani hetri" },
-      { kelompok7: "kina ratna" },
-      { kelompok8: "randi rizki fahmil" },
-      { kelompok9: "arum difki" },
-      { kelompok10: "aul dila" },
-      { kelompok11: "delvi alvian" },
-      { kelompok12: "yuka mila" },
-    ],
-  },
-  {
-    matkul: "Tafsir tematik setelah uts",
-    crt: "kosma",
-    kel: [
-      { kelompok1: "Hamid lili delvi ratna qari" },
-      { kelompok2: "bani fatimah arum farhan faldi" },
-      { kelompok3: "hetri fia difki rizki bg_juanda" },
-      { kelompok4: "alvian tia ilma bg_rizki" },
-      { kelompok5: "fahmil aulia lia yuka rahma" },
-      { kelompok6: "randi mila dila kina bg_habib" },
+      { kelompok1: "ratna randi yuka ilma" },
+      { kelompok2: "kakYona fia mila kina" },
+      { kelompok3: "bani alfian hetri" },
+      { kelompok4: "hamid farhan fatimah" },
+      { kelompok5: "arum rahma lia tia" },
+      { kelompok6: "faldi delvi dila aul" },
+      { kelompok7: "fahmil difki lili qari" },
     ],
   },
 ];
 
-function cekKel(kel, nama) {
-  arrMatkulKel.forEach((e, i) => {
-    e.kel.forEach((a, idx) => {
-      if (Object.keys(a)[0] == kel) {
-        if (Object.values(a)[0].includes(nama)) {
-          console.log(
-            `${kel}: nama = ${nama}, matkul = ${e.matkul}, dibuat = ${
-              e.crt
-            }, nama kelompok = ${Object.values(a)[0]}\n`
-          );
-        }
-      }
-    });
-  });
-}
+
+
+
+
+
+
 
 let strKel = `kelompok1
 kelompok2
@@ -564,12 +409,37 @@ kelompok11
 kelompok12
 kelompok13`;
 
-// cekKel("kelompok4", 'hetri')
-let namaNya = "tia";
-// let oko = null;
-// cekKel("kelompok2", namaNya);
+let namaNya = "hetri";
 strKel.split("\n").forEach((e, i) => {
   cekKel(e, namaNya);
 });
+
+function cekKel(kel, nama) {
+  let shwKel = "kelompok5";
+  arrMatkulKel.forEach((e, i) => {
+    e.kel.forEach((a, idx) => {
+      if (Object.keys(a)[0] == kel) {
+        if (Object.keys(a)[0] == shwKel) {
+          console.log(`=====================`);
+          console.log(`${e.matkul}`);
+          console.log(`${Object.keys(a)[0]}: ${a[shwKel]}`);
+          console.log(`=====================`);
+        } else {
+          if (Object.values(a)[0].includes(nama) && shwKel == "") {
+            console.log(
+              `${kel}: nama = ${nama}, matkul = ${e.matkul}, dibuat = ${
+                e.crt
+              }, nama kelompok = ${Object.values(a)[0]}\n`
+            );
+          }
+        }
+      }
+    });
+  });
+}
+
+// cekKel("kelompok4", 'hetri')
+// let oko = null;
+// cekKel("kelompok2", namaNya);
 
 // console.log(oko)

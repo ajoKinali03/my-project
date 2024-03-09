@@ -18,20 +18,22 @@ const mentahanData = async (data) => {
   const arrHuruf = filterSpasi(arrInArr);
   const objCkNmr = cekNomor(arrHuruf);
   let grPnt = groupPoint(arrInArr, objCkNmr);
-
-  let listRef = "";
+  
   if(ref){
     // kelola data input referensi
     let mergeRefAndTxt = mainManageRef(ref, grPnt);
+
     grPnt = mergeRefAndTxt.txt;
   
      listRef = refStyled(mergeRefAndTxt.ttlFtNt, ref)
   }else{
+    listRef = {ftNt: "", dfPstk: ""};
     grPnt = extractTxt(grPnt);
   };
   // membuat file
   const teksStyled = getTextStyle(grPnt, pointStyle, teksStyle);
-  return runDocx(teksStyled.join(","), listRef ? listRef : "");
+  
+  return runDocx(teksStyled.join(","), listRef);
   // return;
 };
 
@@ -157,8 +159,11 @@ function groupPoint(arrTeks, btsPnt) {
 // penggabungan data dengan style teks
 function getTextStyle(teksDt, pntStyle, tksStyle) {
   teksDt = clearPoint(teksDt);
+  // console.log(teksDt)
   let arrKos = [];
   let count = 0;
+  // DISINI ADA BUG: footonte diberikan secara berlebihan
+  // opsi solve: menggunakan cekIdRef untuk mendeteksi posisi footnote
   let tempStyle = (txt, ftNt) => {
     return {
       txt: `new TextRun({
@@ -171,6 +176,7 @@ function getTextStyle(teksDt, pntStyle, tksStyle) {
     };
   };
   teksDt.forEach((e) => {
+    console.log(e)
     if (e.cekIdRef) {
       let cekPoint = false;
       let cekTeks = false;
@@ -252,8 +258,6 @@ function getTextStyle(teksDt, pntStyle, tksStyle) {
       }
     }
   });
-  // console.log(arrKos);
-  // console.log(arrKos)
   return arrKos;
 }
 

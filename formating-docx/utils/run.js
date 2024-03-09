@@ -31,6 +31,8 @@ const runDocx = async (data, refData) => {
   // strInnerDocx = strInnerDocx.replaceAll("|-|", "\\" + "\"");
   // strInnerDocx = strInnerDocx.replaceAll(",,", ",");
 
+  
+  // disini ada ERROR: bahwasanya refData menghasilkan nilai undifined apabila ref kosong
   await eval(
     `const doc = new Document({
       compatibility: {

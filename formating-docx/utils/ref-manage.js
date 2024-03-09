@@ -1,5 +1,8 @@
 //
+const regex = /-\(footnote:(\d+(?:,\d+(?:-\d+)?)?)\)-/g;
+
 const mainManageRef = (refData, txtData) => {
+  let temp = "-(footnote:";
   let data = txtData.map((eTxtDt, i) => {
     let cekId;
     let eTeks = eTxtDt.teks;
@@ -15,80 +18,151 @@ const mainManageRef = (refData, txtData) => {
         return findAndSplit(eT);
       });
     }
+    // console.log(
+    //   eTxtDt.point,
+    //   eTxtDt.teks,
+    //   regex.test(eTxtDt.point.join(" ")),
+    //   regex.test(eTxtDt.teks.join(" "))
+    // );
 
     if (
-      /-\(footnote:(\d+)\)-/g.test(eTxtDt.teks.join(" ")) ||
-      /-\(footnote:(\d+)\)-/g.test(eTxtDt.point.join(" "))
+      eTxtDt.teks.join(" ").includes(temp) ||
+      eTxtDt.point.join(" ").includes(temp)
     ) {
-      if (/-\(footnote:(\d+)\)-/g.test(eTxtDt.teks.join(" "))) {
-        eTxtDt.cekIdRef = "txt";
-      }
-      if (/-\(footnote:(\d+)\)-/g.test(eTxtDt.point.join(" "))) {
+      if (eTxtDt.point.join(" ").includes(temp)) {
         eTxtDt.cekIdRef = "pnt";
       }
+      if (eTxtDt.teks.join(" ").includes(temp)) {
+        eTxtDt.cekIdRef = "txt";
+      }
       if (
-        /-\(footnote:(\d+)\)-/g.test(eTxtDt.teks.join(" ")) &&
-        /-\(footnote:(\d+)\)-/g.test(eTxtDt.point.join(" "))
+        eTxtDt.point.join(" ").includes(temp) &&
+        eTxtDt.teks.join(" ").includes(temp)
       ) {
         eTxtDt.cekIdRef = "both";
       }
     } else if (
-      !/-\(footnote:(\d+)\)-/g.test(eTxtDt.teks.join(" ")) &&
-      !/-\(footnote:(\d+)\)-/g.test(eTxtDt.point.join(" "))
+      !eTxtDt.teks.join(" ").includes(temp) &&
+      !eTxtDt.point.join(" ").includes(temp)
     ) {
       eTxtDt.cekIdRef = false;
     }
 
+    // if (
+    //   regex.test(eTxtDt.teks.join(" ")) ||
+    //   regex.test(eTxtDt.point.join(" "))
+    // ) {
+    //   if (regex.test(eTxtDt.point.join(" "))) {
+    //     eTxtDt.cekIdRef = "pnt";
+    //   }
+    //   if (regex.test(eTxtDt.teks.join(" "))) {
+    //     eTxtDt.cekIdRef = "txt";
+    //   }
+    //   if (
+    //     regex.test(eTxtDt.point.join(" ")) &&
+    //     regex.test(eTxtDt.teks.join(" "))
+    //   ) {
+    //     eTxtDt.cekIdRef = "both";
+    //   }
+    // } else if (
+    //   !regex.test(eTxtDt.teks.join(" ")) &&
+    //   !regex.test(eTxtDt.point.join(" "))
+    // ) {
+    //   eTxtDt.cekIdRef = false;
+    // }
+    eTxtDt = cekHal(eTxtDt);
+    // console.log(eTxtDt)
     return eTxtDt;
   });
   data = createObjTeksFootnote(refData, data);
   let arrCodeFtNt = data.ttlFtNt;
-  // console.log(arrCodeFtNt);
 
   return data;
 };
 
 // Fungsi untuk mencari dan memisahkan kecocokan teks yang memiliki tanda footnote
 function findAndSplit(input) {
-  const regex = /-\(footnote:(\d+)\)-/g;
+  // const regex = /-\(footnote:(\d+)\)-/g;
   const matches = input.match(regex);
+
   if (matches) {
     const result = input.split(regex);
 
     for (let i = 1; i < result.length; i += 2) {
       result[i] = matches.shift();
     }
+    
     return result;
   } else {
     // Jika tidak ada kecocokan, kembalikan array dengan string asli
-    return input;
+    return [input];
   }
+}
+
+function cekHal(data) {
+  if (data.point != undefined) {
+    data.point = data.point.map((e, i) => {
+      e = e.map((a) => {
+        if (regex.test(a)) {
+          if (a.includes(",")) {
+            let halAndFtn = a.split(",");
+            let ftn = halAndFtn[0] + ")-";
+            let hal = halAndFtn[1].replace(")-", "");
+            a = { ftn: ftn, hal: hal };
+          } else {
+            a = { ftn: a, hal: null };
+          }
+        }
+        return a;
+      });
+      return e;
+    });
+  }
+  if (data.teks != undefined) {
+    data.teks = data.teks.map((e, i) => {
+      e = e.map((a) => {
+        if (regex.test(a)) {
+          if (a.includes(",")) {
+            let halAndFtn = a.split(",");
+            let ftn = halAndFtn[0] + ")-";
+            let hal = halAndFtn[1].replace(")-", "");
+            a = { ftn: ftn, hal: hal };
+          } else {
+            a = { ftn: a, hal: null };
+          }
+        }
+        return a;
+      });
+      return e;
+    });
+  }
+  return data;
 }
 
 // fungsi untuk membuat objek teks dan footnote
 function createObjTeksFootnote(ref, txt) {
   let ttlFootNote = [];
-  txt = txt.map((e, i) => {
+  txt = txt.map((e) => {
     let subArrTks;
     let subArrPnt;
     let arrTks = [];
     let arrPnt = [];
     if (e.cekIdRef) {
       if (e.cekIdRef == "txt") {
-        e.teks.forEach((subEl) => {
+        // console.log(e.teks)
+        e.teks.forEach((subEl, i) => {
           subArrTks = [];
-          for (let vT of subEl) {
-            for (let vRef of ref) {
-              let temp = `-(footnote:${vRef.ID})-`;
-              if (vT == temp) {
-                ttlFootNote.push(vT);
-                // arrTks.push(subEl[subEl.indexOf(temp) - 1]);
-                subArrTks.push(subEl[subEl.indexOf(temp) - 1]);
-                // subArrTks.push({
-                // subArrTks.push(subEl[subEl.indexOf(temp) - 1]);
-                //   refID: vRef.ID,
-                // });
+          for (let [subIdx, a] of subEl.entries()) {
+            if (typeof a == "object") {
+              // for (let vT of a) {
+              for (let vRef of ref) {
+                let temp = `-(footnote:${vRef.ID})-`;
+                if (a.ftn == temp) {
+                  ttlFootNote.push(a);
+                  subArrTks.push(subEl[subIdx - 1]);
+                }
               }
+              // }
             }
           }
           arrTks.push(subArrTks);
@@ -96,61 +170,56 @@ function createObjTeksFootnote(ref, txt) {
         e.teks = arrTks;
       }
       if (e.cekIdRef == "pnt") {
-        e.point.forEach((subEl) => {
+        e.point.forEach((subEl, i) => {
           subArrPnt = [];
-          for (let vT of subEl) {
-            for (let vRef of ref) {
-              let temp = `-(footnote:${vRef.ID})-`;
-              if (vT == temp) {
-                ttlFootNote.push(vT);
-                arrPnt.push(subEl[subEl.indexOf(temp) - 1]);
-                // subArrPnt.push(subEl[subEl.indexOf(temp) - 1]);
-                // subArrPnt.push({
-                //   txt: subEl[subEl.indexOf(temp) - 1],
-                //   refID: vRef.ID,
-                // });
+          for (let [subIdx, a] of subEl.entries()) {
+            if (typeof a == "object") {
+              // for (let vT of a) {
+              for (let vRef of ref) {
+                let temp = `-(footnote:${vRef.ID})-`;
+                if (a.ftn == temp) {
+                  ttlFootNote.push(a);
+                  arrPnt.push(subEl[subIdx - 1]);
+                }
               }
+              // }
             }
           }
-          // arrPnt.push(subArrPnt);
         });
         e.point = arrPnt;
       }
       if (e.cekIdRef == "both") {
-        e.point.forEach((subEl) => {
+        e.point.forEach((subEl, i) => {
           subArrPnt = [];
-          for (let vT of subEl) {
-            for (let vRef of ref) {
-              let temp = `-(footnote:${vRef.ID})-`;
-              if (vT == temp) {
-                ttlFootNote.push(vT);
-                arrPnt.push(subEl[subEl.indexOf(temp) - 1]);
-                // subArrPnt.push(subEl[subEl.indexOf(temp) - 1]);
-                // subArrPnt.push({
-                //   txt: subEl[subEl.indexOf(temp) - 1],
-                //   refID: vRef.ID,
-                // });
+          for (let [subIdx, a] of subEl.entries()) {
+            if (typeof a == "object") {
+              // for (let vT of a) {
+              for (let vRef of ref) {
+                let temp = `-(footnote:${vRef.ID})-`;
+                if (a.ftn == temp) {
+                  ttlFootNote.push(a);
+                  arrPnt.push(subEl[subIdx - 1]);
+                }
               }
+              // }
             }
           }
-          // arrPnt.push(subArrPnt);
         });
         e.point = arrPnt;
 
-        e.teks.forEach((subEl) => {
+        e.teks.forEach((subEl, i) => {
           subArrTks = [];
-          for (let vT of subEl) {
-            for (let vRef of ref) {
-              let temp = `-(footnote:${vRef.ID})-`;
-              if (vT == temp) {
-                ttlFootNote.push(vT);
-                // arrTks.push(subEl[subEl.indexOf(temp) - 1])
-                subArrTks.push(subEl[subEl.indexOf(temp) - 1]);
-                // subArrTks.push({
-                //   txt: subEl[subEl.indexOf(temp) - 1],
-                //   refID: vRef.ID,
-                // });
+          for (let [subIdx, a] of subEl.entries()) {
+            if (typeof a == "object") {
+              // for (let vT of a) {
+              for (let vRef of ref) {
+                let temp = `-(footnote:${vRef.ID})-`;
+                if (a.ftn == temp) {
+                  ttlFootNote.push(a);
+                  subArrTks.push(subEl[subIdx - 1]);
+                }
               }
+              // }
             }
           }
           arrTks.push(subArrTks);
@@ -158,14 +227,15 @@ function createObjTeksFootnote(ref, txt) {
         e.teks = arrTks;
       }
     }
-    // console.log(e.teks, e.point);
     return e;
   });
+  // console.log(ttlFootNote);
+  // console.log(JSON.stringify({ txt: txt, ttlFtNt: ttlFootNote }, null, 2))
   return { txt: txt, ttlFtNt: ttlFootNote };
 }
 
 const extractTxt = (txt) => {
-  let regex = /-\(footnote:(\d+)\)-/g;
+  // let regex = /-\(footnote:(\d+)\)-/g;
   return txt.map((e) => {
     e.teks = e.teks.map((a) => {
       return a.replaceAll(regex, "");
@@ -173,8 +243,7 @@ const extractTxt = (txt) => {
     e.point = e.point.map((a) => {
       return a.replaceAll(regex, "");
     });
-    return e
+    return e;
   });
 };
-
 module.exports = { mainManageRef, extractTxt };

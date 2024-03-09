@@ -18,6 +18,139 @@ function searchCookie(key) {
   }
 }
 
+
+
+function openDatabase() {
+  return new Promise((resolve, reject) => {
+    const dbName = 'myDatabase';
+    const request = indexedDB.open(dbName, 1);
+
+    request.onerror = function(event) {
+      reject(event.target.error);
+    };
+
+    request.onupgradeneeded = function(event) {
+      const db = event.target.result;
+      // Membuat object store (tabel) dengan nama 'myStore'
+      const store = db.createObjectStore('myStore', { keyPath: 'id' });
+      // Menambahkan indeks untuk pencarian
+      store.createIndex('txt', 'txt', { unique: false });
+    };
+
+    request.onsuccess = function(event) {
+      const db = event.target.result;
+      resolve(db);
+    };
+  });
+}
+
+function saveData(txt) {
+  return new Promise((resolve, reject) => {
+    openDatabase()
+      .then((db) => {
+        const transaction = db.transaction(['myStore'], 'readwrite');
+        const store = transaction.objectStore('myStore');
+
+        const data = { id: 1, txt: txt };
+        const request = store.put(data);
+
+        request.onsuccess = function(event) {
+          console.log('Data saved successfully');
+          resolve();
+        };
+
+        request.onerror = function(event) {
+          reject(event.target.error);
+        };
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+}
+
+function deleteData() {
+  return new Promise((resolve, reject) => {
+    openDatabase()
+      .then((db) => {
+        const transaction = db.transaction(['myStore'], 'readwrite');
+        const store = transaction.objectStore('myStore');
+
+        const request = store.delete(1);
+
+        request.onsuccess = function(event) {
+          console.log('Data deleted successfully');
+          resolve();
+        };
+
+        request.onerror = function(event) {
+          reject(event.target.error);
+        };
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+}
+
+function displayData() {
+  openDatabase()
+    .then((db) => {
+      const transaction = db.transaction(['myStore'], 'readonly');
+      const store = transaction.objectStore('myStore');
+
+      const getRequest = store.get(1);
+
+      getRequest.onsuccess = function(event) {
+        const data = event.target.result;
+        if (data) {
+          inpt.value = decodeURIComponent(data.txt)
+        } else {
+          console.log('Data tidak ditemukan atau kosong.');
+        }
+      };
+
+      getRequest.onerror = function(event) {
+        console.error('Error retrieving data:', event.target.error);
+      };
+    })
+    .catch((error) => {
+      console.error('Error opening database:', error);
+    });
+}
+
+// Contoh penggunaan
+
+
+
+
+document.addEventListener("keypress", () => {
+  deleteData()
+  saveData(inpt.value)
+  .then(() => {
+    console.log("Data saved successfully");
+    // Di sini, Anda dapat memanggil fungsi lain atau melakukan operasi lain yang diperlukan
+    // Misalnya, displayData() untuk menampilkan data setelah penyimpanan
+    // deleteData() untuk menghapus data setelah penyimpanan
+  })
+  .catch((error) => {
+    console.error('Error saving data:', error);
+  });
+  // saveData(encodeURIComponent(inpt.value));
+});
+
+// pencekan awal apakah ada text yang tersimpan di dalam cookie
+if (displayData() != undefined) {
+  displayData()
+}
+
+
+
+
+
+
+
+
 // auto set lebar atau responsif dari tampilan home
 let lebarCntrCntn = cntrCntn.getBoundingClientRect().width;
 
@@ -30,25 +163,34 @@ if (lebarCntrCntn <= 1039) {
   formPost.style.width = `${parseInt(0.99 * lebarCntrCntn)}px`;
 }
 
-// pencekan awal apakah ada text yang tersimpan di dalam cookie
-if (searchCookie("txt") != undefined && searchCookie("txt").value.length != 0) {
- inpt.value = decodeURIComponent(searchCookie("txt").value) 
-}
+// searchData("txt").then((data) => {
+//   console.log(data)
+//   if (data !== undefined && data.value.length !== 0) {
+//     inpt.value = decodeURIComponent(data.value);
+//   }
+// }).catch((error) => {
+//   console.error('Gagal mencari data:', error);
+// });
+
+
 
 
 // input text
 document.addEventListener("keyup", (event) => {
   let text = inpt.value;
   if (event.code == "Enter") {
-    if(searchCookie("obj") != undefined){
-      inputPost.value = JSON.stringify({ teks: text, ref: JSON.parse(searchCookie("obj").value)});
-    }else{
-      inputPost.value = JSON.stringify({ teks: text, ref: null});
-    };
+    if (searchCookie("obj") != undefined) {
+      inputPost.value = JSON.stringify({
+        teks: text,
+        ref: JSON.parse(searchCookie("obj").value),
+      });
+    } else {
+      inputPost.value = JSON.stringify({ teks: text, ref: null });
+    }
   }
-  if(text == ""){
-    delData();
-  };
+  if (text == "") {
+    deleteData();
+  }
 });
 
 // fungsi untuk menampilkan
@@ -62,6 +204,21 @@ btnShwRef.addEventListener("click", () => {
     crtCntrShwRef("Referensi Belum Anda Masukan", false);
   }
 });
+// btnShwRef.addEventListener("click", () => {
+//   // Ganti pencarian cookie dengan pencarian di IndexedDB
+//   searchRefData("obj")
+//     .then((data) => {
+//       if (data !== undefined) {
+//         crtCntrShwRef(data, true);
+//       } else {
+//         crtCntrShwRef("Referensi Belum Anda Masukkan", false);
+//       }
+//     })
+//     .catch((error) => {
+//       console.error("Gagal mencari referensi data:", error);
+//       crtCntrShwRef("Gagal mencari referensi data", false);
+//     });
+// });
 
 function crtCntrShwRef(respon, bool) {
   let listItemChild = cntrCntn.children.item(2);
@@ -72,7 +229,7 @@ function crtCntrShwRef(respon, bool) {
     shwRefHome.setAttributeNode(attrClass);
 
     if (lebarCntrCntn >= 1000) {
-      shwRefHome.style.height = "85vh"
+      shwRefHome.style.height = "85vh";
     }
 
     // auto set lebar dari tampilan cntr ref
@@ -154,22 +311,29 @@ document.addEventListener("click", (event) => {
   }
 });
 
-btnPostText.addEventListener("click", () => {
-  delData()
-  saveData(encodeURIComponent(inpt.value));
-});
+// document.addEventListener("keypress", () => {
+//   delData()
+//   saveData(encodeURIComponent(inpt.value));
+// });
 
-// minyimpan data ke cookie
-function saveData(txt) {
-  const d = new Date();
-  d.setTime(d.getTime() + 7 * 24 * 60 * 60 * 1000);
-  let expires = "expires=" + d.toUTCString();
-  console.log(txt);
-  document.cookie = `txt=${txt}; ${expires}; path=/home`;
-}
-// fungsi untuk menghapus data
-function delData() {
-  let expiredDate = new Date(0);
-  document.cookie =
-    "txt" + "=; expires=" + expiredDate.toUTCString() + "; path=/home";
-}
+
+
+// // minyimpan data ke cookie
+// function saveData(txt) {
+//   const d = new Date();
+//   d.setTime(d.getTime() + 7 * 24 * 60 * 60 * 1000);
+//   let expires = "expires=" + d.toUTCString();
+//   console.log(txt, "data tersimpan")
+//   document.cookie = `txt=${txt}; ${expires}; path=/home`;
+// }
+// // fungsi untuk menghapus data
+// function delData() {
+//   let expiredDate = new Date(0);
+//   document.cookie =
+//     "txt" + "=; expires=" + expiredDate.toUTCString() + "; path=/home";
+// }
+
+
+
+// Fungsi untuk menghapus data
+
