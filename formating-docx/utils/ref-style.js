@@ -24,6 +24,7 @@ const refStyled = (listRef, ref) => {
     }
   });
   
+  // console.log(`footnotes:{ ${hsl.join(",")}},`)
   
   return { ftNt: `footnotes:{ ${hsl.join(",")}},`, dfPstk: dfPstk.join(",") };
   // return { ftNt: `footnotes:{ },`, dfPstk: "" };
@@ -74,15 +75,16 @@ function cekSameRef(refCalled, ref) {
     });
   }
 
-  // console.log(refCalled.length);
+  // console.log(refCalled);
   // console.log(refCalledCode);
+  // console.log(idxRef);
   let keyRefSame = [];
+  // DISINI ADA BUG: penempatan nomor halaman pada ibid tidak sesuai
   refCalled.forEach((e, i) => {
     if (e.ID) {
       let ftnCode = refCalledCode[i];
       let idxPositionRef = idxRef["idx" + e.ID];
       for (let [idx, idxEl] of idxPositionRef.entries()) {
-        // console.log(i, idxEl);
         if (i == idxEl) {
           keyRefSame.push(e);
           if (idx == 0) {
@@ -115,6 +117,12 @@ function footnoteStyle(data, idx, type, recall, trueIdx) {
   //   recall = recall[2*trueIdx-1]
   // }
 
+  // hanging: convertMillimetersToTwip(0),
+  let indent = `indent: {
+    firstLine: convertMillimetersToTwip(4.8),
+    left: convertMillimetersToTwip(0),
+  },`
+
   if (recall.tipe == "normal") {
     if (type == "jurnal") {
       return `${idx}: {
@@ -141,6 +149,7 @@ function footnoteStyle(data, idx, type, recall, trueIdx) {
                         font: "Times New Roman",
                       }),
                     ],
+                    ${indent}
                     alignment: AlignmentType.JUSTIFIED,
                     spacing: {
                       line: 240,
@@ -183,6 +192,7 @@ function footnoteStyle(data, idx, type, recall, trueIdx) {
                         font: "Times New Roman",
                       }),
                     ],
+                    ${indent}
                     alignment: AlignmentType.JUSTIFIED,
                     spacing: {
                       line: 240,
@@ -203,6 +213,7 @@ function footnoteStyle(data, idx, type, recall, trueIdx) {
                         font: "Times New Roman",
                       }),
                     ],
+                    ${indent}
                     alignment: AlignmentType.JUSTIFIED,
                     spacing: {
                       line: 240,
@@ -223,6 +234,7 @@ function footnoteStyle(data, idx, type, recall, trueIdx) {
                         font: "Times New Roman",
                       }),
                     ],
+                    ${indent}
                     alignment: AlignmentType.JUSTIFIED,
                     spacing: {
                       line: 240,
@@ -252,6 +264,7 @@ function footnoteStyle(data, idx, type, recall, trueIdx) {
                         font: "Times New Roman",
                       }),
                     ],
+                    ${indent}
                     alignment: AlignmentType.JUSTIFIED,
                     spacing: {
                       line: 240,
@@ -285,6 +298,7 @@ function footnoteStyle(data, idx, type, recall, trueIdx) {
                         font: "Times New Roman",
                       }),
                     ],
+                    ${indent}
                     alignment: AlignmentType.JUSTIFIED,
                     spacing: {
                       line: 240,
@@ -312,6 +326,7 @@ function footnoteStyle(data, idx, type, recall, trueIdx) {
                         italics: true,
                       }),
                     ],
+                    ${indent}
                     alignment: AlignmentType.JUSTIFIED,
                     spacing: {
                       line: 240,
@@ -323,6 +338,11 @@ function footnoteStyle(data, idx, type, recall, trueIdx) {
 }
 
 function daftarPustakaStyle(data, idx, type) {
+  // firstLine: convertMillimetersToTwip(4.8),
+  let indent = `indent: {
+    hanging: convertMillimetersToTwip(9.3),
+    left: convertMillimetersToTwip(9.8),
+  },`
   if (type == "jurnal") {
     return `
                 new Paragraph({
@@ -347,6 +367,7 @@ function daftarPustakaStyle(data, idx, type) {
                       font: "Times New Roman",
                     }),
                   ],
+                  ${indent}
                   alignment: AlignmentType.JUSTIFIED,
                   spacing: {
                     line: 360,
@@ -386,6 +407,7 @@ function daftarPustakaStyle(data, idx, type) {
                       font: "Times New Roman",
                     }),
                   ],
+                  ${indent}
                   alignment: AlignmentType.JUSTIFIED,
                   spacing: {
                     line: 360,
@@ -403,6 +425,7 @@ function daftarPustakaStyle(data, idx, type) {
                       font: "Times New Roman",
                     }),
                   ],
+                  ${indent}
                   alignment: AlignmentType.JUSTIFIED,
                   spacing: {
                     line: 360,
@@ -420,6 +443,7 @@ function daftarPustakaStyle(data, idx, type) {
                       font: "Times New Roman",
                     }),
                   ],
+                  ${indent}
                   alignment: AlignmentType.JUSTIFIED,
                   spacing: {
                     line: 360,

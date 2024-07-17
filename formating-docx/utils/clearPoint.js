@@ -7,8 +7,10 @@ const clearPoint = (teksDt) => {
       if (typeof a == "object") {
         a = a[0];
       }
-      let arrKal = [...a];
-      a = arrKal.splice(3, arrKal.length - 1).join("");
+      if(idx == 0){
+        let arrKal = [...a];
+        a = arrKal.splice(3, arrKal.length - 1).join("");
+      };
       return a;
     });
     return e;

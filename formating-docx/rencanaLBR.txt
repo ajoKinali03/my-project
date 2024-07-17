@@ -61,3 +61,16 @@ F. Hasil Project
 
 
 A. MEMBUAT MAKALAH OTMATIS FULL DENGAN PPLX-API
+
+
+NEW BUG:
+ 1. perbaiki penomoran, karena penomoran tidak restart setiap subab atau new parent number
+ 2. pebaiki dan pelajari sistem data base js frontend
+ 3. perbaiki bug dimana hanya satu user yang bisa mengakses cookie frontend(jadi di ganti dengan data base)
+ 4. membuat sistem download file universal, yaitu multi user bisa mendownload file secara bersamaan
+ 5. mencoba untuk memperbaiki susunan pragraf yang tidak sesuai dengan parentya
+ 6. perbaiki error backend: title is not defined
+    at eval (eval at exports.compile (E:\A-main folder\my-project\formating-docx\node_modules\jade\lib\jade.js:171:8), <anonymous>:39:58)
+  7. perbeiki error frontend: referensi_set.js:89 Uncaught TypeError: Cannot read properties of null (reading 'addEventListener')
+    at referensi_set.js:89:12
+  8. perubahan nomor pada prompt input tidak terdeteksi => -(footnote:7,'1')-

@@ -76,7 +76,10 @@ const mainManageRef = (refData, txtData) => {
   });
   data = createObjTeksFootnote(refData, data);
   let arrCodeFtNt = data.ttlFtNt;
-
+  data.ttlFtNt.forEach((e, i) => {
+    i += 1
+    console.log(e, i);
+  });
   return data;
 };
 
@@ -91,7 +94,6 @@ function findAndSplit(input) {
     for (let i = 1; i < result.length; i += 2) {
       result[i] = matches.shift();
     }
-    
     return result;
   } else {
     // Jika tidak ada kecocokan, kembalikan array dengan string asli
@@ -159,10 +161,13 @@ function createObjTeksFootnote(ref, txt) {
                 let temp = `-(footnote:${vRef.ID})-`;
                 if (a.ftn == temp) {
                   ttlFootNote.push(a);
-                  subArrTks.push(subEl[subIdx - 1]);
+                  subArrTks.push("+?=ftnt!TR*_+");
+                  // subArrTks.push(subEl[subIdx - 1]);
                 }
               }
               // }
+            } else {
+              subArrTks.push(a);
             }
           }
           arrTks.push(subArrTks);
@@ -179,10 +184,14 @@ function createObjTeksFootnote(ref, txt) {
                 let temp = `-(footnote:${vRef.ID})-`;
                 if (a.ftn == temp) {
                   ttlFootNote.push(a);
-                  arrPnt.push(subEl[subIdx - 1]);
+                  arrPnt.push("+?=ftnt!TR*_+");
+                  // arrPnt.push(subEl[subIdx - 1]);
                 }
               }
               // }
+            } else {
+              // console.log(a)
+              arrPnt.push(a);
             }
           }
         });
@@ -198,10 +207,13 @@ function createObjTeksFootnote(ref, txt) {
                 let temp = `-(footnote:${vRef.ID})-`;
                 if (a.ftn == temp) {
                   ttlFootNote.push(a);
-                  arrPnt.push(subEl[subIdx - 1]);
+                  arrPnt.push("+?=ftnt!TR*_+");
+                  // arrPnt.push(subEl[subIdx - 1]);
                 }
               }
               // }
+            } else {
+              arrPnt.push(a);
             }
           }
         });
@@ -216,10 +228,13 @@ function createObjTeksFootnote(ref, txt) {
                 let temp = `-(footnote:${vRef.ID})-`;
                 if (a.ftn == temp) {
                   ttlFootNote.push(a);
-                  subArrTks.push(subEl[subIdx - 1]);
+                  subArrTks.push("+?=ftnt!TR*_+");
+                  // subArrTks.push(subEl[subIdx - 1]);
                 }
               }
               // }
+            } else {
+              subArrTks.push(a);
             }
           }
           arrTks.push(subArrTks);

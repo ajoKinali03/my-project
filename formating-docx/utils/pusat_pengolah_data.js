@@ -5,6 +5,7 @@ const { pointStyle, teksStyle } = require("./inner-docx");
 const { mainManageRef, extractTxt } = require("./ref-manage");
 const refStyled = require("./ref-style");
 const { runDocx } = require("./run");
+const spclChar = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~\n\t]/;
 
 // code runner
 const mentahanData = async (data) => {
@@ -12,28 +13,29 @@ const mentahanData = async (data) => {
   teks = data.teks;
   ref = data.ref;
 
-  // kelola data text input
-  const lineTeks = filterEnter(teks);
-  const arrInArr = bagianTeks(lineTeks);
-  const arrHuruf = filterSpasi(arrInArr);
-  const objCkNmr = cekNomor(arrHuruf);
-  let grPnt = groupPoint(arrInArr, objCkNmr);
-  
-  if(ref){
-    // kelola data input referensi
-    let mergeRefAndTxt = mainManageRef(ref, grPnt);
+  if (spclChar.test(data.teks) && /[a-zA-Z\d]/.test(data.teks)) {
+    // kelola data text input
+    const lineTeks = filterEnter(teks);
+    const arrInArr = bagianTeks(lineTeks);
+    const arrHuruf = filterSpasi(arrInArr);
+    const objCkNmr = cekNomor(arrHuruf);
+    let grPnt = groupPoint(arrInArr, objCkNmr);
 
-    grPnt = mergeRefAndTxt.txt;
-  
-     listRef = refStyled(mergeRefAndTxt.ttlFtNt, ref)
-  }else{
-    listRef = {ftNt: "", dfPstk: ""};
-    grPnt = extractTxt(grPnt);
-  };
-  // membuat file
-  const teksStyled = getTextStyle(grPnt, pointStyle, teksStyle);
-  
-  return runDocx(teksStyled.join(","), listRef);
+    if (ref) {
+      // kelola data input referensi
+      let mergeRefAndTxt = mainManageRef(ref, grPnt);
+      grPnt = mergeRefAndTxt.txt;
+      listRef = refStyled(mergeRefAndTxt.ttlFtNt, ref);
+    } else {
+      listRef = { ftNt: "", dfPstk: "" };
+      grPnt = extractTxt(grPnt);
+    }
+    // membuat file
+    const teksStyled = getTextStyle(grPnt, pointStyle, teksStyle);
+
+    // console.log(listRef.ftNt)
+    return runDocx(teksStyled.join(","), listRef);
+  }
   // return;
 };
 
@@ -80,8 +82,6 @@ function bagianTeks(arrInpt) {
 }
 
 // membuat dan pemberian tag
-const spclChar = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~\n\t]/;
-
 // fungsi memisahkan kalimat berdasrkan spasi
 const filterSpasi = (arrKal) => {
   let arr = [];
@@ -159,11 +159,9 @@ function groupPoint(arrTeks, btsPnt) {
 // penggabungan data dengan style teks
 function getTextStyle(teksDt, pntStyle, tksStyle) {
   teksDt = clearPoint(teksDt);
-  // console.log(teksDt)
   let arrKos = [];
   let count = 0;
-  // DISINI ADA BUG: footonte diberikan secara berlebihan
-  // opsi solve: menggunakan cekIdRef untuk mendeteksi posisi footnote
+  let ftntCode = "+?=ftnt!TR*_+";
   let tempStyle = (txt, ftNt) => {
     return {
       txt: `new TextRun({
@@ -175,8 +173,8 @@ function getTextStyle(teksDt, pntStyle, tksStyle) {
       ftNt: `new FootnoteReferenceRun(${ftNt})`,
     };
   };
+
   teksDt.forEach((e) => {
-    console.log(e)
     if (e.cekIdRef) {
       let cekPoint = false;
       let cekTeks = false;
@@ -192,9 +190,13 @@ function getTextStyle(teksDt, pntStyle, tksStyle) {
             e.teks.forEach((a) => {
               let arrStyl = [];
               a.forEach((c) => {
-                count += 1;
-                arrStyl.push(tempStyle(c).txt);
-                arrStyl.push(`new FootnoteReferenceRun(${count})`);
+                if (c == ftntCode) {
+                  count += 1;
+                  arrStyl.push(tempStyle(c).txt);
+                  arrStyl.push(`new FootnoteReferenceRun(${count})`);
+                } else {
+                  arrStyl.push(tempStyle(c).txt);
+                }
               });
               arrKos.push(pntStyle(`[${arrStyl}]`)[i].style);
             });
@@ -202,9 +204,14 @@ function getTextStyle(teksDt, pntStyle, tksStyle) {
             if (cekPoint) {
               let arrStyl = [];
               e.point.forEach((a) => {
-                count += 1;
-                arrStyl.push(tempStyle(a).txt);
-                arrStyl.push(`new FootnoteReferenceRun(${count})`);
+                if (a == ftntCode) {
+                  count += 1;
+                  a = a.replace(ftntCode, "");
+                  arrStyl.push(tempStyle(a).txt);
+                  arrStyl.push(`new FootnoteReferenceRun(${count})`);
+                } else {
+                  arrStyl.push(tempStyle(a).txt);
+                }
               });
               arrKos.push(pntStyle(`[${arrStyl}]`)[i].style);
             }
@@ -212,9 +219,14 @@ function getTextStyle(teksDt, pntStyle, tksStyle) {
               e.teks.forEach((a) => {
                 let arrStyl = [];
                 a.forEach((c) => {
-                  count += 1;
-                  arrStyl.push(tempStyle(c).txt);
-                  arrStyl.push(`new FootnoteReferenceRun(${count})`);
+                  if (c == ftntCode) {
+                    count += 1;
+                    c = c.replace(ftntCode, "");
+                    arrStyl.push(tempStyle(c).txt);
+                    arrStyl.push(`new FootnoteReferenceRun(${count})`);
+                  } else {
+                    arrStyl.push(tempStyle(c).txt);
+                  }
                 });
                 arrKos.push(
                   tksStyle(`[${arrStyl}]`, pntStyle()[i].leftValue).style
