@@ -96,6 +96,10 @@ function arrObjNmr() {
   ];
 }
 
+function restartNmr(data){
+
+};
+
 module.exports = cekNmr;
 
 // function cek paragraf

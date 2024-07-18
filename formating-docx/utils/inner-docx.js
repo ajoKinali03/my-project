@@ -1,4 +1,4 @@
-const pointStyle = (point) => {
+const pointStyle = (point, numRestart) => {
   let arrLeftValue = [0.2, 5, 10, 15, 20, 25];
   return [
     {
@@ -33,6 +33,7 @@ const pointStyle = (point) => {
         },
         numbering: {
           reference: "num0",
+          instance: ${numRestart},
           level: 0,
         },
       }),`,
@@ -54,6 +55,7 @@ const pointStyle = (point) => {
         },
         numbering: {
           reference: "num1",
+          instance: ${numRestart},
           level: 1,
         },
       }),`,
@@ -75,6 +77,7 @@ const pointStyle = (point) => {
         },
         numbering: {
           reference: "num2",
+          instance: ${numRestart},
           level: 2,
         },
       }),`,
@@ -96,6 +99,7 @@ const pointStyle = (point) => {
         },
         numbering: {
           reference: "num3",
+          instance: ${numRestart},
           level: 3,
         },
       }),`,
@@ -117,6 +121,7 @@ const pointStyle = (point) => {
         },
         numbering: {
           reference: "num4",
+          instance: ${numRestart},
           level: 4,
         },
       }),`,
