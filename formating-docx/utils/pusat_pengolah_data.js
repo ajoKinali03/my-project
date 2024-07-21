@@ -20,7 +20,6 @@ const mentahanData = async (data) => {
     const arrHuruf = filterSpasi(arrInArr);
     const objCkNmr = cekNomor(arrHuruf);
     let grPnt = groupPoint(arrInArr, objCkNmr);
-
     if (ref) {
       // kelola data input referensi
       let mergeRefAndTxt = mainManageRef(ref, grPnt);
@@ -129,15 +128,62 @@ function cekNomor(arrInpt) {
 function groupPoint(arrTeks, btsPnt) {
   let nilaiLoop = btsPnt[btsPnt.length - 1].arrMark;
   let arrObj = [];
+  let count1 = 0;
+  let count2 = 0;
+  let count3 = 0;
+  let count4 = 0;
+  let count5 = 0;
   for (let i = 0; i <= nilaiLoop; i++) {
     let tskDt = btsPnt[i];
     let obj = {};
     obj.id_tingkat = null;
+    obj.id_instance = null;
     obj.point = [];
     obj.teks = [];
 
     if (tskDt.cekNmr) {
       obj.id_tingkat = tskDt.tingkat.toString();
+      if (tskDt.tingkat == "1") {
+        let currentIdx = count1;
+        if (tskDt.tipe == "A.") {
+          count1 += 1;
+          obj.id_instance = count1.toString();
+        } else {
+          obj.id_instance = currentIdx.toString();
+        }
+      } else if (tskDt.tingkat == "2") {
+        let currentIdx = count2;
+        if (tskDt.tipe == "1.") {
+          count2 += 1;
+          obj.id_instance = count2.toString();
+        } else {
+          obj.id_instance = currentIdx.toString();
+        }
+      } else if (tskDt.tingkat == "3") {
+        let currentIdx = count3;
+        if (tskDt.tipe == "a.") {
+          count3 += 1;
+          obj.id_instance = count3.toString();
+        } else {
+          obj.id_instance = currentIdx.toString();
+        }
+      } else if (tskDt.tingkat == "4") {
+        let currentIdx = count4;
+        if (tskDt.tipe == "1)") {
+          count4 += 1;
+          obj.id_instance = count4.toString();
+        } else {
+          obj.id_instance = currentIdx.toString();
+        }
+      } else if (tskDt.tingkat == "5") {
+        let currentIdx = count5;
+        if (tskDt.tipe == "a)") {
+          count5 += 1;
+          obj.id_instance = count5.toString();
+        } else {
+          obj.id_instance = currentIdx.toString();
+        }
+      }
     } else if (!tskDt.cekNmr && tskDt.index == 0) {
       obj.id_tingkat = "0";
     }
@@ -213,7 +259,7 @@ function getTextStyle(teksDt, pntStyle, tksStyle) {
                   arrStyl.push(tempStyle(a).txt);
                 }
               });
-              arrKos.push(pntStyle(`[${arrStyl}]`)[i].style);
+              arrKos.push(pntStyle(`[${arrStyl}]`, e.id_instance)[i].style);
             }
             if (cekTeks) {
               e.teks.forEach((a) => {
@@ -254,7 +300,10 @@ function getTextStyle(teksDt, pntStyle, tksStyle) {
           } else {
             if (cekPoint) {
               e.point.forEach((a) => {
-                arrKos.push(pntStyle(`[${tempStyle(a).txt}]`)[i].style);
+                console.log(pntStyle(`[${tempStyle(a).txt}]`, e.id_instance)[i].style)
+                arrKos.push(
+                  pntStyle(`[${tempStyle(a).txt}]`, e.id_instance)[i].style
+                );
               });
             }
             if (cekTeks) {

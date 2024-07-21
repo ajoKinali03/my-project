@@ -56,7 +56,7 @@ const pointStyle = (point, numRestart) => {
         numbering: {
           reference: "num1",
           instance: ${numRestart},
-          level: 1,
+          level: 0,
         },
       }),`,
     },
@@ -78,7 +78,7 @@ const pointStyle = (point, numRestart) => {
         numbering: {
           reference: "num2",
           instance: ${numRestart},
-          level: 2,
+          level: 0,
         },
       }),`,
     },
@@ -100,7 +100,7 @@ const pointStyle = (point, numRestart) => {
         numbering: {
           reference: "num3",
           instance: ${numRestart},
-          level: 3,
+          level: 0,
         },
       }),`,
     },
@@ -122,7 +122,7 @@ const pointStyle = (point, numRestart) => {
         numbering: {
           reference: "num4",
           instance: ${numRestart},
-          level: 4,
+          level: 0,
         },
       }),`,
     },

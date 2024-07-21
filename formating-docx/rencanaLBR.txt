@@ -65,7 +65,7 @@ A. MEMBUAT MAKALAH OTMATIS FULL DENGAN PPLX-API
 
 NEW BUG:
   BUG MUDAH
-    1. perbaiki penomoran, karena penomoran tidak restart setiap subab atau new parent number
+    1. perbaiki penomoran, karena penomoran tidak restart setiap subab atau new parent number [selesai]
     2. perubahan nomor pada prompt input tidak terdeteksi => -(footnote:7,'1')-
     3. perbeiki error frontend: referensi_set.js:89 Uncaught TypeError: Cannot read properties of null (reading 'addEventListener')
     at referensi_set.js:89:12

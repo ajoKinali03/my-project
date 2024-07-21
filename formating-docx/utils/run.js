@@ -82,8 +82,8 @@ const runDocx = async (data, refData) => {
             reference: "num1",
             levels: [
               {
-                level: 1,
-                text: "%2.",
+                level: 0,
+                text: "%1.",
                 format: LevelFormat.DECIMAL,
                 alignment: AlignmentType.LEFT,
               },
@@ -93,8 +93,8 @@ const runDocx = async (data, refData) => {
             reference: "num2",
             levels: [
               {
-                level: 2,
-                text: "%3.",
+                level: 0,
+                text: "%1.",
                 format: LevelFormat.LOWER_LETTER,
                 alignment: AlignmentType.LEFT,
                 indent: {
@@ -108,9 +108,9 @@ const runDocx = async (data, refData) => {
             reference: "num3",
             levels: [
               {
-                level: 3,
+                level: 0,
+                text: "%1)",
                 format: LevelFormat.DECIMAL,
-                text: "%4)",
                 alignment: AlignmentType.LEFT,
                 indent: {
                   hanging: convertMillimetersToTwip(6),
@@ -123,9 +123,9 @@ const runDocx = async (data, refData) => {
             reference: "num4",
             levels: [
               {
-                level: 4,
+                level: 0,
+                text: "%1)",
                 format: LevelFormat.LOWER_LETTER,
-                text: "%5)",
                 alignment: AlignmentType.LEFT,
                 indent: {
                   hanging: convertMillimetersToTwip(6),
