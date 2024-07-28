@@ -66,12 +66,18 @@ A. MEMBUAT MAKALAH OTMATIS FULL DENGAN PPLX-API
 NEW BUG:
   BUG MUDAH
     1. perbaiki penomoran, karena penomoran tidak restart setiap subab atau new parent number [selesai]
-    2. perubahan nomor pada prompt input tidak terdeteksi => -(footnote:7,'1')- [proses]
-    3. perbeiki error frontend: referensi_set.js:89 Uncaught TypeError: Cannot read properties of null (reading 'addEventListener')
-    at referensi_set.js:89:12
+    2. perubahan nomor pada prompt input tidak terdeteksi => -(footnote:7,'1')- [selesai]
+    3. perbeiki error frontend: referensi_set.js:89 Uncaught TypeError: Cannot read properties of null (reading 'addEventListener') at referensi_set.js:89:12 [tidak terdeteksi]
 
   BUG SULIT
     1. membuat sistem download file universal, yaitu multi user bisa mendownload file secara bersamaan
     2. mencoba untuk memperbaiki susunan pragraf yang tidak sesuai dengan parentya [black list]
-    3. perbaiki error backend: title is not defined at eval (eval at exports.compile (E:\A-main folder\my-project\formating-docx\node_modules\jade\lib\jade.js:171:8), <anonymous>:39:58)
+    3. perbaiki error backend: title is not defined at eval (eval at exports.compile (E:\A-main folder\my-project\formating-docx\node_modules\jade\lib\jade.js:171:8), <anonymous>:39:58) [tidak terdeteksi]
   
+PERBAIKAN
+  1. melengkapi isi tamplate [proses]
+  1. sistem penyimpanan pada frontend (indexDb)
+  2. tampilan website di perbagus
+  
+TAMBAHAN FITUR
+  1. notifikasi izin penggunaan indexDb
