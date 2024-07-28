@@ -13,9 +13,11 @@ const refStyled = (listRef, ref) => {
     }
   });
   
-  let dfPstk = ref.map((e, i) => {
+  
+  let dfPstk = sortingRef(ref).map((e, i) => {
     return daftarPustakaStyle(e, i, e.type);
   });
+
 
   let hsl = [];
   let count = 0;
@@ -161,9 +163,6 @@ function cekSameRef(listRef, refCalled, ref) {
 // }
 
 function footnoteStyle(data, idx, type, recall, trueIdx) {
-  // if(recall[2*trueIdx-1] != undefined){
-  //   recall = recall[2*trueIdx-1]
-  // }
 
   // hanging: convertMillimetersToTwip(0),
   let indent = `indent: {

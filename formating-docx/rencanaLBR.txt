@@ -75,9 +75,10 @@ NEW BUG:
     3. perbaiki error backend: title is not defined at eval (eval at exports.compile (E:\A-main folder\my-project\formating-docx\node_modules\jade\lib\jade.js:171:8), <anonymous>:39:58) [tidak terdeteksi]
   
 PERBAIKAN
-  1. melengkapi isi tamplate [proses]
-  1. sistem penyimpanan pada frontend (indexDb)
-  2. tampilan website di perbagus
+  1. membalikan nama daftar pustaka
+  2. melengkapi isi tamplate
+  3. sistem penyimpanan pada frontend (indexDb)
+  4. tampilan website di perbagus
   
 TAMBAHAN FITUR
   1. notifikasi izin penggunaan indexDb
