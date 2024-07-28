@@ -300,7 +300,7 @@ function getTextStyle(teksDt, pntStyle, tksStyle) {
           } else {
             if (cekPoint) {
               e.point.forEach((a) => {
-                console.log(pntStyle(`[${tempStyle(a).txt}]`, e.id_instance)[i].style)
+                // console.log(pntStyle(`[${tempStyle(a).txt}]`, e.id_instance)[i].style)
                 arrKos.push(
                   pntStyle(`[${tempStyle(a).txt}]`, e.id_instance)[i].style
                 );

@@ -78,8 +78,9 @@ const mainManageRef = (refData, txtData) => {
   let arrCodeFtNt = data.ttlFtNt;
   data.ttlFtNt.forEach((e, i) => {
     i += 1
-    console.log(e, i);
+    // console.log(e, i);
   });
+  // console.log(data)
   return data;
 };
 
@@ -101,6 +102,8 @@ function findAndSplit(input) {
   }
 }
 
+// fungsi untuk merubah nomor halaman
+// AWAL CEK BUG DISINI
 function cekHal(data) {
   if (data.point != undefined) {
     data.point = data.point.map((e, i) => {
@@ -158,7 +161,7 @@ function createObjTeksFootnote(ref, txt) {
             if (typeof a == "object") {
               // for (let vT of a) {
               for (let vRef of ref) {
-                let temp = `-(footnote:${vRef.ID})-`;
+                let temp = `-(footnote:${vRef.ID})-`
                 if (a.ftn == temp) {
                   ttlFootNote.push(a);
                   subArrTks.push("+?=ftnt!TR*_+");

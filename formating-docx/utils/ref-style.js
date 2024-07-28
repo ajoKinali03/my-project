@@ -1,31 +1,33 @@
 const refStyled = (listRef, ref) => {
+  
   let refCalled = [];
-  let ftNt = listRef.map((e, i) => {
+  let refFtn = [];
+  listRef.map((e, i) => {
     i++;
     for (let v of ref) {
       if (e.ftn == `-(footnote:${v.ID})-`) {
+        refFtn.push(v);
         refCalled.push(v);
         refCalled.push(e);
-      } else {
       }
     }
   });
-
+  
   let dfPstk = ref.map((e, i) => {
     return daftarPustakaStyle(e, i, e.type);
   });
+
   let hsl = [];
   let count = 0;
-  let aftrCkSmeRf = cekSameRef(refCalled, ref);
+  let aftrCkSmeRf = cekSameRef(listRef, refFtn, ref);
+
   aftrCkSmeRf.forEach((e, i) => {
     if (i % 2 == 0) {
       count++;
       hsl.push(footnoteStyle(e, count, e.type, aftrCkSmeRf[i + 1], i));
     }
   });
-  
   // console.log(`footnotes:{ ${hsl.join(",")}},`)
-  
   return { ftNt: `footnotes:{ ${hsl.join(",")}},`, dfPstk: dfPstk.join(",") };
   // return { ftNt: `footnotes:{ },`, dfPstk: "" };
 };
@@ -53,18 +55,8 @@ function sortingRef(data) {
   return data;
 }
 
-function cekSameRef(refCalled, ref) {
+function cekSameRef(listRef, refCalled, ref) {
   let idxRef = {};
-  let refCalledCode = [];
-  refCalled.forEach((e, i) => {
-    refCalledCode.push(refCalled[2*i-1]);
-  });
-
-  refCalled = refCalled.filter((e, i) => {
-    if (i % 2 == 0) {
-      return e;
-    }
-  });
   
   for (let i = 1; i <= ref.length; i++) {
     idxRef["idx" + i] = [];
@@ -75,14 +67,11 @@ function cekSameRef(refCalled, ref) {
     });
   }
 
-  // console.log(refCalled);
-  // console.log(refCalledCode);
-  // console.log(idxRef);
+  
   let keyRefSame = [];
-  // DISINI ADA BUG: penempatan nomor halaman pada ibid tidak sesuai
   refCalled.forEach((e, i) => {
     if (e.ID) {
-      let ftnCode = refCalledCode[i];
+      let ftnCode = listRef[i];
       let idxPositionRef = idxRef["idx" + e.ID];
       for (let [idx, idxEl] of idxPositionRef.entries()) {
         if (i == idxEl) {
@@ -108,9 +97,68 @@ function cekSameRef(refCalled, ref) {
       }
     }
   });
-  // console.log(keyRefSame);
+
   return keyRefSame;
 }
+
+// function cekSameRef(refCalled, ref) {
+//   let idxRef = {};
+//   let refCalledCode = [];
+//   refCalled.forEach((e, i) => {
+//     refCalledCode.push(refCalled[2*i-1]);
+//   });
+
+//   refCalled = refCalled.filter((e, i) => {
+//     if (i % 2 == 0) {
+//       return e;
+//     }
+//   });
+  
+//   for (let i = 1; i <= ref.length; i++) {
+//     idxRef["idx" + i] = [];
+//     refCalled.forEach((e, ie) => {
+//       if (e.ID === i) {
+//         idxRef["idx" + i].push(ie);
+//       }
+//     });
+//   }
+
+//   // console.log(refCalled);
+//   // console.log(refCalledCode);
+//   // console.log(idxRef);
+//   let keyRefSame = [];
+//   // DISINI ADA BUG: penempatan nomor halaman pada ibid tidak sesuai
+//   refCalled.forEach((e, i) => {
+//     if (e.ID) {
+//       let ftnCode = refCalledCode[i];
+//       let idxPositionRef = idxRef["idx" + e.ID];
+//       for (let [idx, idxEl] of idxPositionRef.entries()) {
+//         if (i == idxEl) {
+//           keyRefSame.push(e);
+//           if (idx == 0) {
+//             keyRefSame.push({ tipe: "normal", newHal: "" });
+//           } else {
+//             if (idxEl - idxPositionRef[idx - 1] == 1) {
+//               if (ftnCode.hal) {
+//                 keyRefSame.push({ tipe: "ibid", newHal: ftnCode.hal });
+//               } else {
+//                 keyRefSame.push({ tipe: "ibid", newHal: "" });
+//               }
+//             } else {
+//               if (ftnCode.hal) {
+//                 keyRefSame.push({ tipe: "opcit", newHal: ftnCode.hal });
+//               } else {
+//                 keyRefSame.push({ tipe: "loccit", newHal: "" });
+//               }
+//             }
+//           }
+//         }
+//       }
+//     }
+//   });
+//   // console.log(keyRefSame.length);
+//   return keyRefSame;
+// }
 
 function footnoteStyle(data, idx, type, recall, trueIdx) {
   // if(recall[2*trueIdx-1] != undefined){
