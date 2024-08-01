@@ -18,12 +18,7 @@ const mainManageRef = (refData, txtData) => {
         return findAndSplit(eT);
       });
     }
-    // console.log(
-    //   eTxtDt.point,
-    //   eTxtDt.teks,
-    //   regex.test(eTxtDt.point.join(" ")),
-    //   regex.test(eTxtDt.teks.join(" "))
-    // );
+    
 
     if (
       eTxtDt.teks.join(" ").includes(temp) ||
@@ -48,28 +43,7 @@ const mainManageRef = (refData, txtData) => {
       eTxtDt.cekIdRef = false;
     }
 
-    // if (
-    //   regex.test(eTxtDt.teks.join(" ")) ||
-    //   regex.test(eTxtDt.point.join(" "))
-    // ) {
-    //   if (regex.test(eTxtDt.point.join(" "))) {
-    //     eTxtDt.cekIdRef = "pnt";
-    //   }
-    //   if (regex.test(eTxtDt.teks.join(" "))) {
-    //     eTxtDt.cekIdRef = "txt";
-    //   }
-    //   if (
-    //     regex.test(eTxtDt.point.join(" ")) &&
-    //     regex.test(eTxtDt.teks.join(" "))
-    //   ) {
-    //     eTxtDt.cekIdRef = "both";
-    //   }
-    // } else if (
-    //   !regex.test(eTxtDt.teks.join(" ")) &&
-    //   !regex.test(eTxtDt.point.join(" "))
-    // ) {
-    //   eTxtDt.cekIdRef = false;
-    // }
+    
     eTxtDt = cekHal(eTxtDt);
     // console.log(eTxtDt)
     return eTxtDt;
@@ -103,7 +77,6 @@ function findAndSplit(input) {
 }
 
 // fungsi untuk merubah nomor halaman
-// AWAL CEK BUG DISINI
 function cekHal(data) {
   if (data.point != undefined) {
     data.point = data.point.map((e, i) => {

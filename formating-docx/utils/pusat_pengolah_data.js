@@ -128,11 +128,13 @@ function cekNomor(arrInpt) {
 function groupPoint(arrTeks, btsPnt) {
   let nilaiLoop = btsPnt[btsPnt.length - 1].arrMark;
   let arrObj = [];
-  let count1 = 0;
-  let count2 = 0;
-  let count3 = 0;
-  let count4 = 0;
-  let count5 = 0;
+  
+  let count1 = 10;
+  let count2 = 10;
+  let count3 = 10;
+  let count4 = 10;
+  let count5 = 10;
+
   for (let i = 0; i <= nilaiLoop; i++) {
     let tskDt = btsPnt[i];
     let obj = {};
