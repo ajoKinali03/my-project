@@ -70,7 +70,7 @@ NEW BUG:
     3. perbeiki error frontend: referensi_set.js:89 Uncaught TypeError: Cannot read properties of null (reading 'addEventListener') at referensi_set.js:89:12 [tidak terdeteksi]
 
   BUG SULIT
-    1. membuat sistem download file universal [proses]
+    1. membuat sistem download file universal [selesai]
     2. mencoba untuk memperbaiki susunan pragraf yang tidak sesuai dengan parentya [black list]
     3. perbaiki error backend: title is not defined at eval (eval at exports.compile (E:\A-main folder\my-project\formating-docx\node_modules\jade\lib\jade.js:171:8), <anonymous>:39:58) [tidak terdeteksi]
   
@@ -79,6 +79,7 @@ PERBAIKAN
   2. melengkapi isi tamplate [selesai]
   3. sistem penyimpanan pada frontend (indexDb)
   4. tampilan website di perbagus
+  5. sistem validasi input
   
 TAMBAHAN FITUR
   1. notifikasi izin penggunaan indexDb

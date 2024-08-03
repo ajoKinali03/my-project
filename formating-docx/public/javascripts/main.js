@@ -18,26 +18,24 @@ function searchCookie(key) {
   }
 }
 
-
-
 function openDatabase() {
   return new Promise((resolve, reject) => {
-    const dbName = 'myDatabase';
+    const dbName = "myDatabase";
     const request = indexedDB.open(dbName, 1);
 
-    request.onerror = function(event) {
+    request.onerror = function (event) {
       reject(event.target.error);
     };
 
-    request.onupgradeneeded = function(event) {
+    request.onupgradeneeded = function (event) {
       const db = event.target.result;
       // Membuat object store (tabel) dengan nama 'myStore'
-      const store = db.createObjectStore('myStore', { keyPath: 'id' });
+      const store = db.createObjectStore("myStore", { keyPath: "id" });
       // Menambahkan indeks untuk pencarian
-      store.createIndex('txt', 'txt', { unique: false });
+      store.createIndex("txt", "txt", { unique: false });
     };
 
-    request.onsuccess = function(event) {
+    request.onsuccess = function (event) {
       const db = event.target.result;
       resolve(db);
     };
@@ -48,18 +46,18 @@ function saveData(txt) {
   return new Promise((resolve, reject) => {
     openDatabase()
       .then((db) => {
-        const transaction = db.transaction(['myStore'], 'readwrite');
-        const store = transaction.objectStore('myStore');
+        const transaction = db.transaction(["myStore"], "readwrite");
+        const store = transaction.objectStore("myStore");
 
         const data = { id: 1, txt: txt };
         const request = store.put(data);
 
-        request.onsuccess = function(event) {
-          console.log('Data saved successfully');
+        request.onsuccess = function (event) {
+          console.log("Data saved successfully");
           resolve();
         };
 
-        request.onerror = function(event) {
+        request.onerror = function (event) {
           reject(event.target.error);
         };
       })
@@ -73,17 +71,17 @@ function deleteData() {
   return new Promise((resolve, reject) => {
     openDatabase()
       .then((db) => {
-        const transaction = db.transaction(['myStore'], 'readwrite');
-        const store = transaction.objectStore('myStore');
+        const transaction = db.transaction(["myStore"], "readwrite");
+        const store = transaction.objectStore("myStore");
 
         const request = store.delete(1);
 
-        request.onsuccess = function(event) {
-          console.log('Data deleted successfully');
+        request.onsuccess = function (event) {
+          console.log("Data deleted successfully");
           resolve();
         };
 
-        request.onerror = function(event) {
+        request.onerror = function (event) {
           reject(event.target.error);
         };
       })
@@ -96,60 +94,50 @@ function deleteData() {
 function displayData() {
   openDatabase()
     .then((db) => {
-      const transaction = db.transaction(['myStore'], 'readonly');
-      const store = transaction.objectStore('myStore');
+      const transaction = db.transaction(["myStore"], "readonly");
+      const store = transaction.objectStore("myStore");
 
       const getRequest = store.get(1);
 
-      getRequest.onsuccess = function(event) {
+      getRequest.onsuccess = function (event) {
         const data = event.target.result;
         if (data) {
-          inpt.value = decodeURIComponent(data.txt)
+          inpt.value = decodeURIComponent(data.txt);
         } else {
-          console.log('Data tidak ditemukan atau kosong.');
+          console.log("Data tidak ditemukan atau kosong.");
         }
       };
 
-      getRequest.onerror = function(event) {
-        console.error('Error retrieving data:', event.target.error);
+      getRequest.onerror = function (event) {
+        console.error("Error retrieving data:", event.target.error);
       };
     })
     .catch((error) => {
-      console.error('Error opening database:', error);
+      console.error("Error opening database:", error);
     });
 }
 
 // Contoh penggunaan
 
-
-
-
 document.addEventListener("keypress", () => {
-  deleteData()
+  deleteData();
   saveData(inpt.value)
-  .then(() => {
-    console.log("Data saved successfully");
-    // Di sini, Anda dapat memanggil fungsi lain atau melakukan operasi lain yang diperlukan
-    // Misalnya, displayData() untuk menampilkan data setelah penyimpanan
-    // deleteData() untuk menghapus data setelah penyimpanan
-  })
-  .catch((error) => {
-    console.error('Error saving data:', error);
-  });
+    .then(() => {
+      console.log("Data saved successfully");
+      // Di sini, Anda dapat memanggil fungsi lain atau melakukan operasi lain yang diperlukan
+      // Misalnya, displayData() untuk menampilkan data setelah penyimpanan
+      // deleteData() untuk menghapus data setelah penyimpanan
+    })
+    .catch((error) => {
+      console.error("Error saving data:", error);
+    });
   // saveData(encodeURIComponent(inpt.value));
 });
 
 // pencekan awal apakah ada text yang tersimpan di dalam cookie
 if (displayData() != undefined) {
-  displayData()
+  displayData();
 }
-
-
-
-
-
-
-
 
 // auto set lebar atau responsif dari tampilan home
 let lebarCntrCntn = cntrCntn.getBoundingClientRect().width;
@@ -172,13 +160,20 @@ if (lebarCntrCntn <= 1039) {
 //   console.error('Gagal mencari data:', error);
 // });
 
-
-
+// show and hide button download
+function shwHideBtnDwnld(text, bool) {
+  if (bool && /[a-zA-Z\d]/.test(text)) {
+    btnPostText.style.display = "inline-block";
+  } else {
+    btnPostText.style.display = "none";
+  }
+}
 
 // input text
 document.addEventListener("keyup", (event) => {
   let text = inpt.value;
   if (event.code == "Enter") {
+    shwHideBtnDwnld(text, true);
     if (searchCookie("obj") != undefined) {
       inputPost.value = JSON.stringify({
         teks: text,
@@ -189,6 +184,7 @@ document.addEventListener("keyup", (event) => {
     }
   }
   if (text == "") {
+    shwHideBtnDwnld(text, false);
     deleteData();
   }
 });
@@ -316,8 +312,6 @@ document.addEventListener("click", (event) => {
 //   saveData(encodeURIComponent(inpt.value));
 // });
 
-
-
 // // minyimpan data ke cookie
 // function saveData(txt) {
 //   const d = new Date();
@@ -333,7 +327,4 @@ document.addEventListener("click", (event) => {
 //     "txt" + "=; expires=" + expiredDate.toUTCString() + "; path=/home";
 // }
 
-
-
 // Fungsi untuk menghapus data
-

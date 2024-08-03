@@ -9,7 +9,7 @@ const spclChar = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~\n\t]/;
 
 // code runner
 const mentahanData = async (data) => {
-  data = JSON.parse(data);
+  // data = JSON.parse(data);
   teks = data.teks;
   ref = data.ref;
 
@@ -31,9 +31,14 @@ const mentahanData = async (data) => {
     }
     // membuat file
     const teksStyled = getTextStyle(grPnt, pointStyle, teksStyle);
-
-    // console.log(listRef.ftNt)
-    return runDocx(teksStyled.join(","), listRef);
+    try{
+      // console.log(listRef.ftNt)
+      let docxBuffer = await runDocx(teksStyled.join(","), listRef);
+      console.log(docxBuffer)
+      return docxBuffer;
+    }catch(error){
+      throw error;
+    };
   }
   // return;
 };

@@ -1,7 +1,8 @@
 let express = require("express");
 let router = express.Router();
-// let mentahanDataDb = require("./../model/mentahan");
 const mentahanData = require("./../utils/pusat_pengolah_data");
+const spclChar = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~\n\t]/;
+// let mentahanDataDb = require("./../model/mentahan");
 // require("./../utils/db_manage");
 
 let app = express();
@@ -44,9 +45,26 @@ router.get("/home", (req, res) => {
 router.post("/home", async function (req, res) {
   let data = req.body.postInput;
   if (data.length > 0) {
-    await mentahanData(data);
+    data = JSON.parse(data);
+    if (spclChar.test(data.teks) && /[a-zA-Z\d]/.test(data.teks)) {
+      try {
+        let docxBuffer = await mentahanData(data);
+        res.set({
+          "Content-Type":
+            "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+          "Content-Disposition": "attachment; filename=Makalah.docx",
+        });
+        return res.send(docxBuffer);
+      } catch (error) {
+        console.error(error);
+        return res.status(500).send("Error processing data");
+      }
+    }else{
+      return res.redirect("/home");
+    }
+  } else {
+    return res.redirect("/home");
   }
-  res.redirect("/home");
 });
 
 // router.get("/setting", async function (req, res) {
@@ -66,15 +84,15 @@ router.post("/home", async function (req, res) {
 //     title: "shortcut-docx",
 //   });
 
-  // const hslData = await mentahanDataDb.find();
-  // if (hslData.length != 0) {
-  //   res.render("setting", {
-  //     teks: JSON.stringify(hslData),
-  //     title: "shortcut-docx",
-  //   });
-  // } else {
-  //   res.render("setting", { title: "shortcut-docx"});
-  // }
+// const hslData = await mentahanDataDb.find();
+// if (hslData.length != 0) {
+//   res.render("setting", {
+//     teks: JSON.stringify(hslData),
+//     title: "shortcut-docx",
+//   });
+// } else {
+//   res.render("setting", { title: "shortcut-docx"});
+// }
 // });
 
 router.get("/referensi", async function (req, res) {

@@ -6,10 +6,10 @@ block content
     
     form#form-post(action="/home", method="post")
       input#input-post(type="hidden", name="postInput")
-      button.btn-home#btn-post(type="submit")
-        |Save
-      button.btn-home#btn-download(type="button")
+      button.btn-home#btn-post(type="submit", style="display:none")
         |Download
+      //- button.btn-home#btn-download(type="button")
+      //-   |Download
       button.btn-home#btn-showref(type="button")
         |Referensi
 
