@@ -1,7 +1,25 @@
+import { saveData, deleteData, displayData } from "./indexedDb.js";
+
+// tahap melakukan penyimpanan dummy dan untuk menampilkan data yang tersimpan
+displayData(2)
+  .then((res) => {
+    if (res) {
+      res.ref.forEach((e, i) => {
+        if (e != null) {
+          crtShowDt(e);
+        }
+      });
+    } else {
+      saveData([null], 2, "ref");
+    }
+  })
+  .catch((err) => err);
+
 const cntrRefInpt = document.getElementsByClassName("container-input")[0];
 const selectType = document.getElementById("tipe-ref");
 const optType = document.getElementsByTagName("option");
 const btnConfirmTxt = document.getElementById("btn-confirm-text");
+const btnHapusSemua = document.getElementById("btn-hapus-semua");
 const inptTxt = document.getElementsByClassName("inpt-txt");
 const cntrRef = document.getElementsByClassName("container-ref")[0];
 
@@ -79,37 +97,42 @@ const crtInptDt = (type) => {
   cntrRefInpt.appendChild(form);
 };
 
-//stage menampilkan data ref jika ada di cookie
-if (document.cookie.split(";")[1]) {
-  const data = JSON.parse(document.cookie.split(";")[1].split("=")[1]);
-  data.forEach((e) => crtShowDt(e));
-}
-
 // penjalan fungsi crtInptDt
 selectType.addEventListener("change", () => {
   const formInpt = document.getElementsByClassName("form-input")[0];
   let indukElement = formInpt.parentElement;
   indukElement.removeChild(formInpt);
-  console.log(selectType.value);
   crtInptDt(selectType.value);
 });
 
 // fungsi untuk mengambil data text dari input
 btnConfirmTxt.addEventListener("click", () => {
-  const cekPanjangDtCookie = document.cookie.split(";")[1]
-    ? JSON.parse(document.cookie.split(";")[1].split("=")[1]).length
-    : 0;
-  const objDataTxt = {};
-  let idRef = 0 + cekPanjangDtCookie;
-  idRef++;
-  objDataTxt.ID = idRef;
-  objDataTxt.type = selectType.value;
-  for (let i = 0; i < inptTxt.length; i++) {
-    let e = inptTxt[i];
-    objDataTxt[e.attributes.placeholder.value.split(" ")[0]] = e.value;
-  }
-  cookieFunc(objDataTxt);
-  crtShowDt(objDataTxt);
+  // tahap penyimpanan data ke indexedDB
+  displayData(2)
+    .then((res) => {
+      let objDataTxt = {};
+      let cekDt = res.ref;
+
+      if(cekDt[0] == null){
+        console.log(cekDt, "tst1")
+        cekDt = [];
+      }else{
+        console.log(cekDt, "tst2")
+      }
+      let idRef = 0 + cekDt.length;
+      idRef++;
+      objDataTxt.ID = idRef;
+      objDataTxt.type = selectType.value;
+      for (let i = 0; i < inptTxt.length; i++) {
+        let e = inptTxt[i];
+        objDataTxt[e.attributes.placeholder.value.split(" ")[0]] = e.value;
+      }
+      cekDt.push(objDataTxt);
+      cekDt = cekDt.filter((e) => e);
+      saveData(cekDt, 2, "ref");
+      crtShowDt(objDataTxt);
+    })
+    .catch((err) => err);
 });
 
 // fungsi membuat tampilan show ref
@@ -144,48 +167,28 @@ function crtShowDt(data) {
   cntrRef.appendChild(showRefParent);
 }
 
-// minyimpan data ke cookie
-function cookieFunc(data) {
-  const d = new Date();
-  d.setTime(d.getTime() + 7 * 24 * 60 * 60 * 1000);
-  let expires = "expires=" + d.toUTCString();
-  if (document.cookie.split(";")[1]) {
-    let cekCookieValue = document.cookie.split(";")[1].split("=")[1];
-    let objArray = cekCookieValue ? JSON.parse(cekCookieValue) : [];
-    objArray.push(data);
-
-    document.cookie = `obj=${JSON.stringify(objArray)};${expires};path=/`;
-  } else {
-    document.cookie = `obj=${JSON.stringify([data])};${expires};path=/`;
-  }
-}
-
 // fungsi untuk menghapus data refrensi
 document.addEventListener("click", (event) => {
-  let arrayChildren = event.target.parentElement.children;
-  let triger = event.target;
+  displayData(2)
+    .then((res) => {
+      res.ref = res.ref.filter((e) => e);
+      let arrayChildren = event.target.parentElement.children;
+      let triger = event.target;
 
-  if (triger.id == "ref-btn-del") {
-    let dataCookie = JSON.parse(document.cookie.split(";")[1].split("=")[1]);
-
-    for (let value of arrayChildren) {
-      if (value.innerText.includes("ID:")) {
-        let idElement = value.innerText.split(":")[1];
-        let dataAfterDelete = dataCookie.filter((e) => e.ID != idElement);
-        delElment(dataAfterDelete);
-        location.reload(true);
+      // hapus data yang ditarget
+      if (triger.id == "ref-btn-del") {
+        for (let value of arrayChildren) {
+          if (value.innerText.includes("ID:")) {
+            let idElement = value.innerText.split(":")[1];
+            let dataAfterDelete = res.ref.filter((e) => e.ID != idElement);
+            // menyimpan kembali data yang baru
+            saveData(dataAfterDelete, 2, "ref");
+            location.reload(true);
+          }
+        }
       }
-    }
-  }
+    })
+    .catch((err) => err);
 });
 
-function delElment(dataDel) {
-  let expiredDate = new Date(0);
-  document.cookie =
-    "obj" + "=; expires=" + expiredDate.toUTCString() + "; path=/";
-  dataDel.forEach((e, i) => {
-    i++;
-    e.ID = i;
-    cookieFunc(e);
-  });
-}
+// fungsi untuk menghapus semua data
