@@ -27,7 +27,6 @@ const limit = "100mb"
 app.use(express.json({limit: limit}));
 app.use(express.urlencoded({ extended: true, limit: limit, parameterLimit: 100000 }));
 
-
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 console.log('web bejalan pada http://localhost:3000');

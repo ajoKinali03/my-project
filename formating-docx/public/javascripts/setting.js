@@ -1,27 +1,42 @@
+document.querySelectorAll(".scroll-link").forEach((anchor) => {
+  anchor.addEventListener("click", function (e) {
+    e.preventDefault();
 
-// fetch("http://localhost:3000/home/api").then((res) =>
-//    res
-//      .json()
-//      .then((data) => {
-//        data.forEach((e, i) => {
-//         //  console.log(e.teks)
-//          inpt.value += e.teks.join("");
-//        });
-//      })
-//      .catch((err) => console.error(err))
-//  );
+    const target = document.querySelector(this.getAttribute("href"));
+    const offset = 60; // Height of the fixed header
+    const bodyRect = document.body.getBoundingClientRect().top;
+    const elementRect = target.getBoundingClientRect().top;
+    const elementPosition = elementRect - bodyRect;
+    const offsetPosition = elementPosition - offset;
 
-// if(window.location.pathname == "/setting"){
-//   const data = () => {
-//     let strData = document.getElementById("mentahan-data-setting").placeholder
-//     if(strData.length != 0){
-//       return JSON.parse(strData);
-//     };
-//   };
-  
-//   data().forEach( e => console.log(e));
+    window.scrollTo({
+      top: offsetPosition,
+      behavior: "smooth",
+    });
+  });
+});
 
 
+// animation random ball
 
+// document.addEventListener("DOMContentLoaded", function() {
+//     const ball = document.querySelector('.ball');
+//     const container = document.querySelector('.hero');
 
-// };
+//     const containerWidth = container.clientWidth;
+//     const containerHeight = container.clientHeight;
+//     const ballDiameter = ball.clientWidth;
+
+//     function getRandomPosition() {
+//         const x = Math.random() * (containerWidth - ballDiameter);
+//         const y = Math.random() * (containerHeight - ballDiameter);
+//         return { x, y };
+//     }
+
+//     function moveBall() {
+//         const { x, y } = getRandomPosition();
+//         ball.style.transform = `translate(${x}px, ${y}px)`;
+//     }
+
+//     setInterval(moveBall, 1000);
+// });

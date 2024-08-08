@@ -1,4 +1,5 @@
 import { saveData, deleteData, displayData } from "./indexedDb.js";
+
 // const inputPost = document.getElementById("input-post");
 // const cntrShwRefHome = document.getElementsByClassName("show-ref-home")[0];
 
@@ -9,8 +10,8 @@ const cntrCntn = document.getElementsByClassName("container-home")[0];
 const btnPostText = document.getElementById("btn-post");
 
 // cek isi inpt value ketika page refersh
-shwHideBtnDwnld(inpt.value, true);
-console.log(inpt.value);
+// shwHideBtnDwnld(inpt.value, true);
+// console.log(inpt.value);
 
 document.addEventListener("keyup", () => {
   deleteData(1)
@@ -52,13 +53,13 @@ if (lebarCntrCntn <= 1039) {
 }
 
 // show and hide button download
-function shwHideBtnDwnld(text, bool) {
-  if (bool && /[a-zA-Z\d]/.test(text) && text.length > 0) {
-    btnPostText.style.display = "inline-block";
-  } else {
-    btnPostText.style.display = "inline-block";
-  }
-}
+// function shwHideBtnDwnld(text, bool) {
+//   if (bool && /[a-zA-Z\d]/.test(text) && text.length > 0) {
+//     btnPostText.style.display = "inline-block";
+//   } else {
+//     btnPostText.style.display = "inline-block";
+//   }
+// }
 
 // fungsi ketika tombol download ditekan
 btnPostText.addEventListener("click", () => {
@@ -71,10 +72,12 @@ btnPostText.addEventListener("click", () => {
             ref: res2.ref,
           };
           // akan mengirim data apabila teks ada isi nya
-          if(res1.txt.length > 70){
+          if (res1.txt.length > 70) {
             downloadDocx(data);
-          }else{
-            alert("Harap isi prompt terlebih dahulu sebelum me-download makalah anda dan tolong diperhatikan untuk mengisi promt lebeh dari 10 KATA atau lebih dari 70 chracter")
+          } else {
+            alert(
+              "Harap isi prompt terlebih dahulu sebelum me-download makalah anda dan tolong diperhatikan untuk mengisi promt lebeh dari 10 KATA atau lebih dari 70 chracter"
+            );
           }
         })
         .catch((err) => err);
@@ -83,34 +86,53 @@ btnPostText.addEventListener("click", () => {
 });
 
 async function downloadDocx(data) {
-  const response = await fetch("/home", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({data}),
-  });
+  const loadingElement = document.getElementById("loading");
+  const loadingParentElement = document.getElementById("container-load");
+  loadingElement.classList.add("active");
+  loadingParentElement.classList.add("active-parent");
 
-  const blob = await response.blob();
-  const url = window.URL.createObjectURL(blob);
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = "Makalah Ambo.docx";
-  document.body.appendChild(a);
-  a.click();
-  a.remove();
+  try {
+    const response = await fetch("/home", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ data }),
+    })
+      .then()
+      .catch()
+      .finally((res) => {
+        console.log(res);
+      });
+
+    const blob = await response.blob();
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "Makalah Ambo.docx";
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+  } catch (err) {
+    console.log(err);
+  } finally {
+    loadingElement.classList.remove("active");
+    loadingParentElement.classList.remove("active-parent");
+  }
 }
 
 // fungsi untuk menampilkan referensi yang tersimpan
 btnShwRef.addEventListener("click", () => {
-  displayData(2).then((res) => {
-    let data = res.ref;
-    if (data.length > 0 && data[1] != null) {
-      crtCntrShwRef(data, true);
-    } else {
-      crtCntrShwRef("Referensi Belum Anda Masukan", false);
-    }
-  }).catch((res) => res)
+  displayData(2)
+    .then((res) => {
+      let data = res.ref;
+      if (data.length > 0 && data[1] != null) {
+        crtCntrShwRef(data, true);
+      } else {
+        crtCntrShwRef("Referensi Belum Anda Masukan", false);
+      }
+    })
+    .catch((res) => res);
 });
 
 function crtCntrShwRef(respon, bool) {
@@ -159,25 +181,28 @@ function crtShowDtHome(data, cntrRefHome) {
     let refClass = document.createAttribute("class");
     refClass.value = "ref-home";
     showRefParent.setAttributeNode(refClass);
-    let keyWordBtn = document.createElement("button");
-    let idKeyWordBtn = document.createAttribute("id");
-    idKeyWordBtn.value = "keyword-btn";
-    keyWordBtn.setAttributeNode(idKeyWordBtn);
-    keyWordBtn.style.padding = "0 3px";
-    keyWordBtn.style.margin = "5px 0 5px 10px";
-    keyWordBtn.innerText = "copy";
+    // let keyWordBtn = document.createElement("button");
+    // let idKeyWordBtn = document.createAttribute("id");
+    // idKeyWordBtn.value = "keyword-btn";
+    // keyWordBtn.setAttributeNode(idKeyWordBtn);
+    // keyWordBtn.style.padding = "0 3px";
+    // keyWordBtn.style.margin = "5px 0 5px 10px";
+    // keyWordBtn.innerText = "Copy";
 
     let showdFrag = document.createDocumentFragment();
     for (let key in e) {
       let shwTextP = document.createElement("p");
+      let idKeyWordBtn = document.createAttribute("id");
+      idKeyWordBtn.value = "keyword-btn";
+      shwTextP.setAttributeNode(idKeyWordBtn);
       if (key == "ID") {
-        shwTextP.style.color = "black";
-        shwTextP.style.backgroundColor = "white";
-        shwTextP.style.textAlign = "center";
-        shwTextP.style.fontWeight = "bolder";
-        shwTextP.style.borderRadius = "5px";
+        // shwTextP.style.color = "black";
+        // shwTextP.style.backgroundColor = "white";
+        // shwTextP.style.textAlign = "center";
+        // shwTextP.style.fontWeight = "bolder";
+        // shwTextP.style.borderRadius = "5px";
         shwTextP.innerText = `-(footnote:${e[key]})-`;
-        shwTextP.appendChild(keyWordBtn);
+        // shwTextP.appendChild(keyWordBtn);
       } else {
         shwTextP.innerText = `${key}: ${e[key]}`;
       }
@@ -190,12 +215,14 @@ function crtShowDtHome(data, cntrRefHome) {
 
 // fitur menyalin keyword footnote
 document.addEventListener("click", (event) => {
-  let elementClick = event.target.parentElement.innerText.split("copy")[0];
+  let elementClick = event.target.innerText;
   let btnIdKeyWord = event.target.id;
+  console.log(btnIdKeyWord)
   if (btnIdKeyWord == "keyword-btn") {
     navigator.clipboard
       .writeText(elementClick)
       .then(function () {
+        console.log(elementClick)
         console.log("Teks berhasil disalin ke papan klip!");
       })
       .catch(function (err) {
