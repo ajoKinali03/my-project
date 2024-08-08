@@ -35,7 +35,7 @@ const crtInptDt = (type) => {
       "Volume",
       "Nomor",
       "Halaman",
-      "ISBN",
+      // "ISBN",
     ];
   } else if (type == "buku") {
     arrInpt = [
@@ -45,8 +45,8 @@ const crtInptDt = (type) => {
       "Penerbit",
       "Tahun",
       "Halaman",
-      "Penterjemah",
-      "ISBN",
+      // "Penterjemah",
+      // "ISBN",
     ];
   } else if (type == "tesis") {
     arrInpt = [

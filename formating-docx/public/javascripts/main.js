@@ -126,7 +126,7 @@ btnShwRef.addEventListener("click", () => {
   displayData(2)
     .then((res) => {
       let data = res.ref;
-      if (data.length > 0 && data[1] != null) {
+      if (data.length > 0 && data[0] != null) {
         crtCntrShwRef(data, true);
       } else {
         crtCntrShwRef("Referensi Belum Anda Masukan", false);
@@ -217,7 +217,6 @@ function crtShowDtHome(data, cntrRefHome) {
 document.addEventListener("click", (event) => {
   let elementClick = event.target.innerText;
   let btnIdKeyWord = event.target.id;
-  console.log(btnIdKeyWord)
   if (btnIdKeyWord == "keyword-btn") {
     navigator.clipboard
       .writeText(elementClick)

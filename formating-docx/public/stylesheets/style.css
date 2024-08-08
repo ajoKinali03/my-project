@@ -7,6 +7,11 @@
   /* outline: 1px red solid; */
 }
 
+::selection{
+  background-color: white;
+  color: black;
+}
+
 /* loading animasi */
 @keyframes load {
   0% {
@@ -206,9 +211,9 @@ body {
 
 .hero h1 {
   color: white;
-  opacity: 50%;
+  opacity: 0.7;
   font-size: 5.5rem;
-  font-weight: 500;
+  font-weight: 100;
 }
 
 .hero .link-href {
@@ -216,6 +221,7 @@ body {
   justify-content: left;
   width: 100%;
   margin-top: 3px;
+  margin-left: 2.5%;
 }
 
 .hero .link-href a {
@@ -224,6 +230,11 @@ body {
   font-size: 1.4rem;
   padding-right: calc(100% / 6 - 1.4rem);
   /* animation: opacityAnim 10s infinite cubic-bezier(0.23, 1, 0.320, 1); */
+}
+
+.hero .link-href a:hover{
+  transform: scaleY(1.1);
+  transition: 0.1s;
 }
 
 .contaiener-prop{
@@ -251,6 +262,10 @@ body {
   background-color: white;
   transform: translateY(-100%);
   animation: play1 10s infinite cubic-bezier(0.445, 0.05, 0.55, 0.95);
+}
+
+.parent-prop:hover{
+  transform: translateX(-15px);
 }
 
 /* .content-container{
@@ -364,7 +379,7 @@ footer{
 
 .container-home textarea {
   font-size: 1.3rem;
-  background-color: rgb(0, 0, 0, 0);
+  background-color: rgb(41, 41, 41);
   color: white;
 }
 
@@ -409,15 +424,15 @@ footer{
   overflow-x: hidden;
   transition: 0.3s;
   animation:play2 0.1s alternate;
-  border: 5px solid rgb(44, 44, 44);
-  background-color: rgb(44, 44, 44);
+  border: 5px solid rgb(94, 94, 94);
+  background-color: rgb(94, 94, 94);
 }
 
 .ref-home {
   width: 100%;
   height: max-content;
   margin-bottom: 10px;
-  background-color: rgb(71, 71, 71);
+  background-color: rgb(24, 24, 24);
   padding: 5px;
   border-radius: 10px;
   font-size: 130%;
@@ -435,27 +450,38 @@ footer{
   padding: 3px 0px;
   width: 100%;
   font-weight: 500;
-  color: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
   border-bottom: 1px white solid;
   margin: 0 0 3px 0;
-  background-color: rgb(197, 197, 197);
+  background-color: rgb(0, 0, 0);
 }
 
 .ref-home p:nth-child(1):active{
-  color: rgb(255, 255, 255);
+  color: rgb(73, 73, 73);
 }
 
 .ref-home p:nth-child(1):hover{
-  border-bottom: 1px rgb(255, 255, 255) solid;
+  border-bottom: 1px rgb(37, 37, 37) solid;
   background-color: rgb(126, 126, 126);
 }
 
 /* /referensi */
 .container-input {
-  background-color: white;
+  background-color: rgb(37, 37, 37);
   width: 100%;
   border-radius: 5px;
   padding: 5px;
+  padding-left: 10px;
+  padding-bottom: 20px;
+  border-bottom: 2px white solid;
+}
+
+.container-input h1{
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-size: 3rem;
+  font-weight: 300;
+  color: white;
+  margin-bottom: 20px;
 }
 
 .container-ref {
@@ -467,22 +493,51 @@ footer{
   margin-top: 5px;
 }
 
-.container-ref > .show-ref {
-  background-color: white;
-  max-width: 250px;
-  width: max-content;
-  height: max-content;
-  border-radius: 5px;
-  padding: 5px;
-  margin: 3px;
+.select-type{
+  margin-left: 20px;
+  margin-bottom: 10px;
 }
 
-.container-ref > .show-ref > p {
-  margin: 0;
-  font-size: smaller;
-  font-weight: bold;
-  text-align: justify;
+.select-type p{
+  color: white;
+  font-size: 1.3rem;
+  font-weight: 100;
+  margin-bottom: 3px;
 }
+
+.select-type select{
+  font-size: 1.3rem;
+  font-weight: 400;
+  color: white;
+  padding-bottom: 2px;
+  padding-left: 2px;
+  width: max-content;
+  margin-bottom: 10px;
+  background-color: rgb(58, 58, 58);
+}
+
+
+.select-type button{
+  font-size: 1.2rem;
+  font-weight: 400;
+  border: 1px rgb(255, 255, 255) solid;
+  color: rgb(202, 202, 202);
+  background-color: rgb(54, 54, 54);
+  padding: 0 20px;
+  margin-left: 10px;
+  padding-bottom: 1px;
+  border-radius: 20px;
+}
+
+.select-type button:active{
+  background-color: rgb(117, 117, 117);
+}
+
+.select-type button:hover{
+  border: 1px rgb(163, 163, 163) solid;
+  color: white;
+}
+
 
 .form-input {
   display: flex;
@@ -491,14 +546,70 @@ footer{
 
 .form-input > input {
   margin: 2px 5px;
+  font-size: 1.2rem;
+  background-color: rgb(48, 48, 48);
+  color: rgb(187, 187, 187);
+  border: white 1px solid;
+  padding: 5px;
+  margin: 5px 0;
+  border-radius: 5px;
 }
 
-#ref-btn-del {
-  width: 100%;
-  height: max-content;
-  padding: 3px;
-  background-color: rgb(255, 49, 49);
-  text-align: center;
-  font-weight: bolder;
+.form-input input:focus{
+  border: white 1px solid;
+  color: white;
+  background-color: #4e4e4e;
+  outline: none;
+}
+
+.container-ref{
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content:stretch;
+  align-items: stretch;
+}
+
+.container-ref > .show-ref {
+  background-color: white;
+  /* max-width: calc(100% / 3 + 1%); */
+  /* min-width: calc(100% / 5 + 0.5%); */
+  /* width: max-content; */
+  /* width: 100%; */
+  /* height: max-content; */
   border-radius: 5px;
+  padding: 5px;
+  margin: 3px 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.container-ref > .show-ref > p {
+  margin: 5px;
+  font-size: 1.2rem;
+  text-align: left;
+}
+
+
+.container-ref > .show-ref button{
+  font-size: 1rem;
+  font-weight: 400;
+  border: 1px rgb(255, 255, 255) solid;
+  color: rgb(202, 202, 202);
+  background-color: rgb(54, 54, 54);
+  padding: 5px 20px;
+  padding-bottom: 2px;
+  border-radius: 20px;
+  width: 100%;
+  height: 10%;
+}
+
+.container-ref > .show-ref button:active{
+  opacity: 0.5;
+}
+
+.container-ref > .show-ref button:hover{
+  cursor: pointer;
+  color: rgb(102, 102, 102);
+  border: #797979 2px solid;
 }
